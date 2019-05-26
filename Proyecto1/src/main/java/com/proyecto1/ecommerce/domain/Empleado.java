@@ -1,5 +1,8 @@
 package com.proyecto1.ecommerce.domain;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Empleado {
 
 	private int idEmpleado;
@@ -9,10 +12,10 @@ public class Empleado {
 	private String telefonoOficina;
 	private String correo;
 	private String password;
-	private Rol rol;
+	private List<Rol> rol;
 	
 	public Empleado() {
-		rol = new Rol();
+		rol= new LinkedList<Rol>();
 	}
 	
 	public String getApellidos() {
@@ -23,11 +26,11 @@ public class Empleado {
 		this.apellidos = apellidos;
 	}
 
-	public Rol getRol() {
+	public List<Rol> getRol() {
 		return rol;
 	}
 
-	public void setRol(Rol rol) {
+	public void setRol(List<Rol> rol) {
 		this.rol = rol;
 	}
 
@@ -83,7 +86,7 @@ public class Empleado {
 	public String toString() {
 		return "Empleado [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", departamento=" + departamento
 				+ ", telefonoOficina=" + telefonoOficina + ", correo=" + correo + ", password=" + password + ", rol="
-				+ rol.getIdRol() + "]";
+				+ rol.get(0) + "]";
 	}
 	
 	

@@ -14,8 +14,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.proyecto1.ecommerce.domain.Cliente;
 import com.proyecto1.ecommerce.domain.Empleado;
+import com.proyecto1.ecommerce.domain.Rol;
 
 @Repository
 public class EmpleadoData {
@@ -55,7 +55,13 @@ class EmpleadoWithIdExtractor implements ResultSetExtractor<List<Empleado>> {
 			empleado.setApellidos(rs.getString("apellidos"));
 			empleado.setDepartamento(rs.getString("departamento"));
 			empleado.setTelefonoOficina(rs.getString("telefono_oficina"));
-			empleado.getRol().setIdRol(rs.getInt("id_rol_empleado"));
+			do {
+				if(rs.getString("email").equals(empleado.getCorreo())) {
+					Rol rol=new Rol();
+					rol.setIdRol(rs.getInt("role_id"));
+					rol.setTipo(rs.getString("role_name"));
+				}
+			}while(rs.next());
 			list.add(empleado);
 		}
 
