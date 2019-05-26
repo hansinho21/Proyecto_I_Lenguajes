@@ -6,7 +6,7 @@ public class Carrito {
 
 	private int idCarrito;
 	private int cantidad;
-	private Date fecha;
+	private Date fecha ;
 
 	public Carrito() {
 	}

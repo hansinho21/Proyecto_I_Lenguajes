@@ -8,6 +8,7 @@ public class User {
 	private String email;
 	private String password;
 	private List<Role> roles;
+	private int jeison;
 	
 
 	public User() {
