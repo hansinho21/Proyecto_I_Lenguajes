@@ -21,7 +21,7 @@ public class ClienteDataTest {
 	@Autowired
 	private ClienteData clienteData;
 
-	/*
+	
 	@Test
 	public void findAll() {
 		List<Cliente> clientes = new ArrayList<>();
@@ -31,10 +31,10 @@ public class ClienteDataTest {
 			System.out.println(clientes.get(i).toString());
 		}
 	}
-*/
+/*
 	@Test
 	public void findByEmail() {
 		System.out.println(clienteData.findByEmail("user@gmail.com").toString());
 	}
-	
+	*/
 }
