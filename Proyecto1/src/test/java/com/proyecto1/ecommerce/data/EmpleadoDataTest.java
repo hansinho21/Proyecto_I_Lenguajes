@@ -34,9 +34,7 @@ public class EmpleadoDataTest {
 
 	@Test
 	public void findByEmail() {
-		Empleado empleado = empleadoData.findByEmail("admin@gmail.com");
-		assertNotNull(empleado);
-		//System.out.println(empleadoData.findByEmail("admin@gmail.com").toString());
+		System.out.println(empleadoData.findByEmail("admin@gmail.com").toString());
 	}
 	
 }
