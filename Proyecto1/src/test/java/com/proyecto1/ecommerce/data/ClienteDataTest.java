@@ -21,7 +21,7 @@ public class ClienteDataTest {
 	@Autowired
 	private ClienteData clienteData;
 
-	
+	/*
 	@Test
 	public void findAll() {
 		List<Cliente> clientes = new ArrayList<>();
@@ -31,10 +31,44 @@ public class ClienteDataTest {
 			System.out.println(clientes.get(i).toString());
 		}
 	}
+	*/
 /*
 	@Test
 	public void findByEmail() {
 		System.out.println(clienteData.findByEmail("user@gmail.com").toString());
 	}
 	*/
+	/*
+	@Test
+	public void insert() {
+		Cliente cliente = new Cliente();
+		cliente.setCorreo("cliente1@gmail.com");
+		cliente.setPassword("cliente1");
+		cliente.setNombre("Cliente1");
+		cliente.setApellidos("Cliente1.1");
+		cliente.getRol().setIdRol(14);
+		
+		clienteData.insert(cliente);
+	}
+*/
+/*
+	@Test
+	public void update() {
+		Cliente cliente = new Cliente();
+		cliente.setIdCliente(4);
+		cliente.setCorreo("cliente2@gmail.com");
+		cliente.setPassword("cliente2");
+		cliente.setNombre("Cliente2");
+		cliente.setApellidos("Cliente2.1");
+		cliente.getRol().setIdRol(14);
+		
+		clienteData.update(cliente);
+	}
+*/
+	
+	@Test
+	public void delete() {
+		clienteData.delete(4);
+	}
+	
 }
