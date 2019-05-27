@@ -38,19 +38,20 @@ public class ClienteDataTest {
 		System.out.println(clienteData.findByEmail("user@gmail.com").toString());
 	}
 	*/
-	/*
+	
 	@Test
 	public void insert() {
 		Cliente cliente = new Cliente();
-		cliente.setCorreo("cliente1@gmail.com");
-		cliente.setPassword("cliente1");
-		cliente.setNombre("Cliente1");
-		cliente.setApellidos("Cliente1.1");
+		cliente.setPassword("cliente5");
 		cliente.getRol().setIdRol(14);
+		cliente.setCorreo("cliente5@gmail.com");
+		cliente.setNombre("Cliente5");
+		cliente.setApellidos("Cliente5.5");
+		
 		
 		clienteData.insert(cliente);
 	}
-*/
+
 /*
 	@Test
 	public void update() {
@@ -65,10 +66,10 @@ public class ClienteDataTest {
 		clienteData.update(cliente);
 	}
 */
-	
+	/*
 	@Test
 	public void delete() {
 		clienteData.delete(4);
 	}
-	
+	*/
 }

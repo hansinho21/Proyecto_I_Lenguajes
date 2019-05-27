@@ -1,11 +1,29 @@
 package com.proyecto1.ecommerce.controller;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.proyecto1.ecommerce.business.ClienteBusiness;
+import com.proyecto1.ecommerce.business.RolBusiness;
+import com.proyecto1.ecommerce.data.ClienteData;
+import com.proyecto1.ecommerce.domain.Cliente;
+import com.proyecto1.ecommerce.form.ClienteForm;
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+	private RolBusiness rolBusiness;
+	@Autowired
+	private ClienteBusiness clienteBusiness;
 
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String Home() {
@@ -52,13 +70,41 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/addClient", method = RequestMethod.GET)
-	public String addClient() {
+	public String addClient(Model model) {
+		model.addAttribute("roles", rolBusiness.findAll());
+		model.addAttribute("clienteForm", new ClienteForm());
 		return "addClient";
 	}
+	@RequestMapping(value = "/addClient", method = RequestMethod.POST)
+	public String agregar(@Valid ClienteForm clienteForm, BindingResult br, Model model) {
+		if (br.hasErrors()) {
+			model.addAttribute("roles", rolBusiness.findAll());
+			model.addAttribute("libroForm", clienteForm);
+			return "addClient";
+		} else {
+			Cliente cliente = new Cliente();
+			BeanUtils.copyProperties(clienteForm, cliente);
+			cliente.getRol().setIdRol(clienteForm.getIdRol());
+			clienteBusiness.insert(cliente);
+			return "success";
+		}
+	}
+	
+	@RequestMapping(value="/success", method = RequestMethod.GET)
+	public String success() {
+		return "success";
+	}
 	@RequestMapping(value="/clientMaintenance", method = RequestMethod.GET)
-	public String clientMaintenance() {
+	public String clientMaintenance(Model model) {
+		model.addAttribute("clientes", clienteBusiness.findAll());
 		return "clientMaintenance";
 	}
+	/*@RequestMapping(value="/clientMaintenance", method = RequestMethod.POST)
+	public String findClientByEmail(Model model, @RequestParam("correo") String correoCliente) {
+		model.addAttribute("clientes", clienteBusiness.findByEmail(correoCliente));
+		return "clientMaintenance";
+	}
+	*/
 	@RequestMapping(value="/editClient", method = RequestMethod.GET)
 	public String editClient() {
 		return "editClient";

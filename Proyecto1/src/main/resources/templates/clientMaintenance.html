@@ -73,6 +73,9 @@
 				<button class="search-btn"
 					style="position: absolute; top: 25%; left: 125%">Search</button>
 			</form>
+			</div>
+			
+			<div th:if="${!clientes.isEmpty()}">
 			<table border="1" class="table table-striped" style="position: absolute; top: 300%; left: 47%;">
 		<tr>
 			<td>Nombre</td>
@@ -80,8 +83,16 @@
 			<td>Correo</td>
 			<td colspan="2" align="center">Acción</td>
 		</tr>
+		<tr th:each="cliente: ${clientes}">
+			<td><span th:text="${cliente.nombre}"></span></td>
+			<td><span th:text="${cliente.Apellidos}"></span></td>
+			<td><span th:text="${cliente.correo}"></span></td>
+			<td><span>eliminar</span></td>
+			<td><span>modificar</span></td>
+		</tr>
 	</table>
-		</div>
+	</div>
+		
 	</div>
 
 </body>
