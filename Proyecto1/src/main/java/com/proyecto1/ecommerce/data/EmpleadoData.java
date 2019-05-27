@@ -1,5 +1,7 @@
 package com.proyecto1.ecommerce.data;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.proyecto1.ecommerce.domain.Empleado;
+import com.proyecto1.ecommerce.domain.Producto;
 import com.proyecto1.ecommerce.domain.Rol;
 
 @Repository
@@ -37,6 +40,113 @@ public class EmpleadoData {
 		return jdbcTemplate.query(sqlSelect, new EmpleadoWithIdExtractor()).get(0);
 	}
 	
+	@Transactional(readOnly = true)
+	public void insert(Empleado empleado) {
+		
+		Connection conexion = null;
+
+		try {
+			conexion = dataSource.getConnection();
+			conexion.setAutoCommit(false);
+			CallableStatement cs = conexion.prepareCall("CALL `Empleado_Insert`(?,?,?,?,?,?,?);");
+			cs.setString(1, empleado.getCorreo());
+			cs.setString(2, empleado.getPassword());
+			cs.setString(3, empleado.getNombre());
+			cs.setString(4, empleado.getApellidos());
+			cs.setString(5, empleado.getDepartamento());
+			cs.setString(6, empleado.getTelefonoOficina());
+			cs.setInt(7, empleado.getRol().getIdRol());
+			
+			cs.executeUpdate();
+			
+			conexion.commit();
+		} catch (SQLException e) {
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				throw new RuntimeException(e1);
+			}
+			throw new RuntimeException(e);
+		} finally {
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+	}
+	
+	@Transactional(readOnly = true)
+	public void update(Empleado empleado) {
+		
+		Connection conexion = null;
+
+		try {
+			conexion = dataSource.getConnection();
+			conexion.setAutoCommit(false);
+			CallableStatement cs = conexion.prepareCall("CALL `Empleado_Update`(?,?,?,?,?,?,?,?);");
+			cs.setInt(1, empleado.getIdEmpleado());
+			cs.setString(2, empleado.getCorreo());
+			cs.setString(3, empleado.getPassword());
+			cs.setString(4, empleado.getNombre());
+			cs.setString(5, empleado.getApellidos());
+			cs.setString(6, empleado.getDepartamento());
+			cs.setString(7, empleado.getTelefonoOficina());
+			cs.setInt(8, empleado.getRol().getIdRol());
+			
+			cs.executeUpdate();
+			
+			conexion.commit();
+		} catch (SQLException e) {
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				throw new RuntimeException(e1);
+			}
+			throw new RuntimeException(e);
+		} finally {
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+	}
+	
+	@Transactional(readOnly = true)
+	public void delete(int id) {
+		Connection conexion = null;
+
+		try {
+			conexion = dataSource.getConnection();
+			conexion.setAutoCommit(false);
+			CallableStatement cs = conexion.prepareCall("CALL `Empleado_Delete`(?);");
+			cs.setInt(1, id);
+			
+			cs.executeUpdate();
+			
+			conexion.commit();
+		} catch (SQLException e) {
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				throw new RuntimeException(e1);
+			}
+			throw new RuntimeException(e);
+		} finally {
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+	}
 }
 
 class EmpleadoWithIdExtractor implements ResultSetExtractor<List<Empleado>> {

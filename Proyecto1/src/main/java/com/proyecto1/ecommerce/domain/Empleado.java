@@ -12,10 +12,10 @@ public class Empleado {
 	private String telefonoOficina;
 	private String correo;
 	private String password;
-	private List<Rol> rol;
+	private Rol rol;
 	
 	public Empleado() {
-		rol= new LinkedList<Rol>();
+		rol= new Rol();
 	}
 	
 	public String getApellidos() {
@@ -26,11 +26,11 @@ public class Empleado {
 		this.apellidos = apellidos;
 	}
 
-	public List<Rol> getRol() {
+	public Rol getRol() {
 		return rol;
 	}
 
-	public void setRol(List<Rol> rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
 
@@ -86,7 +86,7 @@ public class Empleado {
 	public String toString() {
 		return "Empleado [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", departamento=" + departamento
 				+ ", telefonoOficina=" + telefonoOficina + ", correo=" + correo + ", password=" + password + ", rol="
-				+ rol.get(0) + "]";
+				+ rol.getIdRol() + "]";
 	}
 	
 	

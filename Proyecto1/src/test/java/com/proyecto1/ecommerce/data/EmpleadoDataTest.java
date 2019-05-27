@@ -31,10 +31,45 @@ public class EmpleadoDataTest {
 		}
 	}
 	*/
-
+/*
 	@Test
 	public void findByEmail() {
 		System.out.println(empleadoData.findByEmail("admin@gmail.com").toString());
 	}
-	
+	*/
+	/*
+	@Test
+	public void insert() {
+		Empleado empleado = new Empleado();
+		empleado.setCorreo("empleado1@gmail.com");
+		empleado.setPassword("empleado1");
+		empleado.setNombre("Empleado1");
+		empleado.setApellidos("Empleado1.1");
+		empleado.setDepartamento("Empleado1.2");
+		empleado.setTelefonoOficina("Empleado1.3");
+		empleado.getRol().setIdRol(12);
+		
+		empleadoData.insert(empleado);
+	}
+	*/
+	/*
+	@Test
+	public void update() {
+		Empleado empleado = new Empleado();
+		empleado.setIdEmpleado(5);
+		empleado.setCorreo("empleado2@gmail.com");
+		empleado.setPassword("empleado2");
+		empleado.setNombre("Empleado2");
+		empleado.setApellidos("Empleado2.1");
+		empleado.setDepartamento("Empleado2.2");
+		empleado.setTelefonoOficina("Empleado2.3");
+		empleado.getRol().setIdRol(15);
+		
+		empleadoData.update(empleado);
+	}
+	*/
+	@Test
+	public void delete() {
+		empleadoData.delete(5);
+	}
 }
