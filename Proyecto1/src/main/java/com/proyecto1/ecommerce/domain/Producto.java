@@ -5,10 +5,10 @@ public class Producto {
 	private int idProducto;
 	private String nombre;
 	private String descripcion;
-	private int unidadesExistentes;
 	private float precio;
+	private int unidadesExistentes;	
 	private boolean iva;
-	private String imagen;
+	private int descuento;
 	private Marca marca;
 	private CategoriaProducto categoria;
 	
@@ -28,6 +28,14 @@ public class Producto {
 	}
 
 
+
+	public int getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(int descuento) {
+		this.descuento = descuento;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -83,19 +91,12 @@ public class Producto {
 		this.iva = iva;
 	}
 
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
 
 	@Override
 	public String toString() {
 		return "Producto [idProducto=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion
-				+ ", unidadesExistentes=" + unidadesExistentes + ", precio=" + precio + ", iva=" + iva + ", imagen="
-				+ imagen + ", marca=" + marca + ", categoria=" + categoria + "]";
+				+ ", unidadesExistentes=" + unidadesExistentes + ", precio=" + precio + ", iva=" + iva 
+				+ ", marca=" + marca.getIdMarca() + ", categoria=" + categoria.getIdCategoriaProducto() + "]";
 	} 
 	
 	
