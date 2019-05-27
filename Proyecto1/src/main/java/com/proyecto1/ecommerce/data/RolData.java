@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
@@ -33,9 +34,66 @@ public class RolData {
 	}
 	
 	@Transactional(readOnly = true)
-	public Rol insert(String tipo) {
-		String sqlSelect = "CALL `Rol_Insert`('" + tipo + "');";
-		return jdbcTemplate.query(sqlSelect, new RolWithIdExtractor()).get(0);
+	public void insert(String tipo) {
+		
+		Connection conexion = null;
+
+		try {
+			conexion = dataSource.getConnection();
+			conexion.setAutoCommit(false);
+			CallableStatement cs = conexion.prepareCall("CALL `Rol_Insert`(?);");
+			cs.setString(1, tipo);
+			cs.executeUpdate();
+			
+			conexion.commit();
+		} catch (SQLException e) {
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				throw new RuntimeException(e1);
+			}
+			throw new RuntimeException(e);
+		} finally {
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+	}
+	
+	@Transactional(readOnly = true)
+	public void update(int id, String tipo) {
+		
+		Connection conexion = null;
+
+		try {
+			conexion = dataSource.getConnection();
+			conexion.setAutoCommit(false);
+			CallableStatement cs = conexion.prepareCall("CALL `Rol_Update`(?,?);");
+			cs.setInt(1, id);
+			cs.setString(2, tipo);
+			cs.executeUpdate();
+			
+			conexion.commit();
+		} catch (SQLException e) {
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				throw new RuntimeException(e1);
+			}
+			throw new RuntimeException(e);
+		} finally {
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
 	}
 	
 	@Transactional(readOnly = true)
@@ -48,7 +106,7 @@ public class RolData {
 			CallableStatement cs = conexion.prepareCall("CALL `Rol_Delete`(?);");
 			cs.setInt(1, id);
 			cs.executeUpdate();
-
+			
 			conexion.commit();
 		} catch (SQLException e) {
 			try {

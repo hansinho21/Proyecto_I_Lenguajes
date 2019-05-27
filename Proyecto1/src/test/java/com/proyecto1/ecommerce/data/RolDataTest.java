@@ -20,6 +20,7 @@ public class RolDataTest {
 	@Autowired
 	private RolData rolData;
 
+	/*
 	@Test
 	public void findAll() {
 		List<Rol> roles = new ArrayList<>();
@@ -30,15 +31,18 @@ public class RolDataTest {
 			System.out.println(rol.getIdRol() + "  " + rol.getTipo());
 		}
 	}
-	
+	*/
 	/*
 	@Test
 	public void insert() {
-		Rol rol = new Rol();
-		rol = rolData.insert("prueba2");
-		System.out.println(rol.getIdRol() + "  " + rol.getTipo());
+		rolData.insert("prueba8");
 	}
 	*/
+	
+	@Test
+	public void update() {
+		rolData.update(18, "prueba9");
+	}
 	
 	/*
 	@Test
