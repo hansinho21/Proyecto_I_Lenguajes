@@ -17,6 +17,10 @@ public class Marca {
 	public void setNombreMarca(String nombreMarca) {
 		this.nombreMarca = nombreMarca;
 	}
+	@Override
+	public String toString() {
+		return "Marca [idMarca=" + idMarca + ", nombreMarca=" + nombreMarca + "]";
+	}
 	
 	
 	
