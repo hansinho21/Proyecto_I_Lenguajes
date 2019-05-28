@@ -21,6 +21,12 @@ public class CategoriaProducto {
 		this.nombreCategoria = nombreCategoria;
 	}
 
+	@Override
+	public String toString() {
+		return "CategoriaProducto [idCategoriaProducto=" + idCategoriaProducto + ", nombreCategoria=" + nombreCategoria
+				+ "]";
+	}
+
 	
 	
 }
