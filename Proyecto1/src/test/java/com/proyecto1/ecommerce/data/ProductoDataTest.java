@@ -39,7 +39,7 @@ public class ProductoDataTest {
 		}
 	}
 	*/
-	/*
+	
 	@Test
 	public void insert() {
 		Producto producto = new Producto();
@@ -55,7 +55,7 @@ public class ProductoDataTest {
 		productoData.insert(producto);
 		
 	}
-	*/
+	
 	/*
 	@Test
 	public void update() {
@@ -74,10 +74,10 @@ public class ProductoDataTest {
 		
 	}
 	*/
-	
+	/*
 	@Test
 	public void delete() {
 		productoData.delete(2);
 	}
-	
+	*/
 }
