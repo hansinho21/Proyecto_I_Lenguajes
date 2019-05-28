@@ -22,6 +22,13 @@ public class ClienteBusiness {
 		return clienteData.findAll();
 	}
 	
+	public Cliente findByEmail(String correo) {
+		return clienteData.findByEmail(correo);
+	}
+	public void update(Cliente cliente) {
+		clienteData.update(cliente);
+	}
+	
 
 	
 }

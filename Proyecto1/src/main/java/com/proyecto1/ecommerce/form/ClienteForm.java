@@ -7,13 +7,13 @@ import com.proyecto1.ecommerce.domain.Rol;
 public class ClienteForm {
 
 	@NotNull
-	private String nombre;
+	private String nombreCliente;
 	@NotNull
-	private String apellidos;
+	private String apellidosCliente;
 	@NotNull
-	private String correo;
+	private String correoCliente;
 	@NotNull
-	private String password;
+	private String contraseñaCliente;
 	@NotNull
 	private int idRol;
 	
@@ -29,29 +29,32 @@ public class ClienteForm {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return nombreCliente;
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombreCliente = nombre;
 	}
 	public String getApellidos() {
-		return apellidos;
+		return apellidosCliente;
 	}
 	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+		this.apellidosCliente = apellidos;
 	}
 	public String getCorreo() {
-		return correo;
+		return correoCliente;
 	}
 	public void setCorreo(String correo) {
-		this.correo = correo;
+		this.correoCliente = correo;
 	}
-	public String getPassword() {
-		return password;
+
+	public String getContraseña() {
+		return contraseñaCliente;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setContraseña(String contraseña) {
+		this.contraseñaCliente = contraseña;
 	}
+	
 
 	
 	

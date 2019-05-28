@@ -9,6 +9,17 @@ public class Cliente {
 	private String apellidos;
 	private Rol rol;
 	
+	
+	
+	public Cliente(int idCliente, String correo, String contraseña, String nombre, String apellidos, Rol rol) {
+		this.idCliente = idCliente;
+		this.correo = correo;
+		this.contraseña = contraseña;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.rol = rol;
+	}
+
 	public Cliente() {
 		this.rol = new Rol();
 	}

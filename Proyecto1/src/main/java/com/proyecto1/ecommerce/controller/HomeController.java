@@ -15,6 +15,7 @@ import com.proyecto1.ecommerce.business.ClienteBusiness;
 import com.proyecto1.ecommerce.business.RolBusiness;
 import com.proyecto1.ecommerce.data.ClienteData;
 import com.proyecto1.ecommerce.domain.Cliente;
+import com.proyecto1.ecommerce.domain.Rol;
 import com.proyecto1.ecommerce.form.ClienteForm;
 
 @Controller
@@ -99,16 +100,33 @@ public class HomeController {
 		model.addAttribute("clientes", clienteBusiness.findAll());
 		return "clientMaintenance";
 	}
-	/*@RequestMapping(value="/clientMaintenance", method = RequestMethod.POST)
+	
+	@RequestMapping(value="/clientMaintenance", method = RequestMethod.POST)
 	public String findClientByEmail(Model model, @RequestParam("correo") String correoCliente) {
 		model.addAttribute("clientes", clienteBusiness.findByEmail(correoCliente));
 		return "clientMaintenance";
 	}
-	*/
+	
 	@RequestMapping(value="/editClient", method = RequestMethod.GET)
-	public String editClient() {
+	public String editClient(Model model, @RequestParam("nombre") String nombre, @RequestParam("apellidos") String apellidos,
+			@RequestParam("correo") String correo) {
+		model.addAttribute("nombreAutor", nombre);
+		model.addAttribute("apellidosCliente", apellidos);
+		model.addAttribute("correoCliente", correo);
+		model.addAttribute("roles", rolBusiness.findAll());
+		model.addAttribute("clienteForm", new ClienteForm());
 		return "editClient";
 	}
+	/*
+	@RequestMapping(value="/editClient", method = RequestMethod.POST)
+	public String editarCliente(Model model, @RequestParam("idCliente") int idCliente,@RequestParam("nombre") String nombre, 
+			@RequestParam("apellidos") String apellidos,@RequestParam("correo") String correo,@RequestParam("contraseña") 
+			String contraseña,@RequestParam("rol") Rol rol) {
+		Cliente cliente= new Cliente(idCliente, correo, contraseña, nombre, apellidos, rol);
+		clienteBusiness.update(cliente);
+		return "success";
+	}	
+	*/
 	@RequestMapping(value="/addEmployee", method = RequestMethod.GET)
 	public String addEmployee() {
 		return "addEmployee";
