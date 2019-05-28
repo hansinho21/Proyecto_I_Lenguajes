@@ -110,7 +110,7 @@ public class HomeController {
 	@RequestMapping(value="/editClient", method = RequestMethod.GET)
 	public String editClient(Model model, @RequestParam("nombre") String nombre, @RequestParam("apellidos") String apellidos,
 			@RequestParam("correo") String correo) {
-		model.addAttribute("nombreAutor", nombre);
+		model.addAttribute("nombre", nombre);
 		model.addAttribute("apellidosCliente", apellidos);
 		model.addAttribute("correoCliente", correo);
 		model.addAttribute("roles", rolBusiness.findAll());
