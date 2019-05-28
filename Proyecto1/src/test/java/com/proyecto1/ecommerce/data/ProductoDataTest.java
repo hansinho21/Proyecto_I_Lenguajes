@@ -43,8 +43,8 @@ public class ProductoDataTest {
 	@Test
 	public void insert() {
 		Producto producto = new Producto();
-		producto.setNombre("prueba1");
-		producto.setDescripcion("prueba1.1");
+		producto.setNombre("prueba3");
+		producto.setDescripcion("prueba3.1");
 		producto.setPrecio(1234);
 		producto.setUnidadesExistentes(12);
 		producto.setIva(true);
@@ -52,7 +52,7 @@ public class ProductoDataTest {
 		producto.getMarca().setIdMarca(4);
 		producto.getCategoria().setIdCategoriaProducto(2);
 		
-		productoData.insert(producto);
+		System.out.println(productoData.insert(producto));
 		
 	}
 	

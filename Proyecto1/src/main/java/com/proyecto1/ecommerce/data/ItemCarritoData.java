@@ -48,7 +48,7 @@ public class ItemCarritoData {
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_Insert`(?,?,?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_Insert`(?,?,?,?);");
 			cs.setInt(1, itemCarrito.getCliente().getIdCliente());
 			cs.setInt(2, itemCarrito.getProducto().getIdProducto());
 			cs.setInt(3, itemCarrito.getCantidad());

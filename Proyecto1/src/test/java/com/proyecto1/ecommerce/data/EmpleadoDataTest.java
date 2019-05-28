@@ -37,21 +37,21 @@ public class EmpleadoDataTest {
 		System.out.println(empleadoData.findByEmail("admin@gmail.com").toString());
 	}
 	*/
-	/*
+	
 	@Test
 	public void insert() {
 		Empleado empleado = new Empleado();
 		empleado.setCorreo("empleado1@gmail.com");
-		empleado.setPassword("empleado1");
-		empleado.setNombre("Empleado1");
-		empleado.setApellidos("Empleado1.1");
-		empleado.setDepartamento("Empleado1.2");
-		empleado.setTelefonoOficina("Empleado1.3");
+		empleado.setPassword("empleado4");
+		empleado.setNombre("Empleado4");
+		empleado.setApellidos("Empleado4.1");
+		empleado.setDepartamento("Empleado4.2");
+		empleado.setTelefonoOficina("Empleado4.3");
 		empleado.getRol().setIdRol(12);
 		
-		empleadoData.insert(empleado);
+		System.out.println(empleadoData.insert(empleado));
 	}
-	*/
+	
 	/*
 	@Test
 	public void update() {
@@ -68,8 +68,10 @@ public class EmpleadoDataTest {
 		empleadoData.update(empleado);
 	}
 	*/
+	/*
 	@Test
 	public void delete() {
 		empleadoData.delete(5);
 	}
+	*/
 }

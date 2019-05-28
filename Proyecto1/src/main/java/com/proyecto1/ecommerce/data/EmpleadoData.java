@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,14 +42,14 @@ public class EmpleadoData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void insert(Empleado empleado) {
+	public int insert(Empleado empleado) {
 		
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Empleado_Insert`(?,?,?,?,?,?,?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Empleado_Insert`(?,?,?,?,?,?,?,?);");
 			cs.setString(1, empleado.getCorreo());
 			cs.setString(2, empleado.getPassword());
 			cs.setString(3, empleado.getNombre());
@@ -56,10 +57,13 @@ public class EmpleadoData {
 			cs.setString(5, empleado.getDepartamento());
 			cs.setString(6, empleado.getTelefonoOficina());
 			cs.setInt(7, empleado.getRol().getIdRol());
+			cs.registerOutParameter(8, Types.INTEGER);
 			
 			cs.executeUpdate();
 			
 			conexion.commit();
+			
+			return cs.getInt(8);
 		} catch (SQLException e) {
 			try {
 				conexion.rollback();

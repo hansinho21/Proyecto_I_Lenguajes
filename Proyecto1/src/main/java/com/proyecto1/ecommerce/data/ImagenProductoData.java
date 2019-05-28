@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,20 +41,23 @@ public class ImagenProductoData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void insert(ImagenProducto imagenProducto) {
+	public int insert(ImagenProducto imagenProducto) {
 		
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Imagen_Producto_Insert`(?,?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Imagen_Producto_Insert`(?,?,?);");
 			cs.setString(1, imagenProducto.getImagen());
 			cs.setInt(2, imagenProducto.getProducto().getIdProducto());
+			cs.registerOutParameter(3, Types.INTEGER);
 			
 			cs.executeUpdate();
 			
 			conexion.commit();
+			
+			return cs.getInt(3);
 		} catch (SQLException e) {
 			try {
 				conexion.rollback();

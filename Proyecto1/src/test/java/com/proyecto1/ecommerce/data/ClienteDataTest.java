@@ -42,14 +42,14 @@ public class ClienteDataTest {
 	@Test
 	public void insert() {
 		Cliente cliente = new Cliente();
-		cliente.setPassword("cliente5");
+		cliente.setPassword("cliente6");
 		cliente.getRol().setIdRol(14);
-		cliente.setCorreo("cliente5@gmail.com");
-		cliente.setNombre("Cliente5");
-		cliente.setApellidos("Cliente5.5");
+		cliente.setCorreo("cliente6@gmail.com");
+		cliente.setNombre("Cliente6");
+		cliente.setApellidos("Cliente6.5");
 		
 		
-		clienteData.insert(cliente);
+		System.out.println(clienteData.insert(cliente));
 	}
 
 /*

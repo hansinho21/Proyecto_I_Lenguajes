@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,26 +36,29 @@ public class ProductoData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void insert(Producto producto) {
+	public int insert(Producto producto) {
 		
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Producto_Insert`(?,?,?,?,?,?,?,?);");
-			cs.setString(1, producto.getNombre());
-			cs.setString(2, producto.getDescripcion());
-			cs.setFloat(3, producto.getPrecio());
-			cs.setInt(4, producto.getUnidadesExistentes());
-			cs.setBoolean(5, producto.isIva());
-			cs.setInt(6, producto.getDescuento());
-			cs.setInt(7, producto.getMarca().getIdMarca());
-			cs.setInt(8, producto.getCategoria().getIdCategoriaProducto());
+			CallableStatement cs = conexion.prepareCall("CALL `Producto_Insert`(?,?,?,?,?,?,?,?,?);");
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.setString(2, producto.getNombre());
+			cs.setString(3, producto.getDescripcion());
+			cs.setFloat(4, producto.getPrecio());
+			cs.setInt(5, producto.getUnidadesExistentes());
+			cs.setBoolean(6, producto.isIva());
+			cs.setInt(7, producto.getDescuento());
+			cs.setInt(8, producto.getMarca().getIdMarca());
+			cs.setInt(9, producto.getCategoria().getIdCategoriaProducto());
 			
 			cs.executeUpdate();
 			
 			conexion.commit();
+			
+			return cs.getInt(1);
 		} catch (SQLException e) {
 			try {
 				conexion.rollback();

@@ -36,16 +36,16 @@ public class ItemCarritoDataTest {
 		}
 	}
 */
-/*
+
 	@Test
 	public void insert() {	
 		ItemCarrito item = new ItemCarrito();
 		item.getCliente().setIdCliente(3);
-		item.getProducto().setIdProducto(1);
+		item.getProducto().setIdProducto(6);
 		item.setCantidad(3);
 		itemCarritoData.insert(item);
 	}
-*/
+
 /*
 	@Test
 	public void updateByIdCliente() {

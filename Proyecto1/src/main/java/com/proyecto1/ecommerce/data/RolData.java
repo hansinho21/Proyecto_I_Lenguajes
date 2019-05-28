@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,18 +35,21 @@ public class RolData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void insert(String tipo) {
+	public int insert(String tipo) {
 		
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Rol_Insert`(?);");
-			cs.setString(1, tipo);
+			CallableStatement cs = conexion.prepareCall("CALL `Rol_Insert`(?,?);");
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.setString(2, tipo);
 			cs.executeUpdate();
 			
 			conexion.commit();
+			
+			return cs.getInt(1);
 		} catch (SQLException e) {
 			try {
 				conexion.rollback();

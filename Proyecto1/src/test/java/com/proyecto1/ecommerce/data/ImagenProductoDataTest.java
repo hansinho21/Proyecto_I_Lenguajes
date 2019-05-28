@@ -35,15 +35,15 @@ public class ImagenProductoDataTest {
 		}
 	}
 */
-	/*
+	
 	@Test
 	public void insert() {	
 		ImagenProducto imagen = new ImagenProducto();
-		imagen.setImagen("prueba1");
+		imagen.setImagen("prueba111");
 		imagen.getProducto().setIdProducto(1);
-		imagenProductoData.insert(imagen);
+		System.out.println(imagenProductoData.insert(imagen));
 	}
-*/
+
 /*
 	@Test
 	public void update() {
@@ -55,10 +55,10 @@ public class ImagenProductoDataTest {
 		imagenProductoData.update(imagen);
 	}
 */
-	
+	/*
 	@Test
 	public void delete() {
 		imagenProductoData.delete(1);
 	}
-	
+	*/
 }

@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,23 +44,26 @@ public class ClienteData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void insert(Cliente cliente) {
+	public int insert(Cliente cliente) {
 		
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Cliente_Insert`(?,?,?,?,?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Cliente_Insert`(?,?,?,?,?,?);");
 			cs.setString(1, cliente.getCorreo());
 			cs.setString(2, cliente.getPassword());
 			cs.setString(3, cliente.getNombre());
 			cs.setString(4, cliente.getApellidos());
 			cs.setInt(5, cliente.getRol().getIdRol());
+			cs.registerOutParameter(6, Types.INTEGER);
 			
 			cs.executeUpdate();
 			
 			conexion.commit();
+			
+			return cs.getInt(6);
 		} catch (SQLException e) {
 			try {
 				conexion.rollback();

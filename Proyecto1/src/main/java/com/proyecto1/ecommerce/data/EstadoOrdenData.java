@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,19 +41,22 @@ public class EstadoOrdenData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void insert(String nombre) {
+	public int insert(String nombre) {
 		
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Estado_Orden_Insert`(?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Estado_Orden_Insert`(?,?);");
 			cs.setString(1, nombre);
+			cs.registerOutParameter(2, Types.INTEGER);
 			
 			cs.executeUpdate();
 			
 			conexion.commit();
+			
+			return cs.getInt(2);
 		} catch (SQLException e) {
 			try {
 				conexion.rollback();

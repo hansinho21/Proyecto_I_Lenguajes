@@ -34,12 +34,12 @@ public class MarcaDataTest {
 		}
 	}
 */
-	/*
+	
 	@Test
 	public void insert() {		
-		marcaData.insert("prueba3");
+		System.out.println(marcaData.insert("prueba66"));
 	}
-*/
+
 /*
 	@Test
 	public void update() {
@@ -50,10 +50,10 @@ public class MarcaDataTest {
 		marcaData.update(marca);
 	}
 */
-	
+	/*
 	@Test
 	public void delete() {
 		marcaData.delete(5);
 	}
-	
+	*/
 }

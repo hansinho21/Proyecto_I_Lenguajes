@@ -32,18 +32,18 @@ public class RolDataTest {
 		}
 	}
 	*/
-	/*
+	
 	@Test
 	public void insert() {
-		rolData.insert("prueba8");
+		System.out.println(rolData.insert("prueba1111"));
 	}
-	*/
 	
+	/*
 	@Test
 	public void update() {
 		rolData.update(18, "prueba9");
 	}
-	
+	*/
 	/*
 	@Test
 	public void delete() {

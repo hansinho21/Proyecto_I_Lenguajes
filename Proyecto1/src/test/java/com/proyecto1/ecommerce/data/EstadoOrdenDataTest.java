@@ -35,12 +35,12 @@ public class EstadoOrdenDataTest {
 		}
 	}
 */
-	/*
+	
 	@Test
 	public void insert() {		
-		estadoOrdenData.insert("prueba1");
+		System.out.println(estadoOrdenData.insert("prueba2"));
 	}
-*/
+
 /*
 	@Test
 	public void update() {
@@ -51,10 +51,10 @@ public class EstadoOrdenDataTest {
 		estadoOrdenData.update(estadoOrden);
 	}
 */
-	
+	/*
 	@Test
 	public void delete() {
 		estadoOrdenData.delete(3);
 	}
-	
+	*/
 }

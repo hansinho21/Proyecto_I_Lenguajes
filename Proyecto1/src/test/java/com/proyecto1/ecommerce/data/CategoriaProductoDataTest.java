@@ -33,12 +33,12 @@ public class CategoriaProductoDataTest {
 		}
 	}
 */
-/*	
+
 	@Test
 	public void insert() {		
-		categoriaProductoData.insert("prueba3");
+		System.out.println(categoriaProductoData.insert("categoria3"));
 	}
-*/
+
 /*
 	@Test
 	public void update() {
@@ -49,10 +49,10 @@ public class CategoriaProductoDataTest {
 		categoriaProductoData.update(categoria);
 	}
 */
-	
+	/*
 	@Test
 	public void delete() {
 		categoriaProductoData.delete(3);
 	}
-	
+	*/
 }
