@@ -18,6 +18,10 @@ public class EstadoOrden {
 	public void setEstadoOrden(String estadoOrden) {
 		this.estadoOrden = estadoOrden;
 	}
+	@Override
+	public String toString() {
+		return "EstadoOrden [idEstadoOrden=" + idEstadoOrden + ", estadoOrden=" + estadoOrden + "]";
+	}
 
 	
 	
