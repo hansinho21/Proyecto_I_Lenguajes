@@ -4,21 +4,29 @@ public class Cliente {
 
 	private int idCliente;
 	private String correo;
-	private String password;
+	private String contrasenaCliente;
 	private String nombre;
 	private String apellidos;
 	private Rol rol;
 	
-	
-	
-	public Cliente(int idCliente, String correo, String password, String nombre, String apellidos, Rol rol) {
+	public Cliente(int idCliente, String correo, String contrasena, String nombre, String apellidos, Rol rol) {
 		this.idCliente = idCliente;
 		this.correo = correo;
-		this.password = password;
+		this.contrasenaCliente = contrasena;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.rol = rol;
 	}
+
+	public Cliente(int idCliente, String correo, String contrasenaCliente, String nombre, String apellidos) {
+		this.idCliente = idCliente;
+		this.correo = correo;
+		this.contrasenaCliente = contrasenaCliente;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+	}
+
+
 
 	public Cliente() {
 		this.rol = new Rol();
@@ -50,12 +58,12 @@ public class Cliente {
 		this.correo = correo;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getContrasenaCliente() {
+		return contrasenaCliente;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setContrasenaCliente(String contrasenaCliente) {
+		this.contrasenaCliente = contrasenaCliente;
 	}
 
 	public String getNombre() {
@@ -76,7 +84,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", correo=" + correo + ", password=" + password + ", nombre="
+		return "Cliente [idCliente=" + idCliente + ", correo=" + correo + ", password=" + contrasenaCliente + ", nombre="
 				+ nombre + ", apellidos=" + apellidos + ", rol=" + rol.getIdRol() + "]";
 	}
 	

@@ -108,11 +108,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/editClient", method = RequestMethod.GET)
-	public String editClient(Model model, @RequestParam("idCliente") int idCliente,@RequestParam("password") String password,
+	public String cargarClient(Model model, @RequestParam("idCliente") int idCliente,@RequestParam("contrasenaCliente") String contrasena,
 			@RequestParam("nombre") String nombre, @RequestParam("apellidos") String apellidos,
 			@RequestParam("correo") String correo) {
 		model.addAttribute("idCliente", idCliente);
-		model.addAttribute("contraseña", password);
+		model.addAttribute("contrasenaCliente", contrasena);
 		model.addAttribute("nombre", nombre);
 		model.addAttribute("apellidosCliente", apellidos);
 		model.addAttribute("correoCliente", correo);
@@ -120,16 +120,22 @@ public class HomeController {
 		model.addAttribute("clienteForm", new ClienteForm());
 		return "editClient";
 	}
-	/*
+	
 	@RequestMapping(value="/editClient", method = RequestMethod.POST)
-	public String editarCliente(Model model, @RequestParam("idCliente") int idCliente,@RequestParam("nombre") String nombre, 
-			@RequestParam("apellidos") String apellidos,@RequestParam("correo") String correo,@RequestParam("contraseña") 
-			String contraseña,@RequestParam("rol") Rol rol) {
-		Cliente cliente= new Cliente(idCliente, correo, contraseña, nombre, apellidos, rol);
+	public String editarCliente(@Valid ClienteForm clienteForm,Model model, @RequestParam("idCliente") int idCliente,@RequestParam("contrasenaCliente") String contrasena,
+			@RequestParam("nombre") String nombre, @RequestParam("apellidos") String apellidos,
+			@RequestParam("correo") String correo,@RequestParam("idRol") int idRol) {
+		Cliente cliente= new Cliente();
+		cliente.getRol().setIdRol(clienteForm.getIdRol());
+		cliente.setIdCliente(idCliente);
+		cliente.setNombre(nombre);
+		cliente.setApellidos(apellidos);
+		cliente.setCorreo(correo);
+		cliente.setContrasenaCliente(contrasena);
 		clienteBusiness.update(cliente);
 		return "success";
 	}	
-	*/
+	
 	@RequestMapping(value="/addEmployee", method = RequestMethod.GET)
 	public String addEmployee() {
 		return "addEmployee";

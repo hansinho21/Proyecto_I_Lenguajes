@@ -53,7 +53,7 @@ public class ClienteData {
 			conexion.setAutoCommit(false);
 			CallableStatement cs = conexion.prepareCall("CALL `Cliente_Insert`(?,?,?,?,?,?);");
 			cs.setString(1, cliente.getCorreo());
-			cs.setString(2, cliente.getPassword());
+			cs.setString(2, cliente.getContrasenaCliente());
 			cs.setString(3, cliente.getNombre());
 			cs.setString(4, cliente.getApellidos());
 			cs.setInt(5, cliente.getRol().getIdRol());
@@ -93,7 +93,7 @@ public class ClienteData {
 			CallableStatement cs = conexion.prepareCall("CALL `Cliente_Update`(?,?,?,?,?,?);");
 			cs.setInt(1, cliente.getIdCliente());
 			cs.setString(2, cliente.getCorreo());
-			cs.setString(3, cliente.getPassword());
+			cs.setString(3, cliente.getContrasenaCliente());
 			cs.setString(4, cliente.getNombre());
 			cs.setString(5, cliente.getApellidos());
 			cs.setInt(6, cliente.getRol().getIdRol());
@@ -163,7 +163,7 @@ class ClienteWithIdExtractor implements ResultSetExtractor<List<Cliente>> {
 			cliente = new Cliente();
 			cliente.setIdCliente(idClienteActual);
 			cliente.setCorreo(rs.getString("correo"));
-			cliente.setPassword(rs.getString("contraseña"));
+			cliente.setContrasenaCliente(rs.getString("contraseña"));
 			cliente.setNombre(rs.getString("nombre"));
 			cliente.setApellidos(rs.getString("apellidos"));
 			cliente.getRol().setIdRol(rs.getInt("id_rol"));

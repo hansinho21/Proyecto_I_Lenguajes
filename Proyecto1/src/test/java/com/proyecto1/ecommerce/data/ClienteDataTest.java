@@ -38,11 +38,11 @@ public class ClienteDataTest {
 		System.out.println(clienteData.findByEmail("user@gmail.com").toString());
 	}
 	*/
-	
+	/*
 	@Test
 	public void insert() {
 		Cliente cliente = new Cliente();
-		cliente.setPassword("cliente6");
+		cliente.setContrasenaCliente("cliente6");
 		cliente.getRol().setIdRol(14);
 		cliente.setCorreo("cliente6@gmail.com");
 		cliente.setNombre("Cliente6");
@@ -51,21 +51,21 @@ public class ClienteDataTest {
 		
 		System.out.println(clienteData.insert(cliente));
 	}
+*/
 
-/*
 	@Test
 	public void update() {
 		Cliente cliente = new Cliente();
-		cliente.setIdCliente(4);
-		cliente.setCorreo("cliente2@gmail.com");
-		cliente.setPassword("cliente2");
-		cliente.setNombre("Cliente2");
-		cliente.setApellidos("Cliente2.1");
+		cliente.setIdCliente(15);
+		cliente.setCorreo("quince@gmail.com");
+		cliente.setContrasenaCliente("quince");
+		cliente.setNombre("quince");
+		cliente.setApellidos("quinceavos");
 		cliente.getRol().setIdRol(14);
 		
 		clienteData.update(cliente);
 	}
-*/
+
 	/*
 	@Test
 	public void delete() {

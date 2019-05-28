@@ -84,18 +84,20 @@
 			<table border="1" class="table table-striped"
 				style="position: absolute; top: 300%; left: 47%;">
 				<tr>
+					<td>Id</td>				
 					<td>Nombre</td>
 					<td>Apellidos</td>
 					<td>Correo</td>
 					<td colspan="2" align="center">Acción</td>
 				</tr>
 				<tr th:each="cliente: ${clientes}">
+					<td><span th:text="${cliente.idCliente}"></span></td>
 					<td><span th:text="${cliente.nombre}"></span></td>
 					<td><span th:text="${cliente.Apellidos}"></span></td>
 					<td><span th:text="${cliente.correo}"></span></td>
 					<td><a type="submit" href="#">eliminar</td>
-					<td><a th:href="@{/editClient(idCliente=${cliente.idCliente},password=${cliente.password},nombre=${cliente.nombre}, apellidos=${cliente.apellidos}, 
-			correo=${cliente.correo})}">modificar</td>
+					<td><a th:href="@{/editClient(idCliente=${cliente.idCliente},contrasenaCliente=${cliente.contrasenaCliente},
+					nombre=${cliente.nombre}, apellidos=${cliente.apellidos},correo=${cliente.correo})}">modificar</td>
 				</tr>
 			</table>
 		</div>

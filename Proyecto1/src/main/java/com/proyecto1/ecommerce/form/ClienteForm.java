@@ -15,7 +15,7 @@ public class ClienteForm {
 	@NotNull
 	private String correoCliente;
 	@NotNull
-	private String passwordCliente;
+	private String contrasenaCliente;
 	@NotNull
 	private int idRol;
 	
@@ -60,13 +60,17 @@ public class ClienteForm {
 		this.correoCliente = correo;
 	}
 
-	public String getPassword() {
-		return passwordCliente;
+
+	public String getContrasenaCliente() {
+		return contrasenaCliente;
 	}
 
-	public void setPassword(String password) {
-		this.passwordCliente = password;
+
+	public void setContrasenaCliente(String contrasenaCliente) {
+		this.contrasenaCliente = contrasenaCliente;
 	}
+
+	
 	
 
 	

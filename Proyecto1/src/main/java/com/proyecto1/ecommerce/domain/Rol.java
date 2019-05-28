@@ -20,6 +20,10 @@ public class Rol {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
+	
+	
+	
 	
 	
 	
