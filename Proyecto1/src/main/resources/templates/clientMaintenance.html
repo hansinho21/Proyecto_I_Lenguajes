@@ -94,7 +94,7 @@
 					<td><span th:text="${cliente.Apellidos}"></span></td>
 					<td><span th:text="${cliente.correo}"></span></td>
 					<td><a type="submit" href="#">eliminar</td>
-					<td><a th:href="@{/editClient(nombre=${cliente.nombre}, apellidos=${cliente.apellidos}, 
+					<td><a th:href="@{/editClient(idCliente=${cliente.idCliente},password=${cliente.password},nombre=${cliente.nombre}, apellidos=${cliente.apellidos}, 
 			correo=${cliente.correo})}">modificar</td>
 				</tr>
 			</table>

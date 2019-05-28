@@ -5,7 +5,9 @@ import javax.validation.constraints.NotNull;
 import com.proyecto1.ecommerce.domain.Rol;
 
 public class ClienteForm {
-
+	
+	@NotNull
+	private int idCliente;
 	@NotNull
 	private String nombreCliente;
 	@NotNull
@@ -13,13 +15,24 @@ public class ClienteForm {
 	@NotNull
 	private String correoCliente;
 	@NotNull
-	private String contraseñaCliente;
+	private String passwordCliente;
 	@NotNull
 	private int idRol;
 	
 	public ClienteForm() {
 	}
 	
+	
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+
+
 	public int getIdRol() {
 		return idRol;
 	}
@@ -47,12 +60,12 @@ public class ClienteForm {
 		this.correoCliente = correo;
 	}
 
-	public String getContraseña() {
-		return contraseñaCliente;
+	public String getPassword() {
+		return passwordCliente;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseñaCliente = contraseña;
+	public void setPassword(String password) {
+		this.passwordCliente = password;
 	}
 	
 
