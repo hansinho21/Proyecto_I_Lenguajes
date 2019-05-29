@@ -183,5 +183,21 @@ public class HomeController {
 	public String menuAdmin() {
 		return "menuAdmin";
 	}
+	@RequestMapping(value="/addRol", method = RequestMethod.GET)
+	public String addRol() {
+		return "addRol";
+	}
+	@RequestMapping(value="/RolMaintenance", method = RequestMethod.GET)
+	public String RolMaintenance() {
+		return "RolMaintenance";
+	}
+	@RequestMapping(value="/addBrand", method = RequestMethod.GET)
+	public String addBrand() {
+		return "addBrand";
+	}
+	@RequestMapping(value="/brandMaintenance", method = RequestMethod.GET)
+	public String brandMaintenance() {
+		return "brandMaintenance";
+	}
 	
 }
