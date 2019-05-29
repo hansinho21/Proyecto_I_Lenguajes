@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.proyecto1.ecommerce.domain.CategoriaProducto;
 import com.proyecto1.ecommerce.domain.Cliente;
+import com.proyecto1.ecommerce.domain.DetalleOrden;
 import com.proyecto1.ecommerce.domain.Empleado;
 import com.proyecto1.ecommerce.domain.ImagenProducto;
 import com.proyecto1.ecommerce.domain.ItemCarrito;
@@ -27,7 +28,7 @@ import com.proyecto1.ecommerce.domain.Producto;
 import com.proyecto1.ecommerce.domain.Rol;
 
 @Repository
-public class ItemCarritoData {
+public class DetalleOrdenData {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -35,23 +36,24 @@ public class ItemCarritoData {
 	private DataSource dataSource;
 	
 	@Transactional(readOnly = true)
-	public List<ItemCarrito> findAll() {
-		String sqlSelect = "CALL `Item_Carrito_SelectAll`();";
-		return jdbcTemplate.query(sqlSelect, new ItemCarritoWithIdClienteExtractor());
+	public List<DetalleOrden> findAll() {
+		String sqlSelect = "CALL `Detalle_Orden_SelectAll`();";
+		return jdbcTemplate.query(sqlSelect, new DetalleOrdenWithIdClienteExtractor());
 	}
 	
 	@Transactional(readOnly = true)
-	public void insert(ItemCarrito itemCarrito) {
+	public void insert(DetalleOrden detalleOrden) {
 		
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_Insert`(?,?,?);");
-			cs.setInt(1, itemCarrito.getCliente().getIdCliente());
-			cs.setInt(2, itemCarrito.getProducto().getIdProducto());
-			cs.setInt(3, itemCarrito.getCantidad());
+			CallableStatement cs = conexion.prepareCall("CALL `Detalle_Orden_Insert`(?,?,?,?);");
+			cs.setInt(1, detalleOrden.getOrden().getIdOrden());
+			cs.setInt(2, detalleOrden.getProducto().getIdProducto());
+			cs.setInt(3, detalleOrden.getCantidad());
+			cs.setFloat(4, detalleOrden.getPrecoUnitario());
 			
 			cs.executeUpdate();
 			
@@ -75,17 +77,18 @@ public class ItemCarritoData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void updateCantidad(ItemCarrito itemCarrito) {
+	public void updateCantidad(DetalleOrden detalleOrden) {
 		
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_UpdateCantidad`(?,?,?);");
-			cs.setInt(1, itemCarrito.getCliente().getIdCliente());
-			cs.setInt(2, itemCarrito.getProducto().getIdProducto());
-			cs.setInt(3, itemCarrito.getCantidad());
+			CallableStatement cs = conexion.prepareCall("CALL `Detalle_Orden_Update`(?,?,?,?);");
+			cs.setInt(1, detalleOrden.getOrden().getIdOrden());
+			cs.setInt(2, detalleOrden.getProducto().getIdProducto());
+			cs.setInt(3, detalleOrden.getCantidad());
+			cs.setFloat(4, detalleOrden.getPrecoUnitario());
 			
 			cs.executeUpdate();
 			
@@ -109,14 +112,14 @@ public class ItemCarritoData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void deleteByIdCliente(ItemCarrito itemCarrito) {
+	public void deleteByIdOrden(DetalleOrden detalleOrden) {
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_DeleteByIdCliente`(?);");
-			cs.setInt(1, itemCarrito.getCliente().getIdCliente());
+			CallableStatement cs = conexion.prepareCall("CALL `Detalle_Orden_DeleteByIdOrden`(?);");
+			cs.setInt(1, detalleOrden.getOrden().getIdOrden());
 			
 			cs.executeUpdate();
 			
@@ -140,14 +143,14 @@ public class ItemCarritoData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void deleteByIdProducto(ItemCarrito itemCarrito) {
+	public void deleteByIdProducto(DetalleOrden detalleOrden) {
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_DeleteByIdProducto`(?);");
-			cs.setInt(1, itemCarrito.getProducto().getIdProducto());
+			CallableStatement cs = conexion.prepareCall("CALL `Detalle_Orden_DeleteByIdProducto`(?);");
+			cs.setInt(1, detalleOrden.getProducto().getIdProducto());
 			
 			cs.executeUpdate();
 			
@@ -172,19 +175,20 @@ public class ItemCarritoData {
 	
 }
 
-class ItemCarritoWithIdClienteExtractor implements ResultSetExtractor<List<ItemCarrito>> {
+class DetalleOrdenWithIdClienteExtractor implements ResultSetExtractor<List<DetalleOrden>> {
 
 	@Override
-	public List<ItemCarrito> extractData(ResultSet rs) throws SQLException, DataAccessException {
-		List<ItemCarrito> list = new LinkedList<>();
-		ItemCarrito item = null;
+	public List<DetalleOrden> extractData(ResultSet rs) throws SQLException, DataAccessException {
+		List<DetalleOrden> list = new LinkedList<>();
+		DetalleOrden orden = null;
 		while (rs.next()) {
-			Integer idItemClienteActual = rs.getInt("id_cliente_item");
-			item = new ItemCarrito();
-			item.getCliente().setIdCliente(idItemClienteActual);
-			item.getProducto().setIdProducto(rs.getInt("id_producto_item"));
-			item.setCantidad(rs.getInt("cantidad"));
-			list.add(item);
+			Integer idOrdenActual = rs.getInt("id_orden_detalle");
+			orden = new DetalleOrden();
+			orden.getOrden().setIdOrden(idOrdenActual);
+			orden.getProducto().setIdProducto(rs.getInt("id_producto_detalle"));
+			orden.setCantidad(rs.getInt("cantidad"));
+			orden.setPrecoUnitario(rs.getFloat("precio_unitario"));
+			list.add(orden);
 		}
 
 		return list;
