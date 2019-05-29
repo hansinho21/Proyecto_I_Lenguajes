@@ -52,7 +52,7 @@ public class ClienteDataTest {
 		System.out.println(clienteData.insert(cliente));
 	}
 */
-
+/*
 	@Test
 	public void update() {
 		Cliente cliente = new Cliente();
@@ -65,11 +65,11 @@ public class ClienteDataTest {
 		
 		clienteData.update(cliente);
 	}
-
-	/*
+*/
+	
 	@Test
 	public void delete() {
-		clienteData.delete(4);
+		clienteData.delete(18);
 	}
-	*/
+	
 }

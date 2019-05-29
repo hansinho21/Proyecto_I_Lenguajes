@@ -140,7 +140,7 @@ public class HomeController {
 	public String eliminarCliente(Model model, @RequestParam("idCliente") int idCliente) {
 		model.addAttribute("idCliente",idCliente);
 		clienteBusiness.delete(idCliente);
-		return "clientMaintenance";
+		return "success";
 	}
 	
 	@RequestMapping(value="/addEmployee", method = RequestMethod.GET)
