@@ -95,11 +95,12 @@
 					<td><span th:text="${cliente.nombre}"></span></td>
 					<td><span th:text="${cliente.Apellidos}"></span></td>
 					<td><span th:text="${cliente.correo}"></span></td>
-					<td><a type="submit" href="#">eliminar</td>
+					<td><a type="submit" th:href="@{/deleteClient(idCliente=${cliente.idCliente})}">eliminar</td>
 					<td><a th:href="@{/editClient(idCliente=${cliente.idCliente},contrasenaCliente=${cliente.contrasenaCliente},
 					nombre=${cliente.nombre}, apellidos=${cliente.apellidos},correo=${cliente.correo})}">modificar</td>
 				</tr>
 			</table>
+			
 		</div>
 
 	</div>

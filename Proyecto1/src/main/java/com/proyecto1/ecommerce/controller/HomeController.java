@@ -136,6 +136,13 @@ public class HomeController {
 		return "success";
 	}	
 	
+	@RequestMapping(value = "/deleteClient", method = RequestMethod.GET)
+	public String eliminarCliente(Model model, @RequestParam("idCliente") int idCliente) {
+		model.addAttribute("idCliente",idCliente);
+		clienteBusiness.delete(idCliente);
+		return "clientMaintenance";
+	}
+	
 	@RequestMapping(value="/addEmployee", method = RequestMethod.GET)
 	public String addEmployee() {
 		return "addEmployee";

@@ -28,6 +28,9 @@ public class ClienteBusiness {
 	public void update(Cliente cliente) {
 		clienteData.update(cliente);
 	}
+	public void delete(int id) {
+		clienteData.delete(id);
+	}
 	
 
 	
