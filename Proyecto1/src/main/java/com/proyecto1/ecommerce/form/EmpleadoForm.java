@@ -19,7 +19,7 @@ public class EmpleadoForm {
 	@NotNull
 	private String correoEmpleado;
 	@NotNull
-	private String passwordEpleado;
+	private String contrasenaEmpleado;
 	@NotNull
 	private int idRol;
 	public EmpleadoForm() {
@@ -60,11 +60,12 @@ public class EmpleadoForm {
 	public void setCorreoEmpleado(String correoEmpleado) {
 		this.correoEmpleado = correoEmpleado;
 	}
-	public String getPasswordEpleado() {
-		return passwordEpleado;
+
+	public String getContrasenaEmpleado() {
+		return contrasenaEmpleado;
 	}
-	public void setPasswordEpleado(String passwordEpleado) {
-		this.passwordEpleado = passwordEpleado;
+	public void setContrasenaEmpleado(String contrasenaEmpleado) {
+		this.contrasenaEmpleado = contrasenaEmpleado;
 	}
 	public int getIdRol() {
 		return idRol;

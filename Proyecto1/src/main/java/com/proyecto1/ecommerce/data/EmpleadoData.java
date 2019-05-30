@@ -50,10 +50,10 @@ public class EmpleadoData {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
 			CallableStatement cs = conexion.prepareCall("CALL `Empleado_Insert`(?,?,?,?,?,?,?,?);");
-			cs.setString(1, empleado.getCorreo());
-			cs.setString(2, empleado.getPassword());
-			cs.setString(3, empleado.getNombre());
-			cs.setString(4, empleado.getApellidos());
+			cs.setString(1, empleado.getCorreoEmpleado());
+			cs.setString(2, empleado.getContrasenaEmpleado());
+			cs.setString(3, empleado.getNombreEmpleado());
+			cs.setString(4, empleado.getApellidosEmpleado());
 			cs.setString(5, empleado.getDepartamento());
 			cs.setString(6, empleado.getTelefonoOficina());
 			cs.setInt(7, empleado.getRol().getIdRol());
@@ -92,10 +92,10 @@ public class EmpleadoData {
 			conexion.setAutoCommit(false);
 			CallableStatement cs = conexion.prepareCall("CALL `Empleado_Update`(?,?,?,?,?,?,?,?);");
 			cs.setInt(1, empleado.getIdEmpleado());
-			cs.setString(2, empleado.getCorreo());
-			cs.setString(3, empleado.getPassword());
-			cs.setString(4, empleado.getNombre());
-			cs.setString(5, empleado.getApellidos());
+			cs.setString(2, empleado.getCorreoEmpleado());
+			cs.setString(3, empleado.getContrasenaEmpleado());
+			cs.setString(4, empleado.getNombreEmpleado());
+			cs.setString(5, empleado.getApellidosEmpleado());
 			cs.setString(6, empleado.getDepartamento());
 			cs.setString(7, empleado.getTelefonoOficina());
 			cs.setInt(8, empleado.getRol().getIdRol());
@@ -163,14 +163,14 @@ class EmpleadoWithIdExtractor implements ResultSetExtractor<List<Empleado>> {
 			Integer idEmpleadoActual = rs.getInt("id_empleado");
 			empleado = new Empleado();
 			empleado.setIdEmpleado(idEmpleadoActual);
-			empleado.setCorreo(rs.getString("correo"));
-			empleado.setPassword(rs.getString("contraseña"));
-			empleado.setNombre(rs.getString("nombre"));
-			empleado.setApellidos(rs.getString("apellidos"));
+			empleado.setCorreoEmpleado(rs.getString("correo"));
+			empleado.setContrasenaEmpleado(rs.getString("contraseña"));
+			empleado.setNombreEmpleado(rs.getString("nombre"));
+			empleado.setApellidosEmpleado(rs.getString("apellidos"));
 			empleado.setDepartamento(rs.getString("departamento"));
 			empleado.setTelefonoOficina(rs.getString("telefono_oficina"));
 			do {
-				if(rs.getString("email").equals(empleado.getCorreo())) {
+				if(rs.getString("email").equals(empleado.getCorreoEmpleado())) {
 					Rol rol=new Rol();
 					rol.setIdRol(rs.getInt("role_id"));
 					rol.setTipo(rs.getString("role_name"));

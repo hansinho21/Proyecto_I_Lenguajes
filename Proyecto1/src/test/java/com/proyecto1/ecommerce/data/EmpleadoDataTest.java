@@ -20,7 +20,7 @@ public class EmpleadoDataTest {
 	@Autowired
 	private EmpleadoData empleadoData;
 
-/*	
+
 	@Test
 	public void findAll() {
 		List<Empleado> empleados = new ArrayList<>();
@@ -30,28 +30,28 @@ public class EmpleadoDataTest {
 			System.out.println(empleados.get(i).toString());
 		}
 	}
-	*/
+	
 /*
 	@Test
 	public void findByEmail() {
 		System.out.println(empleadoData.findByEmail("admin@gmail.com").toString());
 	}
 	*/
-	
+	/*
 	@Test
 	public void insert() {
 		Empleado empleado = new Empleado();
-		empleado.setCorreo("empleado1@gmail.com");
-		empleado.setPassword("empleado4");
-		empleado.setNombre("Empleado4");
-		empleado.setApellidos("Empleado4.1");
+		empleado.setCorreoEmpleado("empleado17@gmail.com");
+		empleado.setContrasenaEmpleado("empleado4");
+		empleado.setNombreEmpleado("Empleado4");
+		empleado.setApellidosEmpleado("Empleado4.1");
 		empleado.setDepartamento("Empleado4.2");
 		empleado.setTelefonoOficina("Empleado4.3");
 		empleado.getRol().setIdRol(12);
 		
 		System.out.println(empleadoData.insert(empleado));
 	}
-	
+	*/
 	/*
 	@Test
 	public void update() {

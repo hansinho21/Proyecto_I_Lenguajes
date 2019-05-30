@@ -71,51 +71,67 @@
 			<!-- row -->
 			<div class="row">
 
-				<div class="col-md-7">
 
-					<!-- Billing Details -->
-					<div class="billing-details">
+
+				<form action="#" th:object="${empleadoForm}"
+					th:action="@{/addEmployee}" method="POST">
+					<div class="col-md-7">
 						<div class="form-group">
 							<label>Nombre:</label> <br> <input class="input" type="text"
-								style="width: 300px; height: 40px" id="nombreCliente"
-								name="nombreCliente" placeholder="Nombre">
+								th:field="*{nombreEmpleado}" style="width: 300px; height: 40px"
+								id="nombreEmpleado" name="nombreEmpleado" placeholder="Nombre">
+						</div>
+						<div class="form-group">
+							<label>Apellidos:</label> <br> <input class="input"
+								type="text" th:field="*{apellidosEmpleado}"
+								style="width: 300px; height: 40px" id="apellidosEmpleado"
+								name="apellidosEmpleado" placeholder="Apellidos">
 						</div>
 						<div class="form-group">
 							<label>Departamento:</label> <br> <input
 								style="width: 300px; height: 40px" type="text" id="departamento"
-								name="departamento" placeholder="Departamento">
+								th:field="*{departamento}" name="departamento"
+								placeholder="Departamento">
 						</div>
-					</div>
-					<div class="form-group">
+						<div class="form-group">
 							<label>Teléfono:</label> <br> <input
 								style="width: 300px; height: 40px" type="text" id="telefono"
-								name="telefono" placeholder="Teléfono">
+								th:field="*{telefonoOficina}" name="telefono"
+								placeholder="Teléfono">
 						</div>
-					</div>
+					
 					<div class="form-group">
-						<label>Correo:</label> <br> <input
-							style="width: 300px; height: 40px" type="email" id="correoEmpleado"
-							name="correoEmpleado" placeholder="Correo">
-					</div>
+							<label>Correo:</label> <br> <input
+								style="width: 300px; height: 40px" type="email" id="correoEmpleado"
+								th:field="*{correoEmpleado}" name="correoEmpleado" placeholder="Correo">
+						</div>
+						</div>
 					<div class="form-group">
 						<label class="text-left">Contraseña:</label> <br> <input
-							style="width: 300px; height: 40px" type="password" id="pass"
-							name="pass" placeholder="Contraseña">
+							style="width: 300px; height: 40px" type="password"
+							id="contrasenaEmpleado" th:field="*{contrasenaEmpleado}"
+							name="contrasenaEmpleado" placeholder="Contraseña">
 					</div>
-					
-					<a href="checkout" class="primary-btn order-submit"
-						>Añadir
-						Empleado</a>
-				</div>
+					<div class="form-group">
+						<label>Rol:</label> <br> <select
+							style="width: 300px; height: 40px" th:field="*{idRol}" id="roles">
+							<option th:each="rolActual:${roles}"
+								th:value="${rolActual.idRol}" th:text="${rolActual.tipo}"></option>
+						</select>
+					</div>
+					<input type="submit" value="Añadir"
+						class="primary-btn order-submit">
+				</form>
 			</div>
 		</div>
+	</div>
 
-		<!-- jQuery Plugins -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/slick.min.js"></script>
-		<script src="js/nouislider.min.js"></script>
-		<script src="js/jquery.zoom.min.js"></script>
-		<script src="js/main.js"></script>
+	<!-- jQuery Plugins -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/slick.min.js"></script>
+	<script src="js/nouislider.min.js"></script>
+	<script src="js/jquery.zoom.min.js"></script>
+	<script src="js/main.js"></script>
 </body>
 </html>

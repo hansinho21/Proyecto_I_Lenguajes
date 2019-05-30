@@ -3,43 +3,21 @@ package com.proyecto1.ecommerce.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 public class Empleado {
 
 	private int idEmpleado;
-	private String nombre;
-	private String apellidos;
+	private String nombreEmpleado;
+	private String apellidosEmpleado;
 	private String departamento;
 	private String telefonoOficina;
-	private String correo;
-	private String password;
+	private String correoEmpleado;
+	private String contrasenaEmpleado;
 	private Rol rol;
 	
 	public Empleado() {
 		rol= new Rol();
-	}
-	
-	public String getApellidos() {
-		return apellidos;
-	}
-
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
-
-	public Rol getRol() {
-		return rol;
-	}
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
 	}
 
 	public int getIdEmpleado() {
@@ -50,12 +28,20 @@ public class Empleado {
 		this.idEmpleado = idEmpleado;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getNombreEmpleado() {
+		return nombreEmpleado;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreEmpleado(String nombreEmpleado) {
+		this.nombreEmpleado = nombreEmpleado;
+	}
+
+	public String getApellidosEmpleado() {
+		return apellidosEmpleado;
+	}
+
+	public void setApellidosEmpleado(String apellidosEmpleado) {
+		this.apellidosEmpleado = apellidosEmpleado;
 	}
 
 	public String getDepartamento() {
@@ -74,20 +60,39 @@ public class Empleado {
 		this.telefonoOficina = telefonoOficina;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getCorreoEmpleado() {
+		return correoEmpleado;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setCorreoEmpleado(String correoEmpleado) {
+		this.correoEmpleado = correoEmpleado;
+	}
+
+	public String getContrasenaEmpleado() {
+		return contrasenaEmpleado;
+	}
+
+	public void setContrasenaEmpleado(String contrasenaEmpleado) {
+		this.contrasenaEmpleado = contrasenaEmpleado;
 	}
 
 	@Override
 	public String toString() {
-		return "Empleado [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", departamento=" + departamento
-				+ ", telefonoOficina=" + telefonoOficina + ", correo=" + correo + ", password=" + password + ", rol="
-				+ rol.getIdRol() + "]";
+		return "Empleado [idEmpleado=" + idEmpleado + ", nombreEmpleado=" + nombreEmpleado + ", apellidosEmpleado="
+				+ apellidosEmpleado + ", departamento=" + departamento + ", telefonoOficina=" + telefonoOficina
+				+ ", correoEmpleado=" + correoEmpleado + ", contrasenaEmpleado=" + contrasenaEmpleado + ", rol=" + rol
+				+ "]";
 	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+	
+	
 	
 	
 	

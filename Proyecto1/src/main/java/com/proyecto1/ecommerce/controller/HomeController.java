@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.proyecto1.ecommerce.business.ClienteBusiness;
+import com.proyecto1.ecommerce.business.EmpleadoBusiness;
 import com.proyecto1.ecommerce.business.RolBusiness;
 import com.proyecto1.ecommerce.data.ClienteData;
 import com.proyecto1.ecommerce.domain.Cliente;
+import com.proyecto1.ecommerce.domain.Empleado;
 import com.proyecto1.ecommerce.domain.Rol;
 import com.proyecto1.ecommerce.form.ClienteForm;
+import com.proyecto1.ecommerce.form.EmpleadoForm;
 
 @Controller
 public class HomeController {
@@ -25,6 +28,8 @@ public class HomeController {
 	private RolBusiness rolBusiness;
 	@Autowired
 	private ClienteBusiness clienteBusiness;
+	@Autowired 
+	private EmpleadoBusiness empleadoBusiness;
 
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String Home() {
@@ -80,7 +85,7 @@ public class HomeController {
 	public String agregar(@Valid ClienteForm clienteForm, BindingResult br, Model model) {
 		if (br.hasErrors()) {
 			model.addAttribute("roles", rolBusiness.findAll());
-			model.addAttribute("libroForm", clienteForm);
+			model.addAttribute("clienteForm", clienteForm);
 			return "addClient";
 		} else {
 			Cliente cliente = new Cliente();
@@ -144,15 +149,35 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/addEmployee", method = RequestMethod.GET)
-	public String addEmployee() {
+	public String loadAddEmployee(Model model) {
+		model.addAttribute("roles", rolBusiness.findAll());
+		model.addAttribute("empleadoForm", new EmpleadoForm());
 		return "addEmployee";
 	}
+	
+	@RequestMapping(value="/addEmployee", method = RequestMethod.POST)
+	public String addEmployee(@Valid EmpleadoForm empleadoForm, BindingResult br, Model model) {
+		if (br.hasErrors()) {
+			model.addAttribute("roles", rolBusiness.findAll());
+			model.addAttribute("empleadoForm", empleadoForm);
+			return "addEmployee";
+		} else {
+			Empleado empleado = new Empleado();
+			BeanUtils.copyProperties(empleadoForm, empleado);
+			empleado.getRol().setIdRol(empleadoForm.getIdRol());
+			empleadoBusiness.insert(empleado);
+			return "success";
+		}
+	}
+	
 	@RequestMapping(value="/employeeMaintenance", method = RequestMethod.GET)
-	public String employeeMaintenance() {
+	public String employeeMaintenance(Model model) {
+		model.addAttribute("empleados", empleadoBusiness.findAll());
 		return "employeeMaintenance";
 	}
 	@RequestMapping(value="/editEmployee", method = RequestMethod.GET)
-	public String editEmployee() {
+	public String editEmployee(Model model) {
+		model.addAttribute("empleados", empleadoBusiness.findAll());
 		return "editEmployee";
 	}
 	@RequestMapping(value="/addShippingAddress", method = RequestMethod.GET)
