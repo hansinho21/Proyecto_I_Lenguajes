@@ -10,31 +10,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.proyecto1.ecommerce.data.RolData;
-import com.proyecto1.ecommerce.domain.Rol;
+import com.proyecto1.ecommerce.data.EstadoOrdenData;
+import com.proyecto1.ecommerce.domain.EstadoOrden;
 
 @Service
-public class RolBusiness {
+public class EstadoOrdenBusiness {
 
 	@Autowired
-	private RolData rolData;
+	private EstadoOrdenData estadoOrdenData;
 	
-	public List<Rol> findAll(){
-		return rolData.findAll();
+	public List<EstadoOrden> findAll() {
+		return estadoOrdenData.findAll();
 	}
 	
-	public int insert(String tipo) {
-		return rolData.insert(tipo);
+	public int insert(String nombre) {
+		return estadoOrdenData.insert(nombre);
 	}
 	
-	
-	public void update(int id, String tipo) {
-		rolData.update(id, tipo);
+	public void update(EstadoOrden estadoOrden) {
+		estadoOrdenData.update(estadoOrden);
 	}
-	
 	
 	public void delete(int id) {
-		rolData.delete(id);
+		estadoOrdenData.delete(id);
 	}
 	
 }
