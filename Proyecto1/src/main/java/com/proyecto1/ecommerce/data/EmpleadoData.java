@@ -169,13 +169,7 @@ class EmpleadoWithIdExtractor implements ResultSetExtractor<List<Empleado>> {
 			empleado.setApellidosEmpleado(rs.getString("apellidos"));
 			empleado.setDepartamento(rs.getString("departamento"));
 			empleado.setTelefonoOficina(rs.getString("telefono_oficina"));
-			do {
-				if(rs.getString("email").equals(empleado.getCorreoEmpleado())) {
-					Rol rol=new Rol();
-					rol.setIdRol(rs.getInt("role_id"));
-					rol.setTipo(rs.getString("role_name"));
-				}
-			}while(rs.next());
+			empleado.getRol().setIdRol(rs.getInt("id_rol_empleado"));
 			list.add(empleado);
 		}
 

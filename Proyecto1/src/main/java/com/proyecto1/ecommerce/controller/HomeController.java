@@ -176,10 +176,46 @@ public class HomeController {
 		return "employeeMaintenance";
 	}
 	@RequestMapping(value="/editEmployee", method = RequestMethod.GET)
-	public String editEmployee(Model model) {
-		model.addAttribute("empleados", empleadoBusiness.findAll());
+	public String cargarEmployee(Model model, @RequestParam("idEmpleado") int idEmpleado,@RequestParam("contrasenaEmpleado") String contrasena,
+			@RequestParam("nombreEmpleado") String nombre, @RequestParam("apellidosEmpleado") String apellidosEmpleado,
+			@RequestParam("correoEmpleado") String correo,@RequestParam("telefonoOficina") String telefono,@RequestParam("departamento") String departamento) {
+		model.addAttribute("idEmpleado", idEmpleado);
+		model.addAttribute("telefonoOficina", telefono);
+		model.addAttribute("departamento", departamento);
+		model.addAttribute("contrasenaEmpleado", contrasena);
+		model.addAttribute("nombreEmpleado", nombre);
+		model.addAttribute("apellidosEmpleado", apellidosEmpleado);
+		model.addAttribute("correoEmpleado", correo);
+		model.addAttribute("roles", rolBusiness.findAll());
+		model.addAttribute("empleadoForm", new EmpleadoForm());
 		return "editEmployee";
 	}
+	
+	@RequestMapping(value="/editEmployee", method = RequestMethod.POST)
+	public String editarEmployee(Model model, @RequestParam("idEmpleado") int idEmpleado,@RequestParam("contrasenaEmpleado") String contrasena,
+			@RequestParam("nombreEmpleado") String nombre, @RequestParam("apellidosEmpleado") String apellidosEmpleado,
+			@RequestParam("correoEmpleado") String correo,@RequestParam("telefonoOficina") String telefono,
+			@RequestParam("departamento") String departamento,@RequestParam("idRol") int idRol) {
+		Empleado empleado = new Empleado();
+		empleado.setNombreEmpleado(nombre);
+		empleado.setApellidosEmpleado(apellidosEmpleado);
+		empleado.setCorreoEmpleado(correo);
+		empleado.setContrasenaEmpleado(contrasena);
+		empleado.setDepartamento(departamento);
+		empleado.setTelefonoOficina(telefono);
+		empleado.setIdEmpleado(idEmpleado);
+		empleado.getRol().setIdRol(idRol);
+		empleadoBusiness.update(empleado);
+		return "success";
+	}
+	
+	@RequestMapping(value = "/deleteEmployee", method = RequestMethod.GET)
+	public String eliminarEmpleado(Model model, @RequestParam("idEmpleado") int idEmpleado) {
+		model.addAttribute("idEmpleado",idEmpleado);
+		empleadoBusiness.delete(idEmpleado);
+		return "success";
+	}
+	
 	@RequestMapping(value="/addShippingAddress", method = RequestMethod.GET)
 	public String addShippingAddress() {
 		return "addShippingAddress";

@@ -22,6 +22,7 @@ public class EmpleadoForm {
 	private String contrasenaEmpleado;
 	@NotNull
 	private int idRol;
+	
 	public EmpleadoForm() {
 	}
 	public int getIdEmpleado() {

@@ -91,17 +91,18 @@
 				<tr th:each="empleado: ${empleados}">
 					<td><span th:text="${empleado.idEmpleado}"></span></td>
 					<td><span th:text="${empleado.nombreEmpleado}"></span></td>
-					<td><span th:text="${empleado.ApellidosEmpleado}"></span></td>
+					<td><span th:text="${empleado.apellidosEmpleado}"></span></td>
 					<td><span th:text="${empleado.correoEmpleado}"></span></td>
-					<td><span th:text="${empleado.departamentoEmpleado}"></span></td>
-					<td>eliminar</td>
-					<td>modificar</td>
+					<td><span th:text="${empleado.departamento}"></span></td>
+					<td><a type="submit" th:href="@{/deleteEmployee(idEmpleado=${empleado.idEmpleado})}">eliminar</td>
+					<td><a th:href="@{/editEmployee(idEmpleado=${empleado.idEmpleado},
+					contrasenaEmpleado=${empleado.contrasenaEmpleado},telefonoOficina=${empleado.telefonoOficina},
+					nombreEmpleado=${empleado.nombreEmpleado}, apellidosEmpleado=${empleado.apellidosEmpleado},
+					departamento=${empleado.departamento},correoEmpleado=${empleado.correoEmpleado})}">modificar</td>
+					
 				</tr>
 			</table>
-			
 		</div>
-
 	</div>
-
 </body>
 </html>
