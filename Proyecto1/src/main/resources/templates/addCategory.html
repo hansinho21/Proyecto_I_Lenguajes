@@ -70,29 +70,26 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
+				<form action="#" th:object="${categoriaForm}"
+					th:action="@{/addCategory}" method="POST">
+					<div class="col-md-7">
 
-				<div class="col-md-7">
-
-					<!-- Billing Details -->
-					<div class="billing-details">
 						<div class="form-group">
-							<label>Nombre categoría:</label> <br> <input class="input" type="text"
-								style="width: 300px; height: 40px" id="nombreCliente"
-								name="nombreCliente" placeholder="Nombre">
-						
-					<a href="checkout" class="primary-btn order-submit"
-						>Añadir
-						Categoría</a>
-				</div>
-			</div>
-		</div>
+							<label>Nombre categoría:</label> <br> <input class="input"
+								th:field="*{nombreCategoria}" type="text"
+								style="width: 300px; height: 40px" id="nombreCategoria"
+								name="nombreCategoria" placeholder="Nombre"> <input
+								type="submit" value="Añadir" class="primary-btn order-submit">
+						</div>
+					</div>
+				</form>
 
-		<!-- jQuery Plugins -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/slick.min.js"></script>
-		<script src="js/nouislider.min.js"></script>
-		<script src="js/jquery.zoom.min.js"></script>
-		<script src="js/main.js"></script>
+				<!-- jQuery Plugins -->
+				<script src="js/jquery.min.js"></script>
+				<script src="js/bootstrap.min.js"></script>
+				<script src="js/slick.min.js"></script>
+				<script src="js/nouislider.min.js"></script>
+				<script src="js/jquery.zoom.min.js"></script>
+				<script src="js/main.js"></script>
 </body>
 </html>

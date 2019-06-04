@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.proyecto1.ecommerce.business.CategoriaProductoBusiness;
 import com.proyecto1.ecommerce.business.ClienteBusiness;
 import com.proyecto1.ecommerce.business.EmpleadoBusiness;
 import com.proyecto1.ecommerce.business.RolBusiness;
 import com.proyecto1.ecommerce.data.ClienteData;
+import com.proyecto1.ecommerce.domain.CategoriaProducto;
 import com.proyecto1.ecommerce.domain.Cliente;
 import com.proyecto1.ecommerce.domain.Empleado;
 import com.proyecto1.ecommerce.domain.Rol;
+import com.proyecto1.ecommerce.form.CategoriaForm;
 import com.proyecto1.ecommerce.form.ClienteForm;
 import com.proyecto1.ecommerce.form.EmpleadoForm;
 
@@ -30,6 +33,8 @@ public class HomeController {
 	private ClienteBusiness clienteBusiness;
 	@Autowired 
 	private EmpleadoBusiness empleadoBusiness;
+	@Autowired
+	private CategoriaProductoBusiness categoriaBusiness;
 
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String Home() {
@@ -46,10 +51,25 @@ public class HomeController {
 		return "checkout2";
 	}
 	
-	@RequestMapping(value="/category", method = RequestMethod.GET)
-	public String Categories() {
-		return "store";
+	@RequestMapping(value="/addCategory", method = RequestMethod.GET)
+	public String addCategory(Model model) {
+		model.addAttribute("categoriaForm", new CategoriaForm());
+		return "addCategory";
 	}
+	
+	@RequestMapping(value="/addCategory", method = RequestMethod.POST)
+	public String AgregarCategories(@Valid CategoriaForm categoriaForm, BindingResult br, Model model) {
+			if (br.hasErrors()) {
+				model.addAttribute("categoriaForm", categoriaForm);
+				return "addCategory";
+			} else {
+				CategoriaProducto categoria = new CategoriaProducto();
+				BeanUtils.copyProperties(categoriaForm, categoria);
+				categoriaBusiness.insert(categoria.getNombreCategoria());
+				return "success";
+			}
+		}
+	
 	
 	@RequestMapping(value="/product", method = RequestMethod.GET)
 	public String Product() {
@@ -216,6 +236,13 @@ public class HomeController {
 		return "success";
 	}
 	
+	@RequestMapping(value = "/deleteCategory", method = RequestMethod.GET)
+	public String eliminarCategoria(Model model, @RequestParam("idCategoriaProducto") int idCategoriaProducto) {
+		model.addAttribute("idCategoriaProducto",idCategoriaProducto);
+		categoriaBusiness.delete(idCategoriaProducto);
+		return "success";
+	}
+	
 	@RequestMapping(value="/addShippingAddress", method = RequestMethod.GET)
 	public String addShippingAddress() {
 		return "addShippingAddress";
@@ -228,18 +255,35 @@ public class HomeController {
 	public String editShippingAddress() {
 		return "editShippingAddress";
 	}
-	@RequestMapping(value="/addCategory", method = RequestMethod.GET)
-	public String addCategory() {
-		return "addCategory";
-	}
+	
 	@RequestMapping(value="/categoryMaintenance", method = RequestMethod.GET)
+	public String categoryMaintenance(Model model) {
+		model.addAttribute("categorias", categoriaBusiness.findAll());
+		return "categoryMaintenance";
+	}
+	
+	@RequestMapping(value="/categoryMaintenance", method = RequestMethod.POST)
 	public String categoryMaintenance() {
 		return "categoryMaintenance";
 	}
+	
+	
 	@RequestMapping(value="/editCategory", method = RequestMethod.GET)
-	public String editCategory() {
+	public String cargarCategory(Model model, @RequestParam("idCategoriaProducto") int idCategoria,@RequestParam("nombreCategoria") String nombreCategoria) {
+		model.addAttribute("idCategoriaProducto", idCategoria);
+		model.addAttribute("nombreCategoria", nombreCategoria);
 		return "editCategory";
 	}
+	
+	@RequestMapping(value="/editCategory", method = RequestMethod.POST)
+	public String editCategory(Model model, @RequestParam("idCategoriaProducto") int idCategoria,@RequestParam("nombreCategoria") String nombreCategoria) {
+		CategoriaProducto categoriaProducto = new CategoriaProducto();
+		categoriaProducto.setNombreCategoria(nombreCategoria);
+		categoriaProducto.setIdCategoriaProducto(idCategoria);
+		categoriaBusiness.update(categoriaProducto);
+		return "succes";
+	}
+		
 	@RequestMapping(value="/menuAdmin", method = RequestMethod.GET)
 	public String menuAdmin() {
 		return "menuAdmin";
