@@ -1,5 +1,7 @@
 package com.proyecto1.ecommerce.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -14,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.proyecto1.ecommerce.business.CategoriaProductoBusiness;
 import com.proyecto1.ecommerce.business.ClienteBusiness;
 import com.proyecto1.ecommerce.business.EmpleadoBusiness;
+import com.proyecto1.ecommerce.business.ProductoBusiness;
 import com.proyecto1.ecommerce.business.RolBusiness;
 import com.proyecto1.ecommerce.data.ClienteData;
 import com.proyecto1.ecommerce.domain.CategoriaProducto;
 import com.proyecto1.ecommerce.domain.Cliente;
 import com.proyecto1.ecommerce.domain.Empleado;
+import com.proyecto1.ecommerce.domain.Producto;
 import com.proyecto1.ecommerce.domain.Rol;
 import com.proyecto1.ecommerce.form.CategoriaForm;
 import com.proyecto1.ecommerce.form.ClienteForm;
@@ -35,9 +39,12 @@ public class HomeController {
 	private EmpleadoBusiness empleadoBusiness;
 	@Autowired
 	private CategoriaProductoBusiness categoriaBusiness;
+	@Autowired
+	private ProductoBusiness productoBusiness;
 
 	@RequestMapping(value="/home", method = RequestMethod.GET)
-	public String Home() {
+	public String Home(Model model) {
+		model.addAttribute("productos", productoBusiness.findAll());
 		return "index";
 	}
 	
@@ -72,7 +79,12 @@ public class HomeController {
 	
 	
 	@RequestMapping(value="/product", method = RequestMethod.GET)
-	public String Product() {
+	public String Product(Model model, @RequestParam("nombre") String nombre, @RequestParam("precio") float precio, @RequestParam("descripcion")
+	 String descripcion, @RequestParam("unidadesExistentes") int unidadesExistentes) {
+		model.addAttribute("nombre", nombre);
+		model.addAttribute("precio", precio);
+		model.addAttribute("descripcion", descripcion);
+		model.addAttribute("unidadesExistentes", unidadesExistentes);
 		return "product";
 	}
 	

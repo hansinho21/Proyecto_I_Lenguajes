@@ -97,9 +97,12 @@
 							name="precio" placeholder="Precio">
 					</div>
 					<div class="form-group">
-						<label>IVA:</label> <br> <input
-							style="width: 300px; height: 40px" type="text" id="iva"
-							name="iva" placeholder="IVA">
+						<label>IVA:</label> <br> 
+							<select style="width: 100px; height: 40px" type="text" id="iva"
+							name="iva" class="input-select">
+							<option value="0">0%</option>
+							<option value="1">13%</option>
+						</select>
 					</div>
 					<div class="form-group">
 						<label
@@ -128,8 +131,18 @@
 							<option value="1">Category 02</option>
 						</select>
 					</div>
+					<div class="form-group">
+						<label
+							style="height: 200px; width: 250px; position: absolute; top: 57%; left: 95%">Descuento:</label>
+						<select style="position: absolute; top: 63%; left: 95%"
+							class="input-select">
+							<option value="0">--</option>
+							<option value="1">15%</option>
+							<option value="1">25%</option>
+						</select>
+					</div>
 					<a href="checkout" class="primary-btn order-submit"
-						style="width: 150px; height: 54px; position: absolute; top: 58%; left: 115%">Añadir
+						style="width: 150px; height: 54px; position: absolute; top: 78%; left: 95%">Añadir
 						producto</a>
 				</div>
 			</div>

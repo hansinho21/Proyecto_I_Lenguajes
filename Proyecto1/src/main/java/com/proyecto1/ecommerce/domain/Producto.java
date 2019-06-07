@@ -11,6 +11,7 @@ public class Producto {
 	private int descuento;
 	private Marca marca;
 	private CategoriaProducto categoria;
+	private String urlImagen;
 	
 	public Producto() {
 		marca = new Marca();
@@ -20,8 +21,14 @@ public class Producto {
 	public CategoriaProducto getCategoria() {
 		return categoria;
 	}
+	
+	public String getUrlImagen() {
+		return urlImagen;
+	}
 
-
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
+	}
 
 	public void setCategoria(CategoriaProducto categoria) {
 		this.categoria = categoria;
