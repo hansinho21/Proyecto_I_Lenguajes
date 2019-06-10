@@ -36,6 +36,24 @@ public class ProductoData {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<Producto> findByIdCategoria(int id) {
+		String sqlSelect = "CALL `Producto_FindByIdCategoria`("+id+");";
+		return jdbcTemplate.query(sqlSelect, new ProductoWithIdExtractor());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Producto> findByIdMarca(int id) {
+		String sqlSelect = "CALL `Producto_FindByIdMarca`("+id+");";
+		return jdbcTemplate.query(sqlSelect, new ProductoWithIdExtractor());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Producto> findByNombre(String nombre) {
+		String sqlSelect = "CALL `Producto_FindByNombre`('"+nombre+"');";
+		return jdbcTemplate.query(sqlSelect, new ProductoWithIdExtractor());
+	}
+	
+	@Transactional(readOnly = true)
 	public int insert(Producto producto) {
 		
 		Connection conexion = null;
@@ -166,6 +184,7 @@ class ProductoWithIdExtractor implements ResultSetExtractor<List<Producto>> {
 			producto.setPrecio(rs.getFloat("precio"));
 			producto.setUnidadesExistentes(rs.getInt("unidades_existentes"));
 			producto.setIva(rs.getBoolean("iva"));
+			producto.setUrlImagen(rs.getString("url_imagen"));
 			producto.getMarca().setIdMarca(rs.getInt("id_marca"));
 			producto.getCategoria().setIdCategoriaProducto(rs.getInt("id_categoria_producto"));
 			list.add(producto);

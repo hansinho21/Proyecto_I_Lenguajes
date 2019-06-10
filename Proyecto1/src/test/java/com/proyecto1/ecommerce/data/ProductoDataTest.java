@@ -32,7 +32,7 @@ public class ProductoDataTest {
 	@Test
 	public void findAll() {
 		List<Producto> productos = new ArrayList<>();
-		productos = productoData.findAll();
+		productos = productoData.findByNombre("mac");
 		assertNotNull(productos);
 		for(int i=0;i<productos.size();i++) {
 			System.out.println(productos.get(i).toString());

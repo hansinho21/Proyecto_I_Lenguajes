@@ -23,6 +23,18 @@ public class ProductoBusiness {
 		return productoData.findAll();
 	}
 	
+	public List<Producto> findByIdCategoria(int id) {
+		return productoData.findByIdCategoria(id);
+	}
+	
+	public List<Producto> findByIdMarca(int id) {
+		return productoData.findByIdMarca(id);
+	}
+	
+	public List<Producto> findByNombre(String nombre) {
+		return productoData.findByNombre(nombre);
+	}
+	
 	public int insert(Producto producto) {
 		return productoData.insert(producto);
 	}
