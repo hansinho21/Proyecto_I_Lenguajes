@@ -38,4 +38,8 @@ public class ItemCarritoBusiness {
 		itemCarritoData.deleteByIdProducto(itemCarrito);
 	}
 	
+	public void findByIdCliente(int id) {
+		itemCarritoData.findByIdCliente(id);
+	}
+	
 }
