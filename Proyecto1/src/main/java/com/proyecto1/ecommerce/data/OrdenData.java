@@ -78,6 +78,43 @@ public class OrdenData {
 	}
 	
 	@Transactional(readOnly = true)
+	public void confirmarOrden(Orden orden) {
+		
+		Connection conexion = null;
+
+		try {
+			conexion = dataSource.getConnection();
+			conexion.setAutoCommit(false);
+			CallableStatement cs = conexion.prepareCall("CALL `Orden_Confirmar_Orden`(?,?,?,?,?);");
+			cs.setDate(1, (Date) orden.getFechaOrden());
+			cs.setDate(2, (Date) orden.getFechaEnvio());
+			cs.setFloat(3, orden.getValorEnvio());
+			cs.setInt(4, orden.getCliente().getIdCliente());
+			cs.setInt(5, orden.getEstadoOrden().getIdEstadoOrden());
+			
+			cs.executeUpdate();
+			
+			conexion.commit();
+			
+		} catch (SQLException e) {
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				throw new RuntimeException(e1);
+			}
+			throw new RuntimeException(e);
+		} finally {
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+	}
+	
+	@Transactional(readOnly = true)
 	public void update(Orden orden) {
 		
 		Connection conexion = null;

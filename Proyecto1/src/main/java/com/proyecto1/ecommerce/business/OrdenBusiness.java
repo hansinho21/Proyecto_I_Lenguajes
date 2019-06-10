@@ -28,6 +28,10 @@ public class OrdenBusiness {
 		return ordenData.insert(orden);
 	}
 	
+	public void confirmarOrden(Orden orden) {
+		ordenData.confirmarOrden(orden);
+	}
+	
 	public void update(Orden orden) {
 		ordenData.update(orden);
 	}

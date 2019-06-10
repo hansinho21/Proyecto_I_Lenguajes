@@ -34,7 +34,7 @@ public class OrdenDataTest {
 	}
 */
 	
-	
+	/*
 	@Test
 	public void insert() {
 		Orden orden = new Orden();
@@ -45,6 +45,19 @@ public class OrdenDataTest {
 		orden.getEstadoOrden().setIdEstadoOrden(6);
 		
 		System.out.println(ordenData.insert(orden));
+	}
+	*/
+	
+	@Test
+	public void confirmarOrden() {
+		Orden orden = new Orden();
+		orden.setFechaOrden(new Date(10));
+		orden.setFechaEnvio(new Date(10));
+		orden.setValorEnvio(1000);
+		orden.getCliente().setIdCliente(8);
+		orden.getEstadoOrden().setIdEstadoOrden(6);
+		
+		ordenData.confirmarOrden(orden);
 	}
 	
 	/*
