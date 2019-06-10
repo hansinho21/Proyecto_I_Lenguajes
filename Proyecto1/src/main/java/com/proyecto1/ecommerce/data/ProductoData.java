@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,6 +52,12 @@ public class ProductoData {
 	public List<Producto> findByNombre(String nombre) {
 		String sqlSelect = "CALL `Producto_FindByNombre`('"+nombre+"');";
 		return jdbcTemplate.query(sqlSelect, new ProductoWithIdExtractor());
+	}
+	
+	@Transactional(readOnly = true)
+	public HashMap<Producto, Integer> productosMasVendidos() {
+		String sqlSelect = "CALL `Productos_Mas_Vendidos`();";
+		return jdbcTemplate.query(sqlSelect, new ReporteProductoWithIdExtractor());
 	}
 	
 	@Transactional(readOnly = true)
@@ -167,6 +174,8 @@ public class ProductoData {
 		}
 	}
 	
+	
+	
 }
 
 class ProductoWithIdExtractor implements ResultSetExtractor<List<Producto>> {
@@ -191,6 +200,26 @@ class ProductoWithIdExtractor implements ResultSetExtractor<List<Producto>> {
 		}
 
 		return list;
+	}
+
+}
+
+class ReporteProductoWithIdExtractor implements ResultSetExtractor<HashMap<Producto, Integer>> {
+
+	@Override
+	public HashMap<Producto, Integer> extractData(ResultSet rs) throws SQLException, DataAccessException {
+		HashMap<Producto, Integer> hashMap = new HashMap<Producto, Integer>();
+		Producto producto = null;
+		while (rs.next()) {
+			Integer idProductoActual = rs.getInt("ID_Producto");
+			producto = new Producto();
+			producto.setIdProducto(idProductoActual);
+			producto.setNombre(rs.getString("Nombre_Del_Producto"));
+
+			hashMap.put(producto, rs.getInt("Cantidad_De_Ventas"));
+		}
+
+		return hashMap;
 	}
 
 }

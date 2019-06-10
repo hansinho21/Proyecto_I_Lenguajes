@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,10 @@ public class ProductoBusiness {
 	
 	public void delete(int id) {
 		productoData.delete(id);
+	}
+	
+	public HashMap<Producto, Integer> reporteProductosVendidos(){
+		return productoData.productosMasVendidos();
 	}
 	
 }

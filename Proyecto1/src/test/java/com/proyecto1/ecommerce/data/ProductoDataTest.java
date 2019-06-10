@@ -6,6 +6,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -31,6 +32,18 @@ public class ProductoDataTest {
 	
 	@Test
 	public void findAll() {
+		HashMap<Producto, Integer> productos = new HashMap<Producto, Integer>();
+		productos = productoData.productosMasVendidos();
+		assertNotNull(productos);
+		for ( HashMap.Entry<Producto, Integer> entry : productos.entrySet()) {
+		    Producto key = entry.getKey();
+		    Integer value = entry.getValue();
+		    System.out.println(key.getIdProducto() + " - " + key.getNombre() + " - " + value);
+		}
+	}
+	/*
+	@Test
+	public void findAll() {
 		List<Producto> productos = new ArrayList<>();
 		productos = productoData.findByNombre("mac");
 		assertNotNull(productos);
@@ -38,7 +51,7 @@ public class ProductoDataTest {
 			System.out.println(productos.get(i).toString());
 		}
 	}
-	
+	*/
 	/*
 	@Test
 	public void insert() {
