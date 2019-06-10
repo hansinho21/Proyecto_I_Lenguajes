@@ -172,6 +172,37 @@ public class ItemCarritoData {
 		}
 	}
 	
+	@Transactional(readOnly = true)
+	public void findByIdCliente(int id) {
+		Connection conexion = null;
+
+		try {
+			conexion = dataSource.getConnection();
+			conexion.setAutoCommit(false);
+			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_FindByIdCliente`(?);");
+			cs.setInt(1, id);
+			
+			cs.executeUpdate();
+			
+			conexion.commit();
+		} catch (SQLException e) {
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				throw new RuntimeException(e1);
+			}
+			throw new RuntimeException(e);
+		} finally {
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+	}
+	
 }
 
 class ItemCarritoWithIdClienteExtractor implements ResultSetExtractor<List<ItemCarrito>> {

@@ -36,7 +36,7 @@ public class ItemCarritoDataTest {
 		}
 	}
 */
-
+/*
 	@Test
 	public void insert() {	
 		ItemCarrito item = new ItemCarrito();
@@ -45,7 +45,7 @@ public class ItemCarritoDataTest {
 		item.setCantidad(3);
 		itemCarritoData.insert(item);
 	}
-
+*/
 /*
 	@Test
 	public void updateByIdCliente() {
@@ -71,6 +71,12 @@ public class ItemCarritoDataTest {
 		ItemCarrito item = new ItemCarrito();
 		item.getCliente().setIdCliente(3);
 		itemCarritoData.deleteByIdProducto(item);
+	}
+	*/
+	/*
+	@Test
+	public void findByIdCliente() {
+		itemCarritoData.findByIdCliente(8);
 	}
 	*/
 }
