@@ -46,21 +46,19 @@ public class OrdenData {
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Orden_Insert`(?,?,?,?,?,?,?,?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Orden_Insert`(?,?,?,?,?,?);");
 			cs.setDate(1, (Date) orden.getFechaOrden());
 			cs.setDate(2, (Date) orden.getFechaEnvio());
 			cs.setFloat(3, orden.getValorEnvio());
-			cs.setFloat(4, orden.getValorProductos());
-			cs.setFloat(5, orden.getValorTotal());
-			cs.setInt(6, orden.getCliente().getIdCliente());
-			cs.setInt(7, orden.getEstadoOrden().getIdEstadoOrden());
-			cs.registerOutParameter(8, Types.INTEGER);
+			cs.setInt(4, orden.getCliente().getIdCliente());
+			cs.setInt(5, orden.getEstadoOrden().getIdEstadoOrden());
+			cs.registerOutParameter(6, Types.INTEGER);
 			
 			cs.executeUpdate();
 			
 			conexion.commit();
 			
-			return cs.getInt(8);
+			return cs.getInt(6);
 		} catch (SQLException e) {
 			try {
 				conexion.rollback();

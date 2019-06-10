@@ -28,7 +28,7 @@ public class ProductoDataTest {
 	@Autowired
 	private ProductoData productoData;
 
-	/*
+	
 	@Test
 	public void findAll() {
 		List<Producto> productos = new ArrayList<>();
@@ -38,8 +38,8 @@ public class ProductoDataTest {
 			System.out.println(productos.get(i).toString());
 		}
 	}
-	*/
 	
+	/*
 	@Test
 	public void insert() {
 		Producto producto = new Producto();
@@ -55,7 +55,7 @@ public class ProductoDataTest {
 		System.out.println(productoData.insert(producto));
 		
 	}
-	
+	*/
 	/*
 	@Test
 	public void update() {

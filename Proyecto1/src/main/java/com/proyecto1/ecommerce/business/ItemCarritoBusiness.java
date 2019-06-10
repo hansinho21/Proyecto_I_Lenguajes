@@ -27,7 +27,7 @@ public class ItemCarritoBusiness {
 	}
 	
 	public void updateCantidad(ItemCarrito itemCarrito) {
-		itemCarritoData.updateCantidad(itemCarrito);
+		itemCarritoData.update(itemCarrito);
 	}
 	
 	public void deleteByIdCliente(ItemCarrito itemCarrito) {

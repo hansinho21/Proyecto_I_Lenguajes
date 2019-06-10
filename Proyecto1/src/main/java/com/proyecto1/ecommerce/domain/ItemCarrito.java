@@ -5,7 +5,16 @@ public class ItemCarrito {
 	private Producto producto;
 	private Cliente cliente;
 	private int cantidad;
+	private float precioUnitario;
 	
+	public float getPrecioUnitario() {
+		return precioUnitario;
+	}
+
+	public void setPrecioUnitario(float precioUnitario) {
+		this.precioUnitario = precioUnitario;
+	}
+
 	public ItemCarrito() {
 		producto = new Producto();
 		cliente = new Cliente();
@@ -37,7 +46,9 @@ public class ItemCarrito {
 
 	@Override
 	public String toString() {
-		return "ItemCarrito [producto=" + producto.getIdProducto() + ", cliente=" + cliente.getIdCliente() + ", cantidad=" + cantidad + "]";
+		return "ItemCarrito [producto=" + producto + ", cliente=" + cliente + ", cantidad=" + cantidad
+				+ ", precioUnitario=" + precioUnitario + "]";
 	}
+
 	
 }

@@ -48,10 +48,11 @@ public class ItemCarritoData {
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_Insert`(?,?,?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_Insert`(?,?,?,?);");
 			cs.setInt(1, itemCarrito.getCliente().getIdCliente());
 			cs.setInt(2, itemCarrito.getProducto().getIdProducto());
 			cs.setInt(3, itemCarrito.getCantidad());
+			cs.setFloat(4, itemCarrito.getPrecioUnitario());
 			
 			cs.executeUpdate();
 			
@@ -75,17 +76,18 @@ public class ItemCarritoData {
 	}
 	
 	@Transactional(readOnly = true)
-	public void updateCantidad(ItemCarrito itemCarrito) {
+	public void update(ItemCarrito itemCarrito) {
 		
 		Connection conexion = null;
 
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_UpdateCantidad`(?,?,?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Item_Carrito_UpdateCantidad`(?,?,?,?);");
 			cs.setInt(1, itemCarrito.getCliente().getIdCliente());
 			cs.setInt(2, itemCarrito.getProducto().getIdProducto());
 			cs.setInt(3, itemCarrito.getCantidad());
+			cs.setFloat(4, itemCarrito.getPrecioUnitario());
 			
 			cs.executeUpdate();
 			
@@ -184,6 +186,7 @@ class ItemCarritoWithIdClienteExtractor implements ResultSetExtractor<List<ItemC
 			item.getCliente().setIdCliente(idItemClienteActual);
 			item.getProducto().setIdProducto(rs.getInt("id_producto_item"));
 			item.setCantidad(rs.getInt("cantidad"));
+			item.setPrecioUnitario(rs.getInt("precio_unitario"));
 			list.add(item);
 		}
 

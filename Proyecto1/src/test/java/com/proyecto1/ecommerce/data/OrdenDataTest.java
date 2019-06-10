@@ -34,21 +34,19 @@ public class OrdenDataTest {
 	}
 */
 	
-	/*
+	
 	@Test
 	public void insert() {
 		Orden orden = new Orden();
 		orden.setFechaOrden(new Date(10));
 		orden.setFechaEnvio(new Date(10));
 		orden.setValorEnvio(1000);
-		orden.setValorProductos(111111);
-		orden.setValorTotal(123123132);
 		orden.getCliente().setIdCliente(3);
-		orden.getEstadoOrden().setIdEstadoOrden(4);
+		orden.getEstadoOrden().setIdEstadoOrden(6);
 		
 		System.out.println(ordenData.insert(orden));
 	}
-	*/
+	
 	/*
 	@Test
 	public void update() {
@@ -65,10 +63,10 @@ public class OrdenDataTest {
 		ordenData.update(orden);
 	}
 	*/
-	
+	/*
 	@Test
 	public void delete() {
 		ordenData.delete(4);
 	}
-	
+	*/
 }
