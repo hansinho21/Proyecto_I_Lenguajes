@@ -87,7 +87,7 @@
 						<div class="header-ctn">
 
 							<div class="dropdown">
-								<a href="checkout" class="fas fa-shopping-cart">Your Cart </a>
+								<a href="carrito" class="fas fa-shopping-cart">Your Cart </a>
 							</div>
 							<!-- /Cart -->
 
@@ -236,9 +236,10 @@
 												<div class="product-btns"></div>
 											</div>
 											<div class="add-to-cart">
-												<button class="add-to-cart-btn">
-													<i class="fa fa-shopping-cart"></i> add to cart
-												</button>
+											
+											<a href="checkout2" class="add-to-cart-btn" th:href="@{/checkout2(nombre=${producto.nombre},precio=${producto.precio},
+												unidadesExistentes=${producto.unidadesExistentes})}">add to car</a>
+												
 											</div>
 										</div>
 									</div>

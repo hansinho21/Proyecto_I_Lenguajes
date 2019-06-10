@@ -98,55 +98,30 @@
 				</div>
 			</div>
 			<div class="order-products">
-				<div class="order-col">
-					<div>1x Product Name Goes Here</div>
-					<div class="numbers-row">
-					 	<input type="text" value="1">
+				<div th:each="itemCarrito: ${items}">
+					<div class="order-col">
+						<div th:text="${itemCarrito.producto.nombre}"></div>
+						<div class="numbers-row">
+							<input type="text" th:text="${itemCarrito.cantidad}">
+						</div>
+						<div th:text="${itemCarrito.producto.precio}"></div>
 					</div>
-					<div>$980.00</div>
 				</div>
-				<div class="order-col">
-					<div>2x Product Name Goes Here</div>
-					<div class="numbers-row">
-					 	<input type="text" value="1">
-					</div>
-					<div>$980.00</div>
-				</div>
-				<div class="order-col">
-					<div>2x Product Name Goes Here</div>
-					<div class="numbers-row">
-					 	<input type="text" value="1">
-					</div>
-					<div>$980.00</div>
-				</div>
-				<div class="order-col">
-					<div>2x Product Name Goes Here</div>
-					<div class="numbers-row">
-					 	<input type="text" value="1">
-					</div>
-					<div>$980.00</div>
-				</div>
-				<div class="order-col">
-					<div>2x Product Name Goes Here</div>
-					<div class="numbers-row">
-					 	<input type="text" value="1">
-					</div>
-					<div>$980.00</div>
-				</div>
-			</div>
 
-			<div class="order-col">
-				<div>
-					<strong>TOTAL</strong>
-				</div>
-				<div>
-					<strong class="order-total">$2940.00</strong>
+				<div class="order-col">
+					<div>
+						<strong>TOTAL</strong>
+					</div>
+					<div>
+						<strong class="order-total">$2940.00</strong>
+					</div>
 				</div>
 			</div>
 		</div>
 
 
-		<br> <a href="login" class="primary-btn order-submit">Place order</a>
+		<br> <a href="login" class="primary-btn order-submit">Place
+			order</a>
 	</div>
 	<!-- /Order Details -->
 

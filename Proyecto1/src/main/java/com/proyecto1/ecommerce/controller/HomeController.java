@@ -1,5 +1,6 @@
 package com.proyecto1.ecommerce.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,9 +20,11 @@ import com.proyecto1.ecommerce.business.EmpleadoBusiness;
 import com.proyecto1.ecommerce.business.ProductoBusiness;
 import com.proyecto1.ecommerce.business.RolBusiness;
 import com.proyecto1.ecommerce.data.ClienteData;
+import com.proyecto1.ecommerce.domain.Carrito;
 import com.proyecto1.ecommerce.domain.CategoriaProducto;
 import com.proyecto1.ecommerce.domain.Cliente;
 import com.proyecto1.ecommerce.domain.Empleado;
+import com.proyecto1.ecommerce.domain.ItemCarrito;
 import com.proyecto1.ecommerce.domain.Producto;
 import com.proyecto1.ecommerce.domain.Rol;
 import com.proyecto1.ecommerce.form.CategoriaForm;
@@ -30,99 +33,146 @@ import com.proyecto1.ecommerce.form.EmpleadoForm;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private RolBusiness rolBusiness;
 	@Autowired
 	private ClienteBusiness clienteBusiness;
-	@Autowired 
+	@Autowired
 	private EmpleadoBusiness empleadoBusiness;
 	@Autowired
 	private CategoriaProductoBusiness categoriaBusiness;
 	@Autowired
 	private ProductoBusiness productoBusiness;
 
-	@RequestMapping(value="/home", method = RequestMethod.GET)
+	private List<ItemCarrito> items = new LinkedList<ItemCarrito>();
+
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String Home(Model model) {
 		model.addAttribute("productos", productoBusiness.findAll());
 		return "index";
 	}
-	
-	@RequestMapping(value="/myAcount", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/myAcount", method = RequestMethod.GET)
 	public String Acount() {
 		return "checkout";
 	}
-	
-	@RequestMapping(value="/checkout", method = RequestMethod.GET)
-	public String Acount2() {
+
+	@RequestMapping(value = "/carrito", method = RequestMethod.GET)
+	public String Carrito(Model model) {
+		model.addAttribute("items", items);
+		System.out.println(items.get(0).getProducto().getNombre());
 		return "checkout2";
 	}
-	
-	@RequestMapping(value="/bill", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/checkout2", method = RequestMethod.GET)
+	public String checkout2(Model model, @RequestParam("nombre") String nombre, @RequestParam("precio") float precio,
+			@RequestParam("unidadesExistentes") int unidadesExistentes) {
+		ItemCarrito ItemCarrito = new ItemCarrito();
+		Producto p = new Producto();
+		p.setNombre(nombre);
+		p.setPrecio(precio);
+		p.setUnidadesExistentes(unidadesExistentes);
+		ItemCarrito.setProducto(p);
+		ItemCarrito.setCantidad(1);
+
+		if (!existe(nombre)) {
+			items.add(ItemCarrito);
+		} else {
+			// incrementamos en 1 la cantidad
+			items.get(indexProducto(nombre)).setCantidad(ItemCarrito.getCantidad() + 1);
+		}
+
+		System.out.println(p.getNombre());
+		model.addAttribute("productos", productoBusiness.findAll());
+		return "index";
+	}
+
+	private int indexProducto(String nombre) {
+		for (int i = 0; i > items.size(); i++) {
+			if (nombre.equals(items.get(i).getProducto().getNombre())) {
+				return i;
+			}
+
+		}
+		return 0;
+	}
+
+	private boolean existe(String nombre) {
+		for (int i = 0; i > items.size(); i++) {
+			if (nombre.equals(items.get(i).getProducto().getNombre()))
+				return true;
+		}
+		return false;
+	}
+
+	@RequestMapping(value = "/bill", method = RequestMethod.GET)
 	public String bill() {
 		return "bill";
 	}
-	
-	@RequestMapping(value="/addCategory", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/addCategory", method = RequestMethod.GET)
 	public String addCategory(Model model) {
 		model.addAttribute("categoriaForm", new CategoriaForm());
 		return "addCategory";
 	}
-	
-	@RequestMapping(value="/addCategory", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/addCategory", method = RequestMethod.POST)
 	public String AgregarCategories(@Valid CategoriaForm categoriaForm, BindingResult br, Model model) {
-			if (br.hasErrors()) {
-				model.addAttribute("categoriaForm", categoriaForm);
-				return "addCategory";
-			} else {
-				CategoriaProducto categoria = new CategoriaProducto();
-				BeanUtils.copyProperties(categoriaForm, categoria);
-				categoriaBusiness.insert(categoria.getNombreCategoria());
-				return "success";
-			}
+		if (br.hasErrors()) {
+			model.addAttribute("categoriaForm", categoriaForm);
+			return "addCategory";
+		} else {
+			CategoriaProducto categoria = new CategoriaProducto();
+			BeanUtils.copyProperties(categoriaForm, categoria);
+			categoriaBusiness.insert(categoria.getNombreCategoria());
+			return "success";
 		}
-	
-	
-	@RequestMapping(value="/product", method = RequestMethod.GET)
-	public String Product(Model model, @RequestParam("nombre") String nombre, @RequestParam("precio") float precio, @RequestParam("descripcion")
-	 String descripcion, @RequestParam("unidadesExistentes") int unidadesExistentes) {
+	}
+
+	@RequestMapping(value = "/product", method = RequestMethod.GET)
+	public String Product(Model model, @RequestParam("nombre") String nombre, @RequestParam("precio") float precio,
+			@RequestParam("descripcion") String descripcion,
+			@RequestParam("unidadesExistentes") int unidadesExistentes) {
 		model.addAttribute("nombre", nombre);
 		model.addAttribute("precio", precio);
 		model.addAttribute("descripcion", descripcion);
 		model.addAttribute("unidadesExistentes", unidadesExistentes);
 		return "product";
 	}
-	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		return "login";
 	}
-	
-	@RequestMapping(value="/header", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/header", method = RequestMethod.GET)
 	public String header() {
 		return "header";
 	}
-	
-	@RequestMapping(value="/addProduct", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public String addProduct() {
 		return "addProduct";
 	}
-	
-	@RequestMapping(value="/productMaintenance", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/productMaintenance", method = RequestMethod.GET)
 	public String productMaintenance() {
 		return "productMaintenance";
 	}
-	@RequestMapping(value="/editProduct", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/editProduct", method = RequestMethod.GET)
 	public String editProduct() {
 		return "editProduct";
 	}
-	
-	@RequestMapping(value="/addClient", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/addClient", method = RequestMethod.GET)
 	public String addClient(Model model) {
 		model.addAttribute("roles", rolBusiness.findAll());
 		model.addAttribute("clienteForm", new ClienteForm());
 		return "addClient";
 	}
+
 	@RequestMapping(value = "/addClient", method = RequestMethod.POST)
 	public String agregar(@Valid ClienteForm clienteForm, BindingResult br, Model model) {
 		if (br.hasErrors()) {
@@ -137,27 +187,28 @@ public class HomeController {
 			return "success";
 		}
 	}
-	
-	@RequestMapping(value="/success", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String success() {
 		return "success";
 	}
-	@RequestMapping(value="/clientMaintenance", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/clientMaintenance", method = RequestMethod.GET)
 	public String clientMaintenance(Model model) {
 		model.addAttribute("clientes", clienteBusiness.findAll());
 		return "clientMaintenance";
 	}
-	
-	@RequestMapping(value="/clientMaintenance", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/clientMaintenance", method = RequestMethod.POST)
 	public String findClientByEmail(Model model, @RequestParam("correo") String correoCliente) {
 		model.addAttribute("clientes", clienteBusiness.findByEmail(correoCliente));
 		return "clientMaintenance";
 	}
-	
-	@RequestMapping(value="/editClient", method = RequestMethod.GET)
-	public String cargarClient(Model model, @RequestParam("idCliente") int idCliente,@RequestParam("contrasenaCliente") String contrasena,
-			@RequestParam("nombre") String nombre, @RequestParam("apellidos") String apellidos,
-			@RequestParam("correo") String correo) {
+
+	@RequestMapping(value = "/editClient", method = RequestMethod.GET)
+	public String cargarClient(Model model, @RequestParam("idCliente") int idCliente,
+			@RequestParam("contrasenaCliente") String contrasena, @RequestParam("nombre") String nombre,
+			@RequestParam("apellidos") String apellidos, @RequestParam("correo") String correo) {
 		model.addAttribute("idCliente", idCliente);
 		model.addAttribute("contrasenaCliente", contrasena);
 		model.addAttribute("nombre", nombre);
@@ -167,12 +218,13 @@ public class HomeController {
 		model.addAttribute("clienteForm", new ClienteForm());
 		return "editClient";
 	}
-	
-	@RequestMapping(value="/editClient", method = RequestMethod.POST)
-	public String editarCliente(@Valid ClienteForm clienteForm,Model model, @RequestParam("idCliente") int idCliente,@RequestParam("contrasenaCliente") String contrasena,
-			@RequestParam("nombre") String nombre, @RequestParam("apellidos") String apellidos,
-			@RequestParam("correo") String correo,@RequestParam("idRol") int idRol) {
-		Cliente cliente= new Cliente();
+
+	@RequestMapping(value = "/editClient", method = RequestMethod.POST)
+	public String editarCliente(@Valid ClienteForm clienteForm, Model model, @RequestParam("idCliente") int idCliente,
+			@RequestParam("contrasenaCliente") String contrasena, @RequestParam("nombre") String nombre,
+			@RequestParam("apellidos") String apellidos, @RequestParam("correo") String correo,
+			@RequestParam("idRol") int idRol) {
+		Cliente cliente = new Cliente();
 		cliente.getRol().setIdRol(clienteForm.getIdRol());
 		cliente.setIdCliente(idCliente);
 		cliente.setNombre(nombre);
@@ -181,23 +233,23 @@ public class HomeController {
 		cliente.setContrasenaCliente(contrasena);
 		clienteBusiness.update(cliente);
 		return "success";
-	}	
-	
+	}
+
 	@RequestMapping(value = "/deleteClient", method = RequestMethod.GET)
 	public String eliminarCliente(Model model, @RequestParam("idCliente") int idCliente) {
-		model.addAttribute("idCliente",idCliente);
+		model.addAttribute("idCliente", idCliente);
 		clienteBusiness.delete(idCliente);
 		return "success";
 	}
-	
-	@RequestMapping(value="/addEmployee", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
 	public String loadAddEmployee(Model model) {
 		model.addAttribute("roles", rolBusiness.findAll());
 		model.addAttribute("empleadoForm", new EmpleadoForm());
 		return "addEmployee";
 	}
-	
-	@RequestMapping(value="/addEmployee", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
 	public String addEmployee(@Valid EmpleadoForm empleadoForm, BindingResult br, Model model) {
 		if (br.hasErrors()) {
 			model.addAttribute("roles", rolBusiness.findAll());
@@ -211,16 +263,18 @@ public class HomeController {
 			return "success";
 		}
 	}
-	
-	@RequestMapping(value="/employeeMaintenance", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/employeeMaintenance", method = RequestMethod.GET)
 	public String employeeMaintenance(Model model) {
 		model.addAttribute("empleados", empleadoBusiness.findAll());
 		return "employeeMaintenance";
 	}
-	@RequestMapping(value="/editEmployee", method = RequestMethod.GET)
-	public String cargarEmployee(Model model, @RequestParam("idEmpleado") int idEmpleado,@RequestParam("contrasenaEmpleado") String contrasena,
-			@RequestParam("nombreEmpleado") String nombre, @RequestParam("apellidosEmpleado") String apellidosEmpleado,
-			@RequestParam("correoEmpleado") String correo,@RequestParam("telefonoOficina") String telefono,@RequestParam("departamento") String departamento) {
+
+	@RequestMapping(value = "/editEmployee", method = RequestMethod.GET)
+	public String cargarEmployee(Model model, @RequestParam("idEmpleado") int idEmpleado,
+			@RequestParam("contrasenaEmpleado") String contrasena, @RequestParam("nombreEmpleado") String nombre,
+			@RequestParam("apellidosEmpleado") String apellidosEmpleado, @RequestParam("correoEmpleado") String correo,
+			@RequestParam("telefonoOficina") String telefono, @RequestParam("departamento") String departamento) {
 		model.addAttribute("idEmpleado", idEmpleado);
 		model.addAttribute("telefonoOficina", telefono);
 		model.addAttribute("departamento", departamento);
@@ -232,12 +286,13 @@ public class HomeController {
 		model.addAttribute("empleadoForm", new EmpleadoForm());
 		return "editEmployee";
 	}
-	
-	@RequestMapping(value="/editEmployee", method = RequestMethod.POST)
-	public String editarEmployee(Model model, @RequestParam("idEmpleado") int idEmpleado,@RequestParam("contrasenaEmpleado") String contrasena,
-			@RequestParam("nombreEmpleado") String nombre, @RequestParam("apellidosEmpleado") String apellidosEmpleado,
-			@RequestParam("correoEmpleado") String correo,@RequestParam("telefonoOficina") String telefono,
-			@RequestParam("departamento") String departamento,@RequestParam("idRol") int idRol) {
+
+	@RequestMapping(value = "/editEmployee", method = RequestMethod.POST)
+	public String editarEmployee(Model model, @RequestParam("idEmpleado") int idEmpleado,
+			@RequestParam("contrasenaEmpleado") String contrasena, @RequestParam("nombreEmpleado") String nombre,
+			@RequestParam("apellidosEmpleado") String apellidosEmpleado, @RequestParam("correoEmpleado") String correo,
+			@RequestParam("telefonoOficina") String telefono, @RequestParam("departamento") String departamento,
+			@RequestParam("idRol") int idRol) {
 		Empleado empleado = new Empleado();
 		empleado.setNombreEmpleado(nombre);
 		empleado.setApellidosEmpleado(apellidosEmpleado);
@@ -250,81 +305,88 @@ public class HomeController {
 		empleadoBusiness.update(empleado);
 		return "success";
 	}
-	
+
 	@RequestMapping(value = "/deleteEmployee", method = RequestMethod.GET)
 	public String eliminarEmpleado(Model model, @RequestParam("idEmpleado") int idEmpleado) {
-		model.addAttribute("idEmpleado",idEmpleado);
+		model.addAttribute("idEmpleado", idEmpleado);
 		empleadoBusiness.delete(idEmpleado);
 		return "success";
 	}
-	
+
 	@RequestMapping(value = "/deleteCategory", method = RequestMethod.GET)
 	public String eliminarCategoria(Model model, @RequestParam("idCategoriaProducto") int idCategoriaProducto) {
-		model.addAttribute("idCategoriaProducto",idCategoriaProducto);
+		model.addAttribute("idCategoriaProducto", idCategoriaProducto);
 		categoriaBusiness.delete(idCategoriaProducto);
 		return "success";
 	}
-	
-	@RequestMapping(value="/addShippingAddress", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/addShippingAddress", method = RequestMethod.GET)
 	public String addShippingAddress() {
 		return "addShippingAddress";
 	}
-	@RequestMapping(value="/shippingAddressMaintenance", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/shippingAddressMaintenance", method = RequestMethod.GET)
 	public String shippingAddressMaintenance() {
 		return "shippingAddressMaintenance";
 	}
-	@RequestMapping(value="/editShippingAddress", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/editShippingAddress", method = RequestMethod.GET)
 	public String editShippingAddress() {
 		return "editShippingAddress";
 	}
-	
-	@RequestMapping(value="/categoryMaintenance", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/categoryMaintenance", method = RequestMethod.GET)
 	public String categoryMaintenance(Model model) {
 		model.addAttribute("categorias", categoriaBusiness.findAll());
 		return "categoryMaintenance";
 	}
-	
-	@RequestMapping(value="/categoryMaintenance", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/categoryMaintenance", method = RequestMethod.POST)
 	public String categoryMaintenance() {
 		return "categoryMaintenance";
 	}
-	
-	
-	@RequestMapping(value="/editCategory", method = RequestMethod.GET)
-	public String cargarCategory(Model model, @RequestParam("idCategoriaProducto") int idCategoria,@RequestParam("nombreCategoria") String nombreCategoria) {
+
+	@RequestMapping(value = "/editCategory", method = RequestMethod.GET)
+	public String cargarCategory(Model model, @RequestParam("idCategoriaProducto") int idCategoria,
+			@RequestParam("nombreCategoria") String nombreCategoria) {
 		model.addAttribute("idCategoriaProducto", idCategoria);
 		model.addAttribute("nombreCategoria", nombreCategoria);
 		return "editCategory";
 	}
-	
-	@RequestMapping(value="/editCategory", method = RequestMethod.POST)
-	public String editCategory(Model model, @RequestParam("idCategoriaProducto") int idCategoria,@RequestParam("nombreCategoria") String nombreCategoria) {
+
+	@RequestMapping(value = "/editCategory", method = RequestMethod.POST)
+	public String editCategory(Model model, @RequestParam("idCategoriaProducto") int idCategoria,
+			@RequestParam("nombreCategoria") String nombreCategoria) {
 		CategoriaProducto categoriaProducto = new CategoriaProducto();
 		categoriaProducto.setNombreCategoria(nombreCategoria);
 		categoriaProducto.setIdCategoriaProducto(idCategoria);
 		categoriaBusiness.update(categoriaProducto);
 		return "succes";
 	}
-		
-	@RequestMapping(value="/menuAdmin", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/menuAdmin", method = RequestMethod.GET)
 	public String menuAdmin() {
 		return "menuAdmin";
 	}
-	@RequestMapping(value="/addRol", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/addRol", method = RequestMethod.GET)
 	public String addRol() {
 		return "addRol";
 	}
-	@RequestMapping(value="/RolMaintenance", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/RolMaintenance", method = RequestMethod.GET)
 	public String RolMaintenance() {
 		return "RolMaintenance";
 	}
-	@RequestMapping(value="/addBrand", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/addBrand", method = RequestMethod.GET)
 	public String addBrand() {
 		return "addBrand";
 	}
-	@RequestMapping(value="/brandMaintenance", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/brandMaintenance", method = RequestMethod.GET)
 	public String brandMaintenance() {
 		return "brandMaintenance";
 	}
-	
+
 }
