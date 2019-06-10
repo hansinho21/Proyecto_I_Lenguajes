@@ -98,13 +98,16 @@ public class Producto {
 		this.iva = iva;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Producto [idProducto=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion
-				+ ", unidadesExistentes=" + unidadesExistentes + ", precio=" + precio + ", iva=" + iva 
-				+ ", marca=" + marca.getIdMarca() + ", categoria=" + categoria.getIdCategoriaProducto() + "]";
-	} 
+				+ ", precio=" + precio + ", unidadesExistentes=" + unidadesExistentes + ", iva=" + iva + ", descuento="
+				+ descuento + ", marca=" + marca + ", categoria=" + categoria + ", urlImagen=" + urlImagen + "]";
+	}
+
+
+	
+	
 	
 	
 	

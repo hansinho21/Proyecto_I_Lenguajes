@@ -43,7 +43,7 @@ public class ProductoData {
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Producto_Insert`(?,?,?,?,?,?,?,?,?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Producto_Insert`(?,?,?,?,?,?,?,?,?,?);");
 			cs.registerOutParameter(1, Types.INTEGER);
 			cs.setString(2, producto.getNombre());
 			cs.setString(3, producto.getDescripcion());
@@ -51,8 +51,9 @@ public class ProductoData {
 			cs.setInt(5, producto.getUnidadesExistentes());
 			cs.setBoolean(6, producto.isIva());
 			cs.setInt(7, producto.getDescuento());
-			cs.setInt(8, producto.getMarca().getIdMarca());
-			cs.setInt(9, producto.getCategoria().getIdCategoriaProducto());
+			cs.setString(8, producto.getUrlImagen());
+			cs.setInt(9, producto.getMarca().getIdMarca());
+			cs.setInt(10, producto.getCategoria().getIdCategoriaProducto());
 			
 			cs.executeUpdate();
 			
@@ -85,7 +86,7 @@ public class ProductoData {
 		try {
 			conexion = dataSource.getConnection();
 			conexion.setAutoCommit(false);
-			CallableStatement cs = conexion.prepareCall("CALL `Producto_Update`(?,?,?,?,?,?,?,?,?);");
+			CallableStatement cs = conexion.prepareCall("CALL `Producto_Update`(?,?,?,?,?,?,?,?,?,?);");
 			cs.setInt(1, producto.getIdProducto());
 			cs.setString(2, producto.getNombre());
 			cs.setString(3, producto.getDescripcion());
@@ -93,8 +94,9 @@ public class ProductoData {
 			cs.setInt(5, producto.getUnidadesExistentes());
 			cs.setBoolean(6, producto.isIva());
 			cs.setInt(7, producto.getDescuento());
-			cs.setInt(8, producto.getMarca().getIdMarca());
-			cs.setInt(9, producto.getCategoria().getIdCategoriaProducto());
+			cs.setString(8, producto.getUrlImagen());
+			cs.setInt(9, producto.getMarca().getIdMarca());
+			cs.setInt(10, producto.getCategoria().getIdCategoriaProducto());
 			
 			cs.executeUpdate();
 			
