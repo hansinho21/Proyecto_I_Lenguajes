@@ -58,6 +58,11 @@ public class HomeController {
 		return "checkout2";
 	}
 	
+	@RequestMapping(value="/bill", method = RequestMethod.GET)
+	public String bill() {
+		return "bill";
+	}
+	
 	@RequestMapping(value="/addCategory", method = RequestMethod.GET)
 	public String addCategory(Model model) {
 		model.addAttribute("categoriaForm", new CategoriaForm());
@@ -91,6 +96,11 @@ public class HomeController {
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login() {
 		return "login";
+	}
+	
+	@RequestMapping(value="/header", method = RequestMethod.GET)
+	public String header() {
+		return "header";
 	}
 	
 	@RequestMapping(value="/addProduct", method = RequestMethod.GET)

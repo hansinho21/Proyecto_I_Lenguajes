@@ -71,8 +71,12 @@
 					<div class="col-md-6">
 						<div class="header-search">
 							<form>
-								<input class="input" placeholder="Search here">
-								<button class="search-btn">Buscar</button>
+								<select class="input-select">
+									<option value="0">All Categories</option>
+									<option value="1">Category 01</option>
+									<option value="1">Category 02</option>
+								</select> <input class="input" placeholder="Search here">
+								<button class="search-btn">Search</button>
 							</form>
 						</div>
 					</div>
@@ -114,7 +118,6 @@
 				<!-- NAV -->
 				<ul class="main-nav nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="category">Hot Deals</a></li>
 					<li><a href="category">Laptops</a></li>
 					<li><a href="category">Smartphones</a></li>
 					<li><a href="category">Accessories</a></li>
@@ -213,88 +216,93 @@
 							<!-- tab -->
 							<div id="tab1" class="tab-pane active">
 								<div class="products-slick" data-nav="#slick-nav-1">
-<!-- -------------------------------------------------------product-------------------------------------------------------------------------- -->
-									<div th:each="producto: ${productos}"> 
-									
-									<div class="product">
-										<div class="product-img">
-											<img src="./img/product01.png" alt="">
-										</div>
-										<div class="product-body">
-											<h3 class="product-name">
-												<a href="product" th:href="@{/product(nombre=${producto.nombre},precio=${producto.precio},
-												descripcion=${producto.descripcion},unidadesExistentes=${producto.unidadesExistentes})}" 
-												th:text="${producto.nombre}"></a>
-											</h3>
-											<h4 class="product-price" th:text="${producto.precio}">
-											</h4>
+									<!-- -------------------------------------------------------product-------------------------------------------------------------------------- -->
+									<div th:each="producto: ${productos}">
 
-											<div class="product-btns"></div>
-										</div>
-										<div class="add-to-cart">
-											<button class="add-to-cart-btn">
-												<i class="fa fa-shopping-cart"></i> add to cart
-											</button>
+										<div class="product">
+											<div class="product-img">
+												<img src="./img/product01.png" alt="">
+											</div>
+											<div class="product-body">
+												<h3 class="product-name">
+													<a href="product"
+														th:href="@{/product(nombre=${producto.nombre},precio=${producto.precio},
+												descripcion=${producto.descripcion},unidadesExistentes=${producto.unidadesExistentes})}"
+														th:text="${producto.nombre}"></a>
+												</h3>
+												<h4 class="product-price" th:text="${producto.precio}">
+												</h4>
+
+												<div class="product-btns"></div>
+											</div>
+											<div class="add-to-cart">
+												<button class="add-to-cart-btn">
+													<i class="fa fa-shopping-cart"></i> add to cart
+												</button>
+											</div>
 										</div>
 									</div>
-									</div>
-	<!-- -----------------------------------------------------/product------------------------------------------------------------------------ -->
-					
+									<!-- -----------------------------------------------------/product------------------------------------------------------------------------ -->
 
-									<!-- /Products tab & slick -->
 								</div>
-								<!-- /row -->
 							</div>
-							<!-- /container -->
 						</div>
-						<!-- /SECTION -->
-						<!-- FOOTER -->
-						<br><br><br>
-						<footer id="footer">
-							<!-- top footer -->
-							<div class="section">
-								<!-- container -->
-								<div class="container">
-									<!-- row -->
-									<div class="row">
-										<div class="col-md-3 col-xs-6">
-											<div class="footer">
-												<h3 class="footer-title">About Us</h3>
-												<ul class="footer-links">
-													<li><a href="#"><i class="fa fa-map-marker"></i>
-															Cartago, Costa Rica</a></li>
-													<li><a href="#"><i class="fa fa-phone"></i>+506-8504-1038</a></li>
-													<li><a href="#"><i class="fa fa-envelope-o"></i>tecnojhj@outlook.com</a></li>
-												</ul>
-											</div>
-										</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-										<div class="col-md-3 col-xs-6">
-											<div class="footer">
-												<h3 class="footer-title">Service</h3>
-												<ul class="footer-links">
-													<li><a href="#">My Account</a></li>
-													<li><a href="#">View Cart</a></li>
-													<li><a href="#">Wishlist</a></li>
-													<li><a href="#">Track My Order</a></li>
-													<li><a href="#">Help</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<!-- /row -->
-								</div>
-								<!-- /container -->
-							</div>
-							<!-- /top footer -->
+	<!-- /SECTION -->
+	<!-- FOOTER -->
+	<br>
+	<br>
+	<br>
+	<footer id="footer">
+		<!-- top footer -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">About Us</h3>
+							<ul class="footer-links">
+								<li><a href="#"><i class="fa fa-map-marker"></i>
+										Cartago, Costa Rica</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i>+506-8504-1038</a></li>
+								<li><a href="#"><i class="fa fa-envelope-o"></i>tecnojhj@outlook.com</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-xs-6">
+						<div class="footer">
+							<h3 class="footer-title">Service</h3>
+							<ul class="footer-links">
+								<li><a href="#">My Account</a></li>
+								<li><a href="#">View Cart</a></li>
+								<li><a href="#">Wishlist</a></li>
+								<li><a href="#">Track My Order</a></li>
+								<li><a href="#">Help</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /top footer -->
 
 
-							<!-- jQuery Plugins -->
-							<script src="js/jquery.min.js"></script>
-							<script src="js/bootstrap.min.js"></script>
-							<script src="js/slick.min.js"></script>
-							<script src="js/nouislider.min.js"></script>
-							<script src="js/jquery.zoom.min.js"></script>
-							<script src="js/main.js"></script>
+		<!-- jQuery Plugins -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/slick.min.js"></script>
+		<script src="js/nouislider.min.js"></script>
+		<script src="js/jquery.zoom.min.js"></script>
+		<script src="js/main.js"></script>
 </body>
 </html>
