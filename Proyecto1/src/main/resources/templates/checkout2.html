@@ -94,6 +94,9 @@
 					<strong style="position: absolute; top: 29%; left: 33%">CANTIDAD</strong>
 				</div>
 				<div>
+					<strong style="position: absolute; top: 29%; left: 63%">ACCIÓN</strong>
+				</div>
+				<div>
 					<strong>TOTAL</strong>
 				</div>
 			</div>
@@ -104,6 +107,12 @@
 						<div class="numbers-row">
 							<input type="text" th:value="${itemCarrito.cantidad}" style="left:24%">
 						</div>
+						<div> 
+						<a  class="add-to-cart-btn" 
+						th:href="@{/deleteFromCarrito(idProducto=${itemCarrito.producto.idProducto},nombre=${itemCarrito.producto.nombre},
+						precio=${itemCarrito.producto.precio}, unidadesExistentes=${itemCarrito.producto.unidadesExistentes})}">eliminar</a>
+						</div>
+						
 						<div th:text="${itemCarrito.producto.precio}"></div>
 					</div>
 				</div>

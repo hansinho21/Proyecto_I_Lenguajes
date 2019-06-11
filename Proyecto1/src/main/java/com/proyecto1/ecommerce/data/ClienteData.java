@@ -167,6 +167,7 @@ class ClienteWithIdExtractor implements ResultSetExtractor<List<Cliente>> {
 			cliente.setNombre(rs.getString("nombre"));
 			cliente.setApellidos(rs.getString("apellidos"));
 			cliente.getRol().setIdRol(rs.getInt("id_rol"));
+			cliente.getRol().setTipo(rs.getString("tipo"));
 			list.add(cliente);
 		}
 
