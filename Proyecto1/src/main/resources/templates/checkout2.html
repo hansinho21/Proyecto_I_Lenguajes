@@ -91,7 +91,7 @@
 					<strong>PRODUCTO</strong>
 				</div>
 				<div>
-					<strong style="position: absolute; top: 29%; left: 55%">CANTIDAD</strong>
+					<strong style="position: absolute; top: 29%; left: 33%">CANTIDAD</strong>
 				</div>
 				<div>
 					<strong>TOTAL</strong>
@@ -100,9 +100,9 @@
 			<div class="order-products">
 				<div th:each="itemCarrito: ${items}">
 					<div class="order-col">
-						<div th:text="${itemCarrito.producto.nombre}"></div>
+						<div th:text="${itemCarrito.producto.nombre}" style="width: 300px"></div>
 						<div class="numbers-row">
-							<input type="text" th:text="${itemCarrito.cantidad}">
+							<input type="text" th:value="${itemCarrito.cantidad}" style="left:24%">
 						</div>
 						<div th:text="${itemCarrito.producto.precio}"></div>
 					</div>
@@ -120,8 +120,7 @@
 		</div>
 
 
-		<br> <a href="login" class="primary-btn order-submit">Place
-			order</a>
+		<br> <a href="myAcount" class="primary-btn order-submit">Next</a>
 	</div>
 	<!-- /Order Details -->
 

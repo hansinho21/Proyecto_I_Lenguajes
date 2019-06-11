@@ -44,8 +44,11 @@ public class HomeController {
 	private CategoriaProductoBusiness categoriaBusiness;
 	@Autowired
 	private ProductoBusiness productoBusiness;
+	private List<ItemCarrito> items;
 
-	private List<ItemCarrito> items = new LinkedList<ItemCarrito>();
+	public HomeController(List<ItemCarrito> items) {
+		this.items = new LinkedList<>();
+	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String Home(Model model) {
@@ -61,50 +64,61 @@ public class HomeController {
 	@RequestMapping(value = "/carrito", method = RequestMethod.GET)
 	public String Carrito(Model model) {
 		model.addAttribute("items", items);
-		System.out.println(items.get(0).getProducto().getNombre());
 		return "checkout2";
 	}
 
 	@RequestMapping(value = "/checkout2", method = RequestMethod.GET)
-	public String checkout2(Model model, @RequestParam("nombre") String nombre, @RequestParam("precio") float precio,
+	public String checkout2(Model model, @RequestParam("idProducto") int idProducto,
+			@RequestParam("nombre") String nombre, @RequestParam("precio") float precio,
 			@RequestParam("unidadesExistentes") int unidadesExistentes) {
-		ItemCarrito ItemCarrito = new ItemCarrito();
+		ItemCarrito itemCarrito = new ItemCarrito();
 		Producto p = new Producto();
+		float total=0;
+		p.setIdProducto(idProducto);
 		p.setNombre(nombre);
 		p.setPrecio(precio);
 		p.setUnidadesExistentes(unidadesExistentes);
-		ItemCarrito.setProducto(p);
-		ItemCarrito.setCantidad(1);
-
-		if (!existe(nombre)) {
-			items.add(ItemCarrito);
-		} else {
-			// incrementamos en 1 la cantidad
-			items.get(indexProducto(nombre)).setCantidad(ItemCarrito.getCantidad() + 1);
+		itemCarrito.setProducto(p);
+		itemCarrito.setPrecioUnitario(precio);
+		itemCarrito.setCantidad(1);
+		if (items.size() > 0) {
+			if (existe(idProducto)==false) {
+				items.add(itemCarrito);
+			} else { // incrementamos en 1 la cantidad
+				items.get(indexProducto(idProducto)).setCantidad(items.get(indexProducto(idProducto)).getCantidad()+1);
+			}
+		}else {
+			items.add(itemCarrito);
 		}
-
-		System.out.println(p.getNombre());
 		model.addAttribute("productos", productoBusiness.findAll());
+		total = total(items, total);
+		model.addAttribute("total", total);
 		return "index";
 	}
 
-	private int indexProducto(String nombre) {
-		for (int i = 0; i > items.size(); i++) {
-			if (nombre.equals(items.get(i).getProducto().getNombre())) {
+	private int indexProducto(int idProducto) {
+		for (int i = 0; i < items.size(); i++) {
+			if (idProducto==items.get(i).getProducto().getIdProducto()) {
 				return i;
 			}
-
 		}
 		return 0;
 	}
 
-	private boolean existe(String nombre) {
-		for (int i = 0; i > items.size(); i++) {
-			if (nombre.equals(items.get(i).getProducto().getNombre()))
+	private boolean existe(int idProducto) {
+		for (int i = 0; i < items.size(); i++) {
+			if (idProducto==items.get(i).getProducto().getIdProducto())
 				return true;
 		}
 		return false;
 	}
+	
+	private float total(List<ItemCarrito> items, float total) {
+		  for (int i = 0; i < items.size(); i++) {
+		   total = total + (items.get(i).getCantidad() * items.get(i).getPrecioUnitario());
+		  }
+		  return total;
+		 }
 
 	@RequestMapping(value = "/bill", method = RequestMethod.GET)
 	public String bill() {
