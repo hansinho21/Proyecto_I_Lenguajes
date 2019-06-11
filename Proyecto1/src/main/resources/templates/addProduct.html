@@ -72,9 +72,7 @@
 			<div class="row">
 
 				<div class="col-md-7">
-
-					<!-- Billing Details -->
-					<div class="billing-details">
+					<form action="#" th:object="${productoForm}">
 						<div class="form-group">
 							<label>Nombre:</label> <br> <input class="input" type="text"
 								style="width: 300px; height: 40px" id="nombreProducto"
@@ -85,65 +83,64 @@
 								style="width: 300px; height: 40px" type="text" id="descripcion"
 								name="descripcion" placeholder="Descripción">
 						</div>
-					</div>
-					<div class="form-group">
-						<label>Unidades existentes:</label> <br> <input
-							style="width: 300px; height: 40px" type="text" id="unidades"
-							name="unidades" placeholder="Unidades existentes">
-					</div>
-					<div class="form-group">
-						<label class="text-left">Precio:</label> <br> <input
-							style="width: 300px; height: 40px" type="text" id="precio"
-							name="precio" placeholder="Precio">
-					</div>
-					<div class="form-group">
-						<label>IVA:</label> <br> 
-							<select style="width: 100px; height: 40px" type="text" id="iva"
-							name="iva" class="input-select">
-							<option value="0">0%</option>
-							<option value="1">13%</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label
-							style="height: 200px; width: 250px; position: absolute; top: 16%; left: 95%">Url
-							imagen:</label> <br> <input
-							style="width: 300px; height: 40px; position: absolute; top: 22%; left: 95%"
-							type="text" id="imagen" name="imagen" placeholder="Imagen">
-					</div>
-					<div class="form-group">
-						<label
-							style="height: 200px; width: 250px; position: absolute; top: 0%; left: 95%">Marca:</label>
-						<select style="position: absolute; top: 5%; left: 95%"
-							class="input-select">
-							<option value="0">All Categories</option>
-							<option value="1">Category 01</option>
-							<option value="1">Category 02</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label
-							style="height: 200px; width: 250px; position: absolute; top: 37%; left: 95%">Categoria:</label>
-						<select style="position: absolute; top: 43%; left: 95%"
-							class="input-select">
-							<option value="0">All Categories</option>
-							<option value="1">Category 01</option>
-							<option value="1">Category 02</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label
-							style="height: 200px; width: 250px; position: absolute; top: 57%; left: 95%">Descuento:</label>
-						<select style="position: absolute; top: 63%; left: 95%"
-							class="input-select">
-							<option value="0">--</option>
-							<option value="1">15%</option>
-							<option value="1">25%</option>
-						</select>
-					</div>
-					<a href="checkout" class="primary-btn order-submit"
-						style="width: 150px; height: 54px; position: absolute; top: 78%; left: 95%">Añadir
-						producto</a>
+						<div class="form-group">
+							<label>Unidades existentes:</label> <br> <input
+								style="width: 300px; height: 40px" type="text" id="unidadesExistentes"
+								name="unidades" placeholder="Unidades existentes">
+						</div>
+						<div class="form-group">
+							<label class="text-left">Precio:</label> <br> <input
+								style="width: 300px; height: 40px" type="text" id="precio"
+								name="precio" placeholder="Precio">
+						</div>
+						<div class="form-group">
+							<label>IVA:</label> <br> <select
+								style="width: 100px; height: 40px" type="text" id="iva"
+								name="iva" class="input-select">
+								<option value="0">0%</option>
+								<option value="1">13%</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label
+								style="height: 200px; width: 250px; position: absolute; top: 16%; left: 95%">Url
+								imagen:</label> <br> <input
+								style="width: 300px; height: 40px; position: absolute; top: 22%; left: 95%"
+								type="text" id="imagen" name="imagen" placeholder="Imagen">
+						</div>
+						<div class="form-group">
+							<label
+								style="height: 200px; width: 250px; position: absolute; top: 0%; left: 95%">Marca:</label>
+							<select style="width: 300px; height: 40px; position: absolute; top: 5%; left: 95%"
+								th:field="*{idMarca}"
+								id="marcas">
+								<option th:each="marcaActual:${marcas}"
+									th:value="${marcaActual.idMarca}" th:text="${marcaActual.nombreMarca}"></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label style="height: 200px; width: 250px; position: absolute; top: 32%; left: 95%">Categoria:</label> <br> 
+							<select style="width: 300px; height: 40px; position: absolute; top: 37%; left: 95%"
+								th:field="*{idCategoria}"
+								id="categorias">
+								<option th:each="categoriaActual:${categorias}"
+									th:value="${categoriaActual.idCategoriaProducto}" th:text="${categoriaActual.nombreCategoria}"></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label
+								style="height: 200px; width: 250px; position: absolute; top: 57%; left: 95%">Descuento:</label>
+							<select style="width: 300px; height: 40px; position: absolute; top: 63%; left: 95%"
+								th:field="*{descuento}" id="descuento">
+								<option value="0">--</option>
+								<option value="15">15%</option>
+								<option value="25">25%</option>
+							</select>
+						</div>
+						<a type="submit" class="primary-btn order-submit"
+							style="width: 150px; height: 54px; position: absolute; top: 78%; left: 95%">Añadir
+							producto</a>
+					</form>
 				</div>
 			</div>
 		</div>

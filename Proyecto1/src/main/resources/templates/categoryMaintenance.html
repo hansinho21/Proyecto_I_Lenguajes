@@ -69,7 +69,8 @@
 					<td><span th:text="${categoria.idCategoriaProducto}"></span></td>
 					<td><span th:text="${categoria.nombreCategoria}"></span></td>
 					<td><a type="submit" th:href="@{/deleteCategory(idCategoriaProducto=${categoria.idCategoriaProducto})}">eliminar</td>
-					<td>modificar</td>
+					<td><a type="submit" th:href="@{/editCategory(idCategoriaProducto=${categoria.idCategoriaProducto},
+					nombreCategoria=${categoria.nombreCategoria})}">modificar</td>
 					
 				</tr>
 			</table>

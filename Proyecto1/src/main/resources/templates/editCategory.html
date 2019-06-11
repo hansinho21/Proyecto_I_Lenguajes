@@ -71,30 +71,33 @@
 			<!-- row -->
 			<div class="row">
 
-				<div class="col-md-7">
-					<form action="#" th:object="${categoriaForm}"
-						th:action="@{/editCategory}" method="POST">
-						<div class="form-group">
+				<form action="#" th:object="${categoriaForm}"
+					th:action="@{/editCategory}" method="POST">
 
-							<label>Id categoría:</label> <br> <input class="input"
-								type="text" style="width: 300px; height: 40px"
-								id="nombreCategoria" th:value="${idCategoria}"
-								name="nombreCategoria" placeholder="Nombre"> <label>Nombre
-								categoría:</label> <br> <input class="input" type="text"
-								style="width: 300px; height: 40px" id="nombreCategoria"
-								th:value="${nombreCategoria}" name="nombreCategoria"
-								placeholder="Nombre"> <input type="submit"
-								value="Editar" class="primary-btn order-submit">
-					</form>
-				</div>
+					<div class="form-group">
+
+						<label>Id categoría:</label> <br> <input readonly class="input"
+							type="text" style="width: 300px; height: 40px"
+							id="idCategoriaProducto" th:value="${idCategoriaProducto}"
+							name="idCategoriaProducto" placeholder="ID Categoria"> 
+							<br> <br>
+						<label>Nombre categoría:</label> <br> <input class="input" type="text"
+							style="width: 300px; height: 40px" id="nombreCategoria"
+							th:value="${nombreCategoria}" name="nombreCategoria"
+							placeholder="Nombre">
+							<br> <br>	
+						 <input type="submit" value="Editar"
+						class="primary-btn order-submit">
+				</form>
 			</div>
+		</div>
 
-			<!-- jQuery Plugins -->
-			<script src="js/jquery.min.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/slick.min.js"></script>
-			<script src="js/nouislider.min.js"></script>
-			<script src="js/jquery.zoom.min.js"></script>
-			<script src="js/main.js"></script>
+		<!-- jQuery Plugins -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/slick.min.js"></script>
+		<script src="js/nouislider.min.js"></script>
+		<script src="js/jquery.zoom.min.js"></script>
+		<script src="js/main.js"></script>
 </body>
 </html>
