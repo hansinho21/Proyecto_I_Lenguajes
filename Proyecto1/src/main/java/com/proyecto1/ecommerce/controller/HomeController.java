@@ -35,14 +35,6 @@ import com.proyecto1.ecommerce.form.EmpleadoForm;
 public class HomeController {
 
 	@Autowired
-	private RolBusiness rolBusiness;
-	@Autowired
-	private ClienteBusiness clienteBusiness;
-	@Autowired
-	private EmpleadoBusiness empleadoBusiness;
-	@Autowired
-	private CategoriaProductoBusiness categoriaBusiness;
-	@Autowired
 	private ProductoBusiness productoBusiness;
 	private List<ItemCarrito> items;
 
