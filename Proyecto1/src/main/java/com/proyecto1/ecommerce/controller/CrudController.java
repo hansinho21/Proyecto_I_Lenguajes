@@ -19,8 +19,7 @@ import com.proyecto1.ecommerce.business.ClienteBusiness;
 import com.proyecto1.ecommerce.business.EmpleadoBusiness;
 import com.proyecto1.ecommerce.business.ProductoBusiness;
 import com.proyecto1.ecommerce.business.RolBusiness;
-import com.proyecto1.ecommerce.data.ClienteData;
-import com.proyecto1.ecommerce.domain.Carrito;
+
 import com.proyecto1.ecommerce.domain.CategoriaProducto;
 import com.proyecto1.ecommerce.domain.Cliente;
 import com.proyecto1.ecommerce.domain.Empleado;
