@@ -50,9 +50,7 @@
 					<li><a href="#"><i class="fa fa-map-marker"></i> Cartago,
 							Costa Rica</a></li>
 				</ul>
-				<ul class="header-links pull-right">
-					<li><a href="login"><i class="fa fa-user-o"></i> login</a></li>
-				</ul>
+
 			</div>
 		</div>
 		<!-- /TOP HEADER -->
@@ -88,54 +86,64 @@
 		<!-- container -->
 		<div class="container">
 			<!-- row -->
+			
+			
 			<div class="row">
 
 				<div class="col-md-7">
-					<!-- Billing Details -->
-					<div class="billing-details">
+				
+				<form action="#" th:object="${direccionEnvioForm}"
+							th:action="@{/myAcount}" method="POST">
 						<div class="section-title">
 							<h3 class="title">Billing address</h3>
 						</div>
-						<div class="form-group">
-							<input class="input" type="text" name="direccion"
-								placeholder="Dirección exacta" style="width: 500px; height: 40px">
-						</div>
-						<div class="form-group">
-							<input class="input" type="text" name="ciudad"
-								placeholder="Ciudad" style="width: 500px; height: 40px">
-						</div>
-						<div class="form-group">
-							<input class="input" type="text" name="provincia"
-								placeholder="Provincia" style="width: 500px; height: 40px">
-						</div>
-						<div class="form-group">
-							<input class="input" type="text" name="codigoPostal"
-								placeholder="Código postal" style="width: 500px; height: 40px">
-						</div>
-						<div class="form-group">
-							<input class="input" type="text" name="telefono" placeholder="Teléfono"
-								style="width: 500px; height: 40px">
-						</div>
-						<div class="form-group">
-							<input class="input" type="text" name="telefono2"
-								placeholder="Teléfono 2" style="width: 500px; height: 40px">
-						</div>
-					</div>
-				</div>
-				<br><br><br><br>
-				
-				</div>
-				<a href="bill" class="primary-btn order-submit">Place Order</a>
+						
+							<div class="form-group">
+								<input class="input" type="text" name="direccion"
+									placeholder="Dirección exacta" th:field="*{direccion}"
+									style="width: 500px; height: 40px">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="ciudad" th:field="*{ciudad}"
+									placeholder="Ciudad" style="width: 500px; height: 40px">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="provincia" th:field="*{provincia}"
+									placeholder="Provincia" style="width: 500px; height: 40px">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="codigoPostal" th:field="*{codigoPostal}"
+									placeholder="Código postal" style="width: 500px; height: 40px">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="telefono" th:field="*{telefono}"
+									placeholder="Teléfono" style="width: 500px; height: 40px">
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="telefono2" th:field="*{telefono2}"
+									placeholder="Teléfono 2" style="width: 500px; height: 40px">
+							</div>
+					<input type="submit" value="Place Order"
+							class="primary-btn order-submit">
+				</form>
+				</div>				
 			</div>
-			<!-- /Billing Details -->
-
-
-
-
-
-			<!-- /row -->
 		</div>
-		<!-- /container -->
+		<br>
+		<br>
+		<br>
+		<br>
+
+
+		<!-- /Billing Details -->
+
+
+
+
+
+		<!-- /row -->
+	</div>
+	<!-- /container -->
 	</div>
 	<!-- /SECTION -->
 

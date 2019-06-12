@@ -9,11 +9,18 @@ public class DireccionEnvioForm {
 	@NotNull
 	private String direccion;
 	@NotNull
+	private String ciudad;
+	@NotNull
 	private String Provincia;
 	@NotNull
 	private int codigoPostal;
 	@NotNull
 	private String telefono;
+
+	private String telefono2;
+	@NotNull
+	private int idCliente;
+	
 	public DireccionEnvioForm() {
 	}
 	public int getIdDireccion() {
@@ -46,6 +53,25 @@ public class DireccionEnvioForm {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	public String getCiudad() {
+		return ciudad;
+	}
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+	public String getTelefono2() {
+		return telefono2;
+	}
+	public void setTelefono2(String telefono2) {
+		this.telefono2 = telefono2;
+	}
+	public int getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+	
 	
 
 	

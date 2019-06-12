@@ -27,6 +27,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.proyecto1.ecommerce.business.CategoriaProductoBusiness;
 import com.proyecto1.ecommerce.business.ClienteBusiness;
+import com.proyecto1.ecommerce.business.DireccionEnvioBusiness;
 import com.proyecto1.ecommerce.business.EmpleadoBusiness;
 import com.proyecto1.ecommerce.business.ProductoBusiness;
 import com.proyecto1.ecommerce.business.RolBusiness;
@@ -34,13 +35,16 @@ import com.proyecto1.ecommerce.data.ClienteData;
 import com.proyecto1.ecommerce.domain.Carrito;
 import com.proyecto1.ecommerce.domain.CategoriaProducto;
 import com.proyecto1.ecommerce.domain.Cliente;
+import com.proyecto1.ecommerce.domain.DireccionEnvio;
 import com.proyecto1.ecommerce.domain.Empleado;
 import com.proyecto1.ecommerce.domain.ItemCarrito;
 import com.proyecto1.ecommerce.domain.Producto;
 import com.proyecto1.ecommerce.domain.Rol;
 import com.proyecto1.ecommerce.form.CategoriaForm;
 import com.proyecto1.ecommerce.form.ClienteForm;
+import com.proyecto1.ecommerce.form.DireccionEnvioForm;
 import com.proyecto1.ecommerce.form.EmpleadoForm;
+import com.proyecto1.ecommerce.form.ProductoForm;
 import com.proyecto1.ecommerce.pdf.util.GeneratePDFReport;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -51,6 +55,8 @@ public class HomeController {
 	private ProductoBusiness productoBusiness;
 	@Autowired
 	private ClienteBusiness clienteBusiness;
+	@Autowired 
+	DireccionEnvioBusiness direccionEnvioBusiness;
 	private List<ItemCarrito> items;
 
 	public HomeController(List<ItemCarrito> items) {
@@ -84,8 +90,23 @@ public class HomeController {
 		 }
 
 	@RequestMapping(value = "/myAcount", method = RequestMethod.GET)
-	public String Acount() {
+	public String addProduct(Model model) {
+		model.addAttribute("direccionEnvioForm", new DireccionEnvioForm());
 		return "checkout";
+	}
+	
+	@RequestMapping(value = "/myAcount", method = RequestMethod.POST)
+	public String checkout(@Valid DireccionEnvioForm direccionEnvioForm, BindingResult br, Model model) {
+		if (br.hasErrors()) {
+			model.addAttribute("direccionEnvioForm", new DireccionEnvioForm());
+			return "checkout";
+		} else {
+			DireccionEnvio direccionEnvio = new DireccionEnvio();
+			BeanUtils.copyProperties(direccionEnvioForm, direccionEnvio);
+			direccionEnvio.getCliente().setIdCliente(3);
+			direccionEnvioBusiness.insert(direccionEnvio);
+			return "bill";
+		}
 	}
 
 	
@@ -115,6 +136,21 @@ public class HomeController {
 	}
 	
 	
+	/*@RequestMapping(value = "/addShippingAdress", method = RequestMethod.POST)
+	public String checkout(@Valid DireccionEnvioForm direccionEnvioForm, BindingResult br, Model model) {
+		if (br.hasErrors()) {
+			model.addAttribute("direccionEnvioForm", new DireccionEnvioForm());
+			return "checkout";
+		} else {
+			DireccionEnvio direccionEnvio = new DireccionEnvio();
+			BeanUtils.copyProperties(direccionEnvioForm, direccionEnvio);
+			direccionEnvio.getCliente().setIdCliente(3);
+			direccionEnvioBusiness.insert(direccionEnvio);
+			return "bill";
+		}
+	}
+	
+	*/
 	@RequestMapping(value = "/carrito", method = RequestMethod.GET)
 	public String Carrito(Model model) {
 		model.addAttribute("items", items);
