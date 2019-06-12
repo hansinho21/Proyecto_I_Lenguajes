@@ -26,12 +26,15 @@ import com.proyecto1.ecommerce.domain.CategoriaProducto;
 import com.proyecto1.ecommerce.domain.Cliente;
 import com.proyecto1.ecommerce.domain.Empleado;
 import com.proyecto1.ecommerce.domain.ItemCarrito;
+import com.proyecto1.ecommerce.domain.Marca;
 import com.proyecto1.ecommerce.domain.Producto;
 import com.proyecto1.ecommerce.domain.Rol;
 import com.proyecto1.ecommerce.form.CategoriaForm;
 import com.proyecto1.ecommerce.form.ClienteForm;
 import com.proyecto1.ecommerce.form.EmpleadoForm;
+import com.proyecto1.ecommerce.form.MarcaForm;
 import com.proyecto1.ecommerce.form.ProductoForm;
+import com.proyecto1.ecommerce.form.RolForm;
 
 @Controller
 public class CrudController {
@@ -55,11 +58,11 @@ public class CrudController {
 	public String success() {
 		return "success";
 	}
-	
+
 	/*
 	 * CATEGORY
 	 */
-	
+
 	@RequestMapping(value = "/addCategory", method = RequestMethod.GET)
 	public String addCategory(Model model) {
 		model.addAttribute("categoriaForm", new CategoriaForm());
@@ -78,14 +81,14 @@ public class CrudController {
 			return "success";
 		}
 	}
-	
+
 	@RequestMapping(value = "/deleteCategory", method = RequestMethod.GET)
 	public String eliminarCategoria(Model model, @RequestParam("idCategoriaProducto") int idCategoriaProducto) {
 		model.addAttribute("idCategoriaProducto", idCategoriaProducto);
 		categoriaBusiness.delete(idCategoriaProducto);
 		return "success";
 	}
-	
+
 	@RequestMapping(value = "/categoryMaintenance", method = RequestMethod.GET)
 	public String categoryMaintenance(Model model) {
 		model.addAttribute("categorias", categoriaBusiness.findAll());
@@ -126,7 +129,7 @@ public class CrudController {
 		model.addAttribute("productoForm", new ProductoForm());
 		return "addProduct";
 	}
-	
+
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
 	public String addProducto(@Valid ProductoForm productoForm, BindingResult br, Model model) {
 		if (br.hasErrors()) {
@@ -149,7 +152,7 @@ public class CrudController {
 		model.addAttribute("productos", productoBusiness.findAll());
 		return "productMaintenance";
 	}
-	
+
 	@RequestMapping(value = "/productMaintenance", method = RequestMethod.POST)
 	public String productMaintenance() {
 		return "productMaintenance";
@@ -159,7 +162,7 @@ public class CrudController {
 	public String editProduct() {
 		return "editProduct";
 	}
-	
+
 	@RequestMapping(value = "/deleteProduct", method = RequestMethod.GET)
 	public String eliminarProducto(Model model, @RequestParam("idProducto") int idCategoriaProducto) {
 		model.addAttribute("idProducto", idCategoriaProducto);
@@ -170,7 +173,7 @@ public class CrudController {
 	/*
 	 * CLIENT
 	 */
-	
+
 	@RequestMapping(value = "/addClient", method = RequestMethod.GET)
 	public String addClient(Model model) {
 		model.addAttribute("roles", rolBusiness.findAll());
@@ -243,9 +246,9 @@ public class CrudController {
 	}
 
 	/*
-	 * EMPLOYEE 
+	 * EMPLOYEE
 	 */
-	
+
 	@RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
 	public String loadAddEmployee(Model model) {
 		model.addAttribute("roles", rolBusiness.findAll());
@@ -327,7 +330,8 @@ public class CrudController {
 	}
 
 	@RequestMapping(value = "/shippingAddressMaintenance", method = RequestMethod.GET)
-	public String shippingAddressMaintenance() {
+	public String shippingAddressMaintenance(Model model) {
+		model.addAttribute("direcciones", direccionEnvioBusiness.findAll());
 		return "shippingAddressMaintenance";
 	}
 
@@ -336,33 +340,120 @@ public class CrudController {
 		return "editShippingAddress";
 	}
 
+	@RequestMapping(value = "/deleteShippingAddress", method = RequestMethod.GET)
+	public String eliminarShippingAddress(Model model, @RequestParam("idDireccion") int idDireccion) {
+		model.addAttribute("idDireccion", idDireccion);
+		direccionEnvioBusiness.delete(idDireccion);
+		return "success";
+	}
+
 	/*
 	 * ROLE
 	 */
 
 	@RequestMapping(value = "/addRol", method = RequestMethod.GET)
-	public String addRol() {
+	public String loadAddRol(Model model) {
+		model.addAttribute("rolForm", new RolForm());
 		return "addRol";
 	}
 
+	@RequestMapping(value = "/addRol", method = RequestMethod.POST)
+	public String addRol(@Valid RolForm rolForm, BindingResult br, Model model) {
+		if (br.hasErrors()) {
+			model.addAttribute("rolForm", rolForm);
+			return "addRol";
+		} else {
+			Rol rol = new Rol();
+			BeanUtils.copyProperties(rolForm, rol);
+			rolBusiness.insert(rol.getTipo());
+			return "success";
+		}
+	}
+
 	@RequestMapping(value = "/RolMaintenance", method = RequestMethod.GET)
-	public String RolMaintenance() {
+	public String RolMaintenance(Model model) {
+		model.addAttribute("roles", rolBusiness.findAll());
 		return "RolMaintenance";
+	}
+
+	@RequestMapping(value = "/deleteRol", method = RequestMethod.GET)
+	public String eliminarRol(Model model, @RequestParam("idRol") int idRol) {
+		model.addAttribute("idRol", idRol);
+		rolBusiness.delete(idRol);
+		return "success";
+	}
+
+	@RequestMapping(value = "/editRol", method = RequestMethod.GET)
+	public String cargarRol(Model model, @RequestParam("idRol") int idRol,
+			@RequestParam("tipo") String nombreRol) {
+		model.addAttribute("idRol", idRol);
+		model.addAttribute("tipo", nombreRol);
+		model.addAttribute("roles", rolBusiness.findAll());
+		model.addAttribute("rolForm", new RolForm());
+		return "editRol";
+	}
+
+	@RequestMapping(value = "/editRol", method = RequestMethod.POST)
+	public String editarRol(Model model, @RequestParam("idRol") int idRol,
+			@RequestParam("tipo") String tipo) {
+		rolBusiness.update(idRol,tipo);
+		return "success";
 	}
 
 	/*
 	 * BRAND
 	 */
-	
+
 	@RequestMapping(value = "/addBrand", method = RequestMethod.GET)
-	public String addBrand() {
+	public String loadAddBrand(Model model) {
+		model.addAttribute("brandForm", new MarcaForm());
 		return "addBrand";
 	}
 
+	@RequestMapping(value = "/addBrand", method = RequestMethod.POST)
+	public String addBrand(@Valid MarcaForm brandForm, BindingResult br, Model model) {
+		if (br.hasErrors()) {
+			model.addAttribute("brandForm", brandForm);
+			return "addBrand";
+		} else {
+			Marca marca = new Marca();
+			BeanUtils.copyProperties(brandForm, marca);
+			marcaBusiness.insert(marca.getNombreMarca());
+			return "success";
+		}
+	}
+
 	@RequestMapping(value = "/brandMaintenance", method = RequestMethod.GET)
-	public String brandMaintenance() {
+	public String brandMaintenance(Model model) {
+		model.addAttribute("marcas", marcaBusiness.findAll());
 		return "brandMaintenance";
 	}
 
-}
+	@RequestMapping(value = "/deleteMarca", method = RequestMethod.GET)
+	public String eliminarMarca(Model model, @RequestParam("idMarca") int idMarca) {
+		model.addAttribute("idMarca", idMarca);
+		marcaBusiness.delete(idMarca);
+		return "success";
+	}
+	
+	@RequestMapping(value = "/editBrand", method = RequestMethod.GET)
+	public String cargarMarca(Model model, @RequestParam("idMarca") int idMarca,
+			@RequestParam("nombreMarca") String nombreMarca) {
+		model.addAttribute("idMarca", idMarca);
+		model.addAttribute("nombreMarca", nombreMarca);
+		model.addAttribute("marcas", marcaBusiness.findAll());
+		model.addAttribute("marcaForm", new MarcaForm());
+		return "editBrand";
+	}
+	
+	@RequestMapping(value = "/editBrand", method = RequestMethod.POST)
+	public String editarMarca(Model model, @RequestParam("idMarca") int idMarca,
+			@RequestParam("nombreMarca") String nombreMarca) {
+		Marca marca = new Marca();
+		marca.setIdMarca(idMarca);
+		marca.setNombreMarca(nombreMarca);
+		marcaBusiness.update(marca);
+		return "success";
+	}
 
+}

@@ -50,7 +50,7 @@
 			<div id="responsive-nav">
 				<!-- NAV -->
 				<ul class="main-nav nav navbar-nav">
-					<li class="active"><a href="#">Add 	Role</a></li>
+					<li class="active"><a href="#">Add Role</a></li>
 					<li><a href="home">Home</a></li>
 					<li><a href="category">Laptops</a></li>
 					<li><a href="category">Smartphones</a></li>
@@ -70,31 +70,26 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
+				<form action="#" th:object="${rolForm}"
+					th:action="@{/addRol}" method="POST">
+					<div class="col-md-7">
 
-				<div class="col-md-7">
-
-					<!-- Billing Details -->
-					<!--<form action="#" th:object="${clienteForm}" 
-						th:action="@{/addClient}" method="POST">-->
-						
 						<div class="form-group">
-							<label>Rol:</label> <br> <input
-								style="width: 300px; height: 40px" type="text" id="tipo" 
-								name="tipo" placeholder="tipo">
+							<label>Tipo:</label> <br> <input class="input"
+								th:field="*{tipo}" type="text"
+								style="width: 300px; height: 40px" id="tipo"
+								name="tipo" placeholder="Tipo"> <input
+								type="submit" value="Añadir" class="primary-btn order-submit">
 						</div>
-						<input type="submit" value="Añadir"
-							class="primary-btn order-submit">
-					</form>
-				</div>
-			</div>
-		</div>
+					</div>
+				</form>
 
-		<!-- jQuery Plugins -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/slick.min.js"></script>
-		<script src="js/nouislider.min.js"></script>
-		<script src="js/jquery.zoom.min.js"></script>
-		<script src="js/main.js"></script>
+				<!-- jQuery Plugins -->
+				<script src="js/jquery.min.js"></script>
+				<script src="js/bootstrap.min.js"></script>
+				<script src="js/slick.min.js"></script>
+				<script src="js/nouislider.min.js"></script>
+				<script src="js/jquery.zoom.min.js"></script>
+				<script src="js/main.js"></script>
 </body>
 </html>

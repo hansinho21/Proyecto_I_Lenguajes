@@ -21,7 +21,7 @@ public class DireccionEnvioDataTest {
 	@Autowired
 	private DireccionEnvioData direccionEnvioData;
 
-/*
+
 	@Test
 	public void findAll() {
 		List<DireccionEnvio> direcciones = new ArrayList<>();
@@ -31,7 +31,7 @@ public class DireccionEnvioDataTest {
 			System.out.println(direcciones.get(i).toString());
 		}
 	}
-	*/
+	
 	/*
 	@Test
 	public void insert() {
@@ -63,10 +63,10 @@ public class DireccionEnvioDataTest {
 		direccionEnvioData.update(direccionEnvio);
 	}
 	*/
-	
+	/*
 	@Test
 	public void delete() {
 		direccionEnvioData.delete(2);
 	}
-	
+	*/
 }
