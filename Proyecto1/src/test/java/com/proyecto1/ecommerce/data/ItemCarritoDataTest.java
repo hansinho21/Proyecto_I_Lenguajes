@@ -25,7 +25,7 @@ public class ItemCarritoDataTest {
 	@Autowired
 	private ItemCarritoData itemCarritoData;
 
-/*
+
 	@Test
 	public void findAll() {
 		List<ItemCarrito> items = new ArrayList<>();
@@ -35,7 +35,7 @@ public class ItemCarritoDataTest {
 			System.out.println(items.get(i).toString());
 		}
 	}
-*/
+
 /*
 	@Test
 	public void insert() {	

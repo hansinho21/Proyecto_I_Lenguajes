@@ -29,6 +29,7 @@ import com.proyecto1.ecommerce.business.CategoriaProductoBusiness;
 import com.proyecto1.ecommerce.business.ClienteBusiness;
 import com.proyecto1.ecommerce.business.DireccionEnvioBusiness;
 import com.proyecto1.ecommerce.business.EmpleadoBusiness;
+import com.proyecto1.ecommerce.business.ItemCarritoBusiness;
 import com.proyecto1.ecommerce.business.ProductoBusiness;
 import com.proyecto1.ecommerce.business.RolBusiness;
 import com.proyecto1.ecommerce.data.ClienteData;
@@ -57,6 +58,8 @@ public class HomeController {
 	private ClienteBusiness clienteBusiness;
 	@Autowired 
 	DireccionEnvioBusiness direccionEnvioBusiness;
+	@Autowired
+	ItemCarritoBusiness itemCarritoBusiness;
 	private List<ItemCarrito> items;
 
 	public HomeController(List<ItemCarrito> items) {
@@ -130,6 +133,7 @@ public class HomeController {
 			, @RequestParam("unidadesExistentes") int unidadesExistentes) {
 		int index = indexProducto(idProducto);
 		items.remove(index);
+		itemCarritoBusiness.deleteByIdCliente(items.get(index));
 		System.out.println(items.toString());
 		model.addAttribute("items",items);
 		return "checkout2";
@@ -164,6 +168,7 @@ public class HomeController {
 		ItemCarrito itemCarrito = new ItemCarrito();
 		Producto p = new Producto();
 		float total=0;
+		Cliente cliente = new Cliente(3, "juan@gmail.com", "user", "Juan", "Araya");
 		p.setIdProducto(idProducto);
 		p.setNombre(nombre);
 		p.setPrecio(precio);
@@ -171,14 +176,18 @@ public class HomeController {
 		itemCarrito.setProducto(p);
 		itemCarrito.setPrecioUnitario(precio);
 		itemCarrito.setCantidad(1);
+		itemCarrito.setCliente(cliente);
 		if (items.size() > 0) {
 			if (existe(idProducto)==false) {
 				items.add(itemCarrito);
+				itemCarritoBusiness.insert(itemCarrito);
 			} else { // incrementamos en 1 la cantidad
 				items.get(indexProducto(idProducto)).setCantidad(items.get(indexProducto(idProducto)).getCantidad()+1);
 			}
 		}else {
 			items.add(itemCarrito);
+			itemCarritoBusiness.insert(itemCarrito);
+
 		}
 		model.addAttribute("productos", productoBusiness.findAll());
 		total = total(items, total);
