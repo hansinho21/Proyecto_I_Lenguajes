@@ -72,31 +72,32 @@
 			<div class="row">
 
 				<div class="col-md-7">
-					<form action="#" th:object="${productoForm}">
+					<form action="#" th:object="${productoForm}"
+						th:action="@{/addProduct}" method="POST">
 						<div class="form-group">
 							<label>Nombre:</label> <br> <input class="input" type="text"
 								style="width: 300px; height: 40px" id="nombreProducto"
-								name="nombreProducto" placeholder="Nombre">
+								name="nombreProducto" placeholder="Nombre" th:field="*{nombreProducto}">
 						</div>
 						<div class="form-group">
 							<label>Descripción:</label> <br> <input
 								style="width: 300px; height: 40px" type="text" id="descripcion"
-								name="descripcion" placeholder="Descripción">
+								name="descripcion" placeholder="Descripción" th:field="*{descripcion}">
 						</div>
 						<div class="form-group">
 							<label>Unidades existentes:</label> <br> <input
 								style="width: 300px; height: 40px" type="text" id="unidadesExistentes"
-								name="unidades" placeholder="Unidades existentes">
+								name="unidades" placeholder="Unidades existentes" th:field="*{unidadesExistentes}">
 						</div>
 						<div class="form-group">
 							<label class="text-left">Precio:</label> <br> <input
 								style="width: 300px; height: 40px" type="text" id="precio"
-								name="precio" placeholder="Precio">
+								name="precio" placeholder="Precio" th:field="*{precio}">
 						</div>
 						<div class="form-group">
 							<label>IVA:</label> <br> <select
 								style="width: 100px; height: 40px" type="text" id="iva"
-								name="iva" class="input-select">
+								name="iva" class="input-select" th:field="*{iva}">
 								<option value="0">0%</option>
 								<option value="1">13%</option>
 							</select>
