@@ -89,15 +89,20 @@
 					<td><span th:text="${producto.unidadesExistentes}"></span></td>
 					<td><span th:text="${producto.iva}"></span></td>
 					<td><span th:text="${producto.descuento}"></span></td>
-					<td><span th:text="${producto.marca.idMarca}"></span></td>
-					<td><span th:text="${producto.categoria.idCategoriaProducto}"></span></td>
+					<td><span th:text="${producto.marca.nombreMarca}"></span></td>
+					<td><span th:text="${producto.categoria.nombreCategoria}"></span></td>
 					<td><span th:text="${producto.urlImagen}"></span></td>
-					<td><a type="submit" th:href="@{/deleteProduct(idProducto=${producto.idProducto})}">eliminar</td>
-					<td>modificar</td>
+					<td><a type="submit"
+						th:href="@{/deleteProduct(idProducto=${producto.idProducto})}">eliminar</td>
+					<td><a type="submit"
+						th:href="@{/editProduct(idProducto=${producto.idProducto}, nombre=${producto.nombre},
+								precio=${producto.precio}, unidadesExistentes=${producto.unidadesExistentes},
+								iva=${producto.iva}, descuento=${producto.descuento},
+								idMarca=${producto.marca.idMarca}, idCategoria=${producto.categoria.IdCategoriaProducto},
+								urlImagen=${producto.urlImagen})}">modificar</td>
 				</tr>
-		</div>
-	</div>
-
+				</div>
+				</div>
 </body>
 </html>
 

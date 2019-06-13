@@ -169,8 +169,43 @@ public class CrudController {
 	}
 
 	@RequestMapping(value = "/editProduct", method = RequestMethod.GET)
-	public String editProduct() {
+	public String cargarClient(Model model, @RequestParam("idProducto") int idProducto,
+			@RequestParam("nombre") String nombre, @RequestParam("precio") float precio,
+			@RequestParam("unidadesExistentes") int unidadesExistentes, @RequestParam("iva") boolean iva,
+			@RequestParam("descuento") int descuento, @RequestParam("idMarca") int idMarca,
+			@RequestParam("idCategoria") int idCategoria, @RequestParam("urlImagen") String urlImagen) {
+		model.addAttribute("idProducto", idProducto);
+		model.addAttribute("nombre", nombre);
+		model.addAttribute("precio", precio);
+		model.addAttribute("unidadesExistentes", unidadesExistentes);
+		model.addAttribute("iva", iva);
+		model.addAttribute("descuento", descuento);
+		model.addAttribute("idMarca", idMarca);
+		model.addAttribute("idCategoria", idCategoria);
+		model.addAttribute("urlImagen", urlImagen);
+		model.addAttribute("marcas", marcaBusiness.findAll());
+		model.addAttribute("categorias", categoriaBusiness.findAll());
+		model.addAttribute("productoForm", new ProductoForm());
 		return "editProduct";
+	}
+
+	@RequestMapping(value = "/editProduct", method = RequestMethod.POST)
+	public String editarProducto(Model model, @RequestParam("idProducto") int idProducto,
+			@RequestParam("nombre") String nombre, @RequestParam("precio") float precio,
+			@RequestParam("unidadesExistentes") int unidadesExistentes, @RequestParam("iva") boolean iva,
+			@RequestParam("descuento") int descuento, @RequestParam("idMarca") int idMarca,
+			@RequestParam("idCategoria") int idCategoria, @RequestParam("urlImagen") String urlImagen) {
+		Producto producto = new Producto();
+		producto.setIdProducto(idProducto);
+		producto.setNombre(nombre);
+		producto.setPrecio(precio);
+		producto.setUnidadesExistentes(unidadesExistentes);
+		producto.setIva(iva);
+		producto.setDescuento(descuento);
+		producto.getMarca().setIdMarca(idMarca);
+		producto.getCategoria().setIdCategoriaProducto(idCategoria);
+		producto.setUrlImagen(urlImagen);
+		return "editSuccess";
 	}
 
 	@RequestMapping(value = "/deleteProduct", method = RequestMethod.GET)

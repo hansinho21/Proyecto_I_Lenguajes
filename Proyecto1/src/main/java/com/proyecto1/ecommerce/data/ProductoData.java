@@ -195,7 +195,9 @@ class ProductoWithIdExtractor implements ResultSetExtractor<List<Producto>> {
 			producto.setIva(rs.getBoolean("iva"));
 			producto.setUrlImagen(rs.getString("url_imagen"));
 			producto.getMarca().setIdMarca(rs.getInt("id_marca"));
+			producto.getMarca().setNombreMarca(rs.getString("nombre_marca"));
 			producto.getCategoria().setIdCategoriaProducto(rs.getInt("id_categoria_producto"));
+			producto.getCategoria().setNombreCategoria(rs.getString("nombre_cat"));
 			list.add(producto);
 		}
 
