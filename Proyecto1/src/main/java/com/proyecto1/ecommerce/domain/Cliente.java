@@ -82,10 +82,5 @@ public class Cliente {
 		this.apellidos = apellidos;
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", correo=" + correo + ", password=" + contrasenaCliente + ", nombre="
-				+ nombre + ", apellidos=" + apellidos + ", rol=" + rol.getIdRol() + "]";
-	}
 	
 }

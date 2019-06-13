@@ -44,11 +44,6 @@ public class ItemCarrito {
 		this.cantidad = cantidad;
 	}
 
-	@Override
-	public String toString() {
-		return "ItemCarrito [producto=" + producto + ", cliente=" + cliente + ", cantidad=" + cantidad
-				+ ", precioUnitario=" + precioUnitario + "]";
-	}
 
 	
 }

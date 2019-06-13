@@ -3,6 +3,8 @@ package com.proyecto1.ecommerce.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +32,7 @@ import com.proyecto1.ecommerce.business.ClienteBusiness;
 import com.proyecto1.ecommerce.business.DireccionEnvioBusiness;
 import com.proyecto1.ecommerce.business.EmpleadoBusiness;
 import com.proyecto1.ecommerce.business.ItemCarritoBusiness;
+import com.proyecto1.ecommerce.business.OrdenBusiness;
 import com.proyecto1.ecommerce.business.ProductoBusiness;
 import com.proyecto1.ecommerce.business.RolBusiness;
 import com.proyecto1.ecommerce.data.ClienteData;
@@ -38,7 +41,9 @@ import com.proyecto1.ecommerce.domain.CategoriaProducto;
 import com.proyecto1.ecommerce.domain.Cliente;
 import com.proyecto1.ecommerce.domain.DireccionEnvio;
 import com.proyecto1.ecommerce.domain.Empleado;
+import com.proyecto1.ecommerce.domain.EstadoOrden;
 import com.proyecto1.ecommerce.domain.ItemCarrito;
+import com.proyecto1.ecommerce.domain.Orden;
 import com.proyecto1.ecommerce.domain.Producto;
 import com.proyecto1.ecommerce.domain.Rol;
 import com.proyecto1.ecommerce.form.CategoriaForm;
@@ -47,6 +52,9 @@ import com.proyecto1.ecommerce.form.DireccionEnvioForm;
 import com.proyecto1.ecommerce.form.EmpleadoForm;
 import com.proyecto1.ecommerce.form.ProductoForm;
 import com.proyecto1.ecommerce.pdf.util.GeneratePDFReport;
+import com.proyecto1.ecommerce.utils.Utilidades;
+import com.proyecto1.ecommerce.utils.*;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
@@ -60,6 +68,10 @@ public class HomeController {
 	DireccionEnvioBusiness direccionEnvioBusiness;
 	@Autowired
 	ItemCarritoBusiness itemCarritoBusiness;
+	@Autowired
+	OrdenBusiness ordenBusiness;
+	@Autowired
+	CategoriaProductoBusiness categoriaProductoBusiness;
 	private List<ItemCarrito> items;
 
 	public HomeController(List<ItemCarrito> items) {
@@ -84,6 +96,7 @@ public class HomeController {
 		  }//for
 		  if (isCustomer) {
 		   model.addAttribute("productos", productoBusiness.findAll());
+		   model.addAttribute("categorias", categoriaProductoBusiness.findAll());
 		   return "index";
 		  } else if (isAdmin) {
 		   return "menuAdmin";
@@ -108,32 +121,37 @@ public class HomeController {
 			BeanUtils.copyProperties(direccionEnvioForm, direccionEnvio);
 			direccionEnvio.getCliente().setIdCliente(3);
 			direccionEnvioBusiness.insert(direccionEnvio);
+			for (int i = 0; i < items.size(); i++) {
+				itemCarritoBusiness.insert(items.get(i));
+			}
+			/*for (int i = 0; i < items.size(); i++) {
+				items.remove(i);
+			}
+		*/	
+			model.addAttribute("items",items);
 			return "bill";
 		}
 	}
 
 	
-	@RequestMapping(value = "/pdfreport", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
-	 public ResponseEntity<InputStreamResource> PDFReport() throws IOException {
+	@RequestMapping(value = "/ventasReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+	  public ResponseEntity<InputStreamResource> PDFReport() throws IOException {   
+	  HashMap<Producto, Integer> productos = new HashMap<Producto, Integer>();
+	  productos = productoBusiness.reporteProductosVendidos();  
+	   ByteArrayInputStream bis = GeneratePDFReport.ventasReport(productos);
 
-	  //List<City> cities = (List<City>) cityService.findAll();
-	  
-	  List<Cliente> c=clienteBusiness.findAll();
-	  ByteArrayInputStream bis = GeneratePDFReport.PDFReport(c,"Clientes");
+	   HttpHeaders headers = new HttpHeaders();
+	   headers.add("Content-Disposition", "inline; filename=ventasReport.pdf");
 
-	  HttpHeaders headers = new HttpHeaders();
-	  headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
-
-	  return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
-	    .body(new InputStreamResource(bis));
-	 }
+	   return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+	     .body(new InputStreamResource(bis));
+	  }
 	
 	@RequestMapping(value = "/deleteFromCarrito", method = RequestMethod.GET)
 	public String deleteFromCarrito(Model model, @RequestParam("idProducto") int idProducto, @RequestParam("precio") float precio
 			, @RequestParam("unidadesExistentes") int unidadesExistentes) {
 		int index = indexProducto(idProducto);
 		items.remove(index);
-		itemCarritoBusiness.deleteByIdCliente(items.get(index));
 		System.out.println(items.toString());
 		model.addAttribute("items",items);
 		return "checkout2";
@@ -160,6 +178,30 @@ public class HomeController {
 		model.addAttribute("items", items);
 		return "checkout2";
 	}
+	
+	
+	@RequestMapping(value = "/factura", method = RequestMethod.GET)
+	public String Factura(Model model) {
+		String d= Utilidades.getCurrentTimeUsingDate();
+		model.addAttribute("fecha",d);
+		model.addAttribute("items", items);
+		EstadoOrden estadoOrden= new EstadoOrden();
+		estadoOrden.setIdEstadoOrden(6);
+		estadoOrden.setEstadoOrden("Saliendo del vendedor");
+		Orden orden= new Orden();
+		orden.getCliente().setIdCliente(3);
+		//orden.setCliente(new Cliente(3, "juan@gmail.com", "user", "Juan", "Araya"));
+		orden.setEstadoOrden(estadoOrden);
+		//orden.setFechaEnvio(Utilidades.getCurrentTimeUsingDate());
+		//orden.setFechaOrden(Utilidades.getCurrentTimeUsingDate());
+		orden.setValorEnvio(3000);
+		float total=0;
+		orden.setValorProductos(total(items, total));
+		orden.setValorTotal(total(items, total));
+		//ordenBusiness.insert(orden);
+		ordenBusiness.confirmarOrden(orden);
+		return "bill";
+	}
 
 	@RequestMapping(value = "/checkout2", method = RequestMethod.GET)
 	public String checkout2(Model model, @RequestParam("idProducto") int idProducto,
@@ -179,15 +221,12 @@ public class HomeController {
 		itemCarrito.setCliente(cliente);
 		if (items.size() > 0) {
 			if (existe(idProducto)==false) {
-				items.add(itemCarrito);
-				itemCarritoBusiness.insert(itemCarrito);
+				items.add(itemCarrito);			
 			} else { // incrementamos en 1 la cantidad
 				items.get(indexProducto(idProducto)).setCantidad(items.get(indexProducto(idProducto)).getCantidad()+1);
 			}
 		}else {
 			items.add(itemCarrito);
-			itemCarritoBusiness.insert(itemCarrito);
-
 		}
 		model.addAttribute("productos", productoBusiness.findAll());
 		total = total(items, total);

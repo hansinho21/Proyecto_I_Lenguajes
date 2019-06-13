@@ -34,7 +34,7 @@ public class OrdenDataTest {
 	}
 */
 	
-	/*
+	
 	@Test
 	public void insert() {
 		Orden orden = new Orden();
@@ -46,8 +46,8 @@ public class OrdenDataTest {
 		
 		System.out.println(ordenData.insert(orden));
 	}
-	*/
 	
+	/*
 	@Test
 	public void confirmarOrden() {
 		Orden orden = new Orden();
@@ -59,7 +59,7 @@ public class OrdenDataTest {
 		
 		ordenData.confirmarOrden(orden);
 	}
-	
+	*/
 	/*
 	@Test
 	public void update() {
