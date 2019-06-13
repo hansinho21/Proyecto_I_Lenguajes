@@ -34,4 +34,15 @@ public class CategoriaProductoBusiness {
 	public void delete(int id) {
 		categoriaProductoData.delete(id);
 	}
+	
+	public int findByname(String name) {
+		  List<CategoriaProducto> categorias = categoriaProductoData.findAll();
+		  int id=0;
+		  for(int i=0;i<categorias.size();i++) {
+		   if(categorias.get(i).getNombreCategoria().equals(name)) {
+		    id=categorias.get(i).getIdCategoriaProducto();
+		   }
+		  }
+		  return id;
+		 }
 }

@@ -25,6 +25,7 @@ public class ProductoForm {
 	private int idMarca;
 	@NotNull
 	private int idCategoria;
+	private String urlImagen;
 	public ProductoForm() {
 	}
 	public int getIdProducto() {
@@ -81,6 +82,13 @@ public class ProductoForm {
 	public void setIdCategoria(int idCategoria) {
 		this.idCategoria = idCategoria;
 	}
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
+	}
+	
 	
 	
 	

@@ -167,6 +167,77 @@ public class GeneratePDFReport {
 	  return new ByteArrayInputStream(out.toByteArray());
 	 }
  
+ public static ByteArrayInputStream clientesReport(HashMap<Cliente, Integer> clientes) {
+
+	   Document document = new Document(PageSize.LETTER, 36, 36, 54, 36);
+	   ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+	   try {
+	    Image imagen = Image.getInstance("src/main/resources/static/img/JHJ-logo-black.png");
+	    Paragraph parrafo;
+	    parrafo = new Paragraph("Reporte de los clientes que mas compran de la empresa JHJ ordenados de mayor a menor");
+	    parrafo.setAlignment(Element.ALIGN_CENTER);
+
+	    PdfPTable table = new PdfPTable(2);
+	    table.setWidthPercentage(60);
+	    table.setWidths(new int[] { 3, 3 });
+
+	    Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+
+	    PdfPCell hcell;
+	    hcell = new PdfPCell(new Phrase("Nombre", headFont));
+	    hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	    table.addCell(hcell);
+
+	    hcell = new PdfPCell(new Phrase("Cantidad", headFont));
+	    hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	    table.addCell(hcell);
+	    
+	  /*  hcell = new PdfPCell(new Phrase("Categoria", headFont));
+	    hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	    table.addCell(hcell);
+	   */for (HashMap.Entry<Cliente, Integer> entry : clientes.entrySet()) {
+
+	     PdfPCell cell;
+	     Cliente key = entry.getKey();
+	     String value = entry.getValue().toString();
+	     cell = new PdfPCell(new Phrase(key.getNombre()));
+	     cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	     table.addCell(cell);
+
+	     cell = new PdfPCell(new Phrase(value));
+	     cell.setPaddingLeft(5);
+	     cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	     table.addCell(cell);
+	   /*  
+	     cell = new PdfPCell(new Phrase(key.));
+	     cell.setPaddingLeft(5);
+	     cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	     table.addCell(cell);
+	 */
+	    }
+	    // insertamos la informacion
+	    PdfWriter.getInstance(document, out);
+	    document.open();
+	    // posiconamos el logo
+	    document.add(parrafo);
+	    imagen.setAlignment(Element.ALIGN_LEFT);
+	    document.add(imagen);
+	    document.add(table);
+
+	    document.close();
+
+	   } catch (DocumentException | IOException ex) {
+
+	    Logger.getLogger(GeneratePDFReport.class.getName()).log(Level.SEVERE, null, ex);
+	   }
+
+	   return new ByteArrayInputStream(out.toByteArray());
+	  }
+ 
  
  
 }

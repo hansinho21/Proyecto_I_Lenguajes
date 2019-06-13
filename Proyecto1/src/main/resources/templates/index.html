@@ -44,7 +44,8 @@
 							Costa Rica</a></li>
 				</ul>
 				<ul class="header-links pull-right">
-					<li><a href="login"><i class="fa fa-user-o"></i> Cerrar Sesión</a></li>\
+					<li><a href="login"><i class="fa fa-user-o"></i> Cerrar
+							Sesión</a></li>\
 				</ul>
 			</div>
 		</div>
@@ -69,13 +70,14 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6">
 						<div class="header-search">
-							<form>
+							<form action="#" th:action="@{/categoria}" method="GET">
 								<select class="input-select">
 									<option th:each="categoriaActual:${categorias}"
 										th:value="${categoriaActual.idCategoriaProducto}"
 										th:text="${categoriaActual.nombreCategoria}"></option>
-								</select> <input class="input" placeholder="Search here">
-								<button class="search-btn">Search</button>
+									<input class="input" placeholder="Search here" name="name">
+								</select> <input type="submit" value="Search" class="search-btn"
+									th:href="@{/categoria(name=${name})}">
 							</form>
 						</div>
 					</div>
@@ -115,12 +117,7 @@
 			<!-- responsive-nav -->
 			<div id="responsive-nav">
 				<!-- NAV -->
-				<ul class="main-nav nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="category">Laptops</a></li>
-					<li><a href="category">Smartphones</a></li>
-					<li><a href="category">Accessories</a></li>
-				</ul>
+	
 				<!-- /NAV -->
 			</div>
 			<!-- /responsive-nav -->
@@ -145,7 +142,7 @@
 							<h3>
 								Laptop<br>Collection
 							</h3>
-							<a href="product" class="cta-btn">Shop now <i
+							<a th:href="@{/categoria(name=Laptops)}" class="cta-btn">Shop now <i
 								class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
@@ -162,7 +159,7 @@
 							<h3>
 								Accessories<br>Collection
 							</h3>
-							<a href="category" class="cta-btn">Shop now <i
+							<a th:href="@{/categoria(name=Accesories)}"  class="cta-btn">Shop now <i
 								class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
@@ -179,7 +176,7 @@
 							<h3>
 								Smartphones<br>Collection
 							</h3>
-							<a href="category" class="cta-btn">Shop now <i
+							<a th:href="@{/categoria(name=Smartphones)}"  class="cta-btn">Shop now <i
 								class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
@@ -220,13 +217,13 @@
 
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product01.png" alt="">
+												<img th:src="${producto.urlImagen}" />
 											</div>
 											<div class="product-body">
 												<h3 class="product-name">
 													<a href="product"
 														th:href="@{/product(nombre=${producto.nombre},precio=${producto.precio},
-												descripcion=${producto.descripcion},unidadesExistentes=${producto.unidadesExistentes})}"
+												descripcion=${producto.descripcion},unidadesExistentes=${producto.unidadesExistentes},urlImagen=${producto.urlImagen})}"
 														th:text="${producto.nombre}"></a>
 												</h3>
 												<h4 class="product-price" th:text="${producto.precio}">

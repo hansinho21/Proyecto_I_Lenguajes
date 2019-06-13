@@ -114,8 +114,24 @@ public class HomeController {
 	@RequestMapping(value = "/myAcount", method = RequestMethod.GET)
 	public String addProduct(Model model) {
 		model.addAttribute("direccionEnvioForm", new DireccionEnvioForm());
+		float total=0;
+		model.addAttribute("total", total);
+		model.addAttribute("items", items);
 		return "checkout";
 	}
+	
+	@RequestMapping(value = "/clientesReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+	 public ResponseEntity<InputStreamResource> ClientesPDFReport() throws IOException {
+	  HashMap<Cliente, Integer> clientes = new HashMap<Cliente, Integer>();
+	  clientes = ordenBusiness.ventasClientes();
+	  ByteArrayInputStream bis = GeneratePDFReport.clientesReport(clientes);
+
+	  HttpHeaders headers = new HttpHeaders();
+	  headers.add("Content-Disposition", "inline; filename=ventasReport.pdf");
+
+	  return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+	    .body(new InputStreamResource(bis));
+	 }
 	
 	@RequestMapping(value = "/myAcount", method = RequestMethod.POST)
 	public String checkout(@Valid DireccionEnvioForm direccionEnvioForm, BindingResult br, Model model) {
@@ -150,6 +166,8 @@ public class HomeController {
 				items.remove(i);
 			}
 		*/	
+			
+			model.addAttribute("total", total);
 			model.addAttribute("items",items);
 			return "bill";
 		}
@@ -195,9 +213,21 @@ public class HomeController {
 	}
 	
 	*/
+	
+	@RequestMapping(value = "/categoria", method = RequestMethod.GET)
+	 public String HomeByCategoria(Model model,@RequestParam("name") String name) {
+	  int id=categoriaProductoBusiness.findByname(name);
+	  model.addAttribute("productos", productoBusiness.findByIdCategoria(id));
+	  model.addAttribute("categorias", categoriaProductoBusiness.findAll());
+	  return "index";
+	 }
+	
 	@RequestMapping(value = "/carrito", method = RequestMethod.GET)
 	public String Carrito(Model model) {
+		float total=0;
 		model.addAttribute("items", items);
+		total = total(items, total);
+		model.addAttribute("total", total);
 		return "checkout2";
 	}
 	
@@ -206,7 +236,9 @@ public class HomeController {
 	public String Factura(Model model) {
 		//String d= Utilidades.getCurrentTimeUsingDate();
 		//model.addAttribute("fecha",d);
-		model.addAttribute("items", items);
+		float total=0;
+		total = total(items, total);
+
 		return "bill";
 	}
 
@@ -236,8 +268,7 @@ public class HomeController {
 			items.add(itemCarrito);
 		}
 		model.addAttribute("productos", productoBusiness.findAll());
-		total = total(items, total);
-		model.addAttribute("total", total);
+		
 		return "index";
 	}
 
