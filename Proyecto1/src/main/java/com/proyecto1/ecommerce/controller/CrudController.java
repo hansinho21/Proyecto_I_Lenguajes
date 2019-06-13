@@ -205,7 +205,9 @@ public class CrudController {
 		producto.getMarca().setIdMarca(idMarca);
 		producto.getCategoria().setIdCategoriaProducto(idCategoria);
 		producto.setUrlImagen(urlImagen);
-		return "editSuccess";
+		producto.setDescripcion("");
+		productoBusiness.update(producto);
+		return "success";
 	}
 
 	@RequestMapping(value = "/deleteProduct", method = RequestMethod.GET)

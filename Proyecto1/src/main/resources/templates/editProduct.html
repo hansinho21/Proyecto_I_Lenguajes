@@ -77,37 +77,43 @@
 					<form action="#" th:object="${productoForm}"
 						th:action="@{/editProduct}" method="POST">
 						<div class="form-group">
-							<label>Nombre:</label> <br> <input class="input" type="text"
-								style="width: 300px; height: 40px" id="nombre"
-								name="nombre" placeholder="Nombre" th:value="${nombre}>
+							<label>Id:</label> <br> <input readonly class="input"
+								type="text" th:value="${idProducto}"
+								style="width: 300px; height: 40px" id="idProducto"
+								name="idProducto">
 						</div>
 						<div class="form-group">
-							<label>Descripción:</label> <br> <input
-								style="width: 300px; height: 40px" type="text" id="descripcion"
-								name="descripcion" placeholder="Descripción" th:value="${descripcion}>
+							<label>Nombre:</label> <br> <input class="input" type="text"
+								style="width: 300px; height: 40px" id="nombre"
+								name="nombre" placeholder="Nombre" th:value="${nombre}">
+						</div>
+						<div class="form-group">
+							<label>Descuento:</label> <br> <input
+								style="width: 300px; height: 40px" type="text" id="descuento"
+								name="descuento" placeholder="Descuento" th:value="${descuento}">
 						</div>
 
 						<div class="form-group">
 							<label>Unidades existentes:</label> <br> <input
 								style="width: 300px; height: 40px" type="text" id="unidadesExistentes"
-								name="unidadesExistentes" placeholder="Unidades existentes" th:value="${unidadesExistentes}>
+								name="unidadesExistentes" placeholder="Unidades existentes" th:value="${unidadesExistentes}">
 						</div>
 						<div class="form-group">
 							<label class="text-left">Precio:</label> <br> <input
 								style="width: 300px; height: 40px" type="text" id="precio"
-								name="precio" placeholder="Precio" th:value="${precio}>
+								name="precio" placeholder="Precio" th:value="${precio}">
 						</div>
 						<div class="form-group">
 							<label>IVA:</label> <br> <input
 								style="width: 300px; height: 40px" type="text" id="iva"
-								name="iva" placeholder="IVA" th:value="${iva}>
+								name="iva" placeholder="IVA" th:value="${iva}">
 						</div>
 						<div class="form-group">
 							<label
 								style="height: 200px; width: 250px; position: absolute; top: 16%; left: 95%">Url
 								imagen:</label> <br> <input
 								style="width: 300px; height: 40px; position: absolute; top: 22%; left: 95%"
-								type="text" id="urlImagen" name="urlImagen" placeholder="Imagen" th:value="${urlImagen}>
+								type="text" id="urlImagen" name="urlImagen" placeholder="Imagen" th:value="${urlImagen}">
 						</div>
 						<div class="form-group">
 							<label
@@ -129,9 +135,8 @@
 									th:text="${categoriaActual.nombreCategoria}"></option>
 							</select>
 						</div>
-						<a href="checkout" class="primary-btn order-submit"
-							style="width: 150px; height: 54px; position: absolute; top: 58%; left: 115%">Editar
-							producto</a>
+						<input type="submit" value="Editar producto" class="primary-btn order-submit"
+							style="width: 150px; height: 54px; position: absolute; top: 58%; left: 115%">
 				</div>
 			</div>
 		</div>
