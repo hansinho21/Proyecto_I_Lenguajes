@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Utilidades {
 
-	public static String getCurrentTimeUsingDate() {
+	public static Date getCurrentTimeUsingDate() {
 	     Date date = new Date();
 	     String strDateFormat = "dd/MM/yy ";
 	     DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
@@ -19,7 +19,7 @@ public class Utilidades {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    return formattedDate;
+	    return date1;
 	 }
 	
 }

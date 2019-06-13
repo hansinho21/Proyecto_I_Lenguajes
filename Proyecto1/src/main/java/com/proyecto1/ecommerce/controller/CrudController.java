@@ -58,6 +58,16 @@ public class CrudController {
 	public String success() {
 		return "success";
 	}
+	
+	@RequestMapping(value = "/editSuccess", method = RequestMethod.GET)
+	public String editSuccess() {
+		return "success";
+	}
+	
+	@RequestMapping(value = "/deleteSuccess", method = RequestMethod.GET)
+	public String deleteSuccess() {
+		return "success";
+	}
 
 	/*
 	 * CATEGORY
@@ -86,7 +96,7 @@ public class CrudController {
 	public String eliminarCategoria(Model model, @RequestParam("idCategoriaProducto") int idCategoriaProducto) {
 		model.addAttribute("idCategoriaProducto", idCategoriaProducto);
 		categoriaBusiness.delete(idCategoriaProducto);
-		return "success";
+		return "deleteSuccess";
 	}
 
 	@RequestMapping(value = "/categoryMaintenance", method = RequestMethod.GET)
@@ -115,7 +125,7 @@ public class CrudController {
 		categoriaProducto.setNombreCategoria(nombreCategoria);
 		categoriaProducto.setIdCategoriaProducto(idCategoria);
 		categoriaBusiness.update(categoriaProducto);
-		return "success";
+		return "editSuccess";
 	}
 
 	/*
@@ -235,14 +245,14 @@ public class CrudController {
 		cliente.setCorreo(correo);
 		cliente.setContrasenaCliente(contrasena);
 		clienteBusiness.update(cliente);
-		return "success";
+		return "editSuccess";
 	}
 
 	@RequestMapping(value = "/deleteClient", method = RequestMethod.GET)
 	public String eliminarCliente(Model model, @RequestParam("idCliente") int idCliente) {
 		model.addAttribute("idCliente", idCliente);
 		clienteBusiness.delete(idCliente);
-		return "success";
+		return "deleteSuccess";
 	}
 
 	/*
@@ -310,14 +320,14 @@ public class CrudController {
 		empleado.setIdEmpleado(idEmpleado);
 		empleado.getRol().setIdRol(idRol);
 		empleadoBusiness.update(empleado);
-		return "success";
+		return "editSuccess";
 	}
 
 	@RequestMapping(value = "/deleteEmployee", method = RequestMethod.GET)
 	public String eliminarEmpleado(Model model, @RequestParam("idEmpleado") int idEmpleado) {
 		model.addAttribute("idEmpleado", idEmpleado);
 		empleadoBusiness.delete(idEmpleado);
-		return "success";
+		return "deleteSuccess";
 	}
 
 	/*
@@ -344,7 +354,7 @@ public class CrudController {
 	public String eliminarShippingAddress(Model model, @RequestParam("idDireccion") int idDireccion) {
 		model.addAttribute("idDireccion", idDireccion);
 		direccionEnvioBusiness.delete(idDireccion);
-		return "success";
+		return "deleteSuccess";
 	}
 
 	/*
@@ -380,7 +390,7 @@ public class CrudController {
 	public String eliminarRol(Model model, @RequestParam("idRol") int idRol) {
 		model.addAttribute("idRol", idRol);
 		rolBusiness.delete(idRol);
-		return "success";
+		return "deleteSuccess";
 	}
 
 	@RequestMapping(value = "/editRol", method = RequestMethod.GET)
@@ -397,7 +407,7 @@ public class CrudController {
 	public String editarRol(Model model, @RequestParam("idRol") int idRol,
 			@RequestParam("tipo") String tipo) {
 		rolBusiness.update(idRol,tipo);
-		return "success";
+		return "editSuccess";
 	}
 
 	/*
@@ -433,7 +443,7 @@ public class CrudController {
 	public String eliminarMarca(Model model, @RequestParam("idMarca") int idMarca) {
 		model.addAttribute("idMarca", idMarca);
 		marcaBusiness.delete(idMarca);
-		return "success";
+		return "deleteSuccess";
 	}
 	
 	@RequestMapping(value = "/editBrand", method = RequestMethod.GET)
@@ -453,7 +463,7 @@ public class CrudController {
 		marca.setIdMarca(idMarca);
 		marca.setNombreMarca(nombreMarca);
 		marcaBusiness.update(marca);
-		return "success";
+		return "editSuccess";
 	}
 
 }

@@ -3,7 +3,7 @@ package com.proyecto1.ecommerce.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -104,6 +104,12 @@ public class HomeController {
 		   throw new IllegalStateException();
 		  }
 		 }
+	
+	@RequestMapping(value ="/laptops", method = RequestMethod.GET)
+	public String HomeLaptops(Model model) {
+		model.addAttribute("productos", productoBusiness.findByIdCategoria(1));
+		return "laptops";
+	}
 
 	@RequestMapping(value = "/myAcount", method = RequestMethod.GET)
 	public String addProduct(Model model) {
@@ -124,6 +130,22 @@ public class HomeController {
 			for (int i = 0; i < items.size(); i++) {
 				itemCarritoBusiness.insert(items.get(i));
 			}
+			EstadoOrden estadoOrden= new EstadoOrden();
+			estadoOrden.setIdEstadoOrden(6);
+			estadoOrden.setEstadoOrden("Saliendo del vendedor");
+			Orden orden= new Orden();
+			orden.getCliente().setIdCliente(3);
+			//orden.setCliente(new Cliente(3, "juan@gmail.com", "user", "Juan", "Araya"));
+			orden.setEstadoOrden(estadoOrden);
+			orden.setFechaEnvio(new Date(10));
+			orden.setFechaOrden(new Date(20));
+			orden.setValorEnvio(3000);
+			float total=0;
+			//orden.setValorProductos(total(items, total));
+			//orden.setValorTotal(total(items, total));
+			//ordenBusiness.insert(orden);
+			ordenBusiness.confirmarOrden(orden);
+	
 			/*for (int i = 0; i < items.size(); i++) {
 				items.remove(i);
 			}
@@ -182,24 +204,9 @@ public class HomeController {
 	
 	@RequestMapping(value = "/factura", method = RequestMethod.GET)
 	public String Factura(Model model) {
-		String d= Utilidades.getCurrentTimeUsingDate();
-		model.addAttribute("fecha",d);
+		//String d= Utilidades.getCurrentTimeUsingDate();
+		//model.addAttribute("fecha",d);
 		model.addAttribute("items", items);
-		EstadoOrden estadoOrden= new EstadoOrden();
-		estadoOrden.setIdEstadoOrden(6);
-		estadoOrden.setEstadoOrden("Saliendo del vendedor");
-		Orden orden= new Orden();
-		orden.getCliente().setIdCliente(3);
-		//orden.setCliente(new Cliente(3, "juan@gmail.com", "user", "Juan", "Araya"));
-		orden.setEstadoOrden(estadoOrden);
-		//orden.setFechaEnvio(Utilidades.getCurrentTimeUsingDate());
-		//orden.setFechaOrden(Utilidades.getCurrentTimeUsingDate());
-		orden.setValorEnvio(3000);
-		float total=0;
-		orden.setValorProductos(total(items, total));
-		orden.setValorTotal(total(items, total));
-		//ordenBusiness.insert(orden);
-		ordenBusiness.confirmarOrden(orden);
 		return "bill";
 	}
 

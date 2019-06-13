@@ -22,7 +22,7 @@ public class CategoriaProductoDataTest {
 	@Autowired
 	private CategoriaProductoData categoriaProductoData;
 
-/*	
+/*
 	@Test
 	public void findAll() {
 		List<CategoriaProducto> categorias = new ArrayList<>();
@@ -36,9 +36,9 @@ public class CategoriaProductoDataTest {
 /*
 	@Test
 	public void insert() {		
-		System.out.println(categoriaProductoData.insert("categoria3"));
+		System.out.println(categoriaProductoData.insert("smartphones"));
 	}
-/*
+*/
 /*
 	@Test
 	public void update() {
@@ -49,10 +49,10 @@ public class CategoriaProductoDataTest {
 		categoriaProductoData.update(categoria);
 	}
 */
-	
+	/*
 	@Test
 	public void delete() {
 		categoriaProductoData.delete(2);
 	}
-	
+	*/
 }

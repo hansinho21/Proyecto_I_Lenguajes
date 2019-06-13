@@ -29,6 +29,7 @@ public class ProductoDataTest {
 	@Autowired
 	private ProductoData productoData;
 
+	/*
 	
 	@Test
 	public void findAll() {
@@ -41,6 +42,7 @@ public class ProductoDataTest {
 		    System.out.println(key.getIdProducto() + " - " + key.getNombre() + " - " + value);
 		}
 	}
+	*/
 	/*
 	@Test
 	public void findAll() {
