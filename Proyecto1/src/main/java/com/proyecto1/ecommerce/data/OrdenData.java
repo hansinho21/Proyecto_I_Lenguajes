@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.proyecto1.ecommerce.domain.Cliente;
 import com.proyecto1.ecommerce.domain.Empleado;
 import com.proyecto1.ecommerce.domain.Orden;
 import com.proyecto1.ecommerce.domain.Producto;
@@ -35,6 +37,12 @@ public class OrdenData {
 	public List<Orden> findAll() {
 		String sqlSelect = "CALL `Orden_SelectAll`();";
 		return jdbcTemplate.query(sqlSelect, new OrdenWithIdExtractor());
+	}
+	
+	@Transactional(readOnly = true)
+	public HashMap<Cliente, Integer> ventasClientes() {
+		String sqlSelect = "CALL `Reporte_Ventas_Clientes`();";
+		return jdbcTemplate.query(sqlSelect, new ReporteOrdenWithIdExtractor());
 	}
 	
 	
@@ -206,6 +214,27 @@ class OrdenWithIdExtractor implements ResultSetExtractor<List<Orden>> {
 		}
 
 		return list;
+	}
+
+}
+
+class ReporteOrdenWithIdExtractor implements ResultSetExtractor<HashMap<Cliente, Integer>> {
+
+	@Override
+	public HashMap<Cliente, Integer> extractData(ResultSet rs) throws SQLException, DataAccessException {
+		HashMap<Cliente, Integer> hashMap = new HashMap<Cliente, Integer>();
+		Cliente cliente = null;
+		while (rs.next()) {
+			Integer idClienteActual = rs.getInt("id_Cliente");
+			cliente = new Cliente();
+			cliente.setIdCliente(idClienteActual);
+			cliente.setNombre(rs.getString("nombre"));
+			cliente.setApellidos(rs.getString("apellidos"));
+			
+			hashMap.put(cliente, rs.getInt("Cantidad_Ventas"));
+		}
+
+		return hashMap;
 	}
 
 }

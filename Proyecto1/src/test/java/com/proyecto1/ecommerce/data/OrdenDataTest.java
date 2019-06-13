@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
@@ -12,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.proyecto1.ecommerce.domain.Cliente;
 import com.proyecto1.ecommerce.domain.Empleado;
 import com.proyecto1.ecommerce.domain.Orden;
+import com.proyecto1.ecommerce.domain.Producto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -21,6 +24,19 @@ public class OrdenDataTest {
 
 	@Autowired
 	private OrdenData ordenData;
+	
+	
+	@Test
+	public void findAll() {
+		HashMap<Cliente, Integer> ventas = new HashMap<Cliente, Integer>();
+		ventas = ordenData.ventasClientes();
+		assertNotNull(ventas);
+		for ( HashMap.Entry<Cliente, Integer> entry : ventas.entrySet()) {
+		    Cliente key = entry.getKey();
+		    Integer value = entry.getValue();
+		    System.out.println(key.getIdCliente() + " - " + key.getNombre() + " - " + key.getApellidos() + " - " + value);
+		}
+	}
 	
 	/*
 	@Test
@@ -34,7 +50,7 @@ public class OrdenDataTest {
 	}
 */
 	
-	
+	/*
 	@Test
 	public void insert() {
 		Orden orden = new Orden();
@@ -46,7 +62,7 @@ public class OrdenDataTest {
 		
 		System.out.println(ordenData.insert(orden));
 	}
-	
+	*/
 	/*
 	@Test
 	public void confirmarOrden() {
